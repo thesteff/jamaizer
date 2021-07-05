@@ -1,0 +1,493 @@
+CRITICAL - 2021-06-30 04:15:20 --> Call to a member function getErrors() on null
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-06-30 04:15:58 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(5): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 5, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(140): view('member/create')
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 04:16:27 --> Call to a member function getErrors() on null
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-06-30 04:18:00 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(5): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 5, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(140): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 04:18:16 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(140): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 04:36:05 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(140): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 04:36:36 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(140): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 04:37:07 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(140): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2021-06-30 04:42:23 --> Duplicate entry 'test' for key 'pseudo'
+CRITICAL - 2021-06-30 04:42:23 --> Duplicate entry 'test' for key 'pseudo'
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(329): mysqli->query('INSERT INTO `me...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(732): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(647): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2277): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', Array, false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(259): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\BaseModel.php(774): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(686): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(39): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#9 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#10 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2021-06-30 04:45:19 --> Undefined index: pseudo
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(22): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 22, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-06-30 04:58:24 --> Undefined property: App\Controllers\Member::$load
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(18): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 18, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-06-30 05:04:00 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(46): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 05:04:50 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(46): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 05:07:10 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(49): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 05:07:26 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(49): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 05:21:33 --> Argument 1 passed to CodeIgniter\Router\RouteCollection::add() must be of the type string, array given, called in C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Config\Routes.php on line 35
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Config\Routes.php(35): CodeIgniter\Router\RouteCollection->add(Array, 'form-validation', 'Member::form-va...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(796): require('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(389): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-06-30 05:23:38 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(49): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 05:23:57 --> syntax error, unexpected '}', expecting end of file
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(49): view('member/create', Array)
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-06-30 05:23:59 --> syntax error, unexpected '}', expecting end of file
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(49): view('member/create', Array)
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-06-30 05:32:15 --> Invalid file: member/_form-validation.php
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('member/_form-va...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/_form-va...', Array, true)
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(54): view('member/_form-va...')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->formvalidation()
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-06-30 05:41:45 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(21): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 21, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-06-30 07:24:22 --> Invalid file: member/formvalidation.php
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('member/formvali...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/formvali...', Array, true)
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(26): view('member/formvali...')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->formvalidation()
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-06-30 07:25:06 --> Invalid file: member/formvalidation.php
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('member/formvali...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/formvali...', Array, true)
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(26): view('member/formvali...')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->formvalidation()
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-06-30 07:28:09 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(4): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 4, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(50): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:28:34 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(50): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:29:19 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(51): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:29:32 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(51): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:30:26 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(51): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:31:17 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(51): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:31:37 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(56): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:33:41 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(58): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:33:43 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(58): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:34:12 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(58): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:34:25 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(58): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:34:42 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(58): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 07:34:59 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(4): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 4, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(58): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 10:12:12 --> syntax error, unexpected '$errors' (T_VARIABLE)
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(273): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(247): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(885): class_exists('\\App\\Controller...', true)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(421): CodeIgniter\CodeIgniter->startController()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2021-06-30 10:12:32 --> syntax error, unexpected '}'
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(273): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(247): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(885): class_exists('\\App\\Controller...', true)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(421): CodeIgniter\CodeIgniter->startController()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2021-06-30 10:12:40 --> syntax error, unexpected '}'
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(273): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(247): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(885): class_exists('\\App\\Controller...', true)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(421): CodeIgniter\CodeIgniter->startController()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2021-06-30 11:54:31 --> Duplicate entry 'test' for key 'pseudo'
+CRITICAL - 2021-06-30 11:54:31 --> Duplicate entry 'test' for key 'pseudo'
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(329): mysqli->query('INSERT INTO `me...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(732): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(647): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2277): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', Array, false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(259): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\BaseModel.php(774): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(686): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(67): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#9 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#10 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2021-06-30 11:56:55 --> Duplicate entry 'test' for key 'pseudo'
+CRITICAL - 2021-06-30 11:56:55 --> Duplicate entry 'test' for key 'pseudo'
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(329): mysqli->query('INSERT INTO `me...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(732): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(647): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2277): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', Array, false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(259): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\BaseModel.php(774): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(686): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(67): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#9 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#10 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2021-06-30 11:57:13 --> Duplicate entry 'test' for key 'pseudo'
+CRITICAL - 2021-06-30 11:57:13 --> Duplicate entry 'test' for key 'pseudo'
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(329): mysqli->query('INSERT INTO `me...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(732): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseConnection.php(647): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2277): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', Array, false)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(259): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\BaseModel.php(774): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Model.php(686): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(67): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#9 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#10 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2021-06-30 12:07:39 --> Call to a member function getErrors() on null
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-06-30 12:26:38 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(67): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 12:26:58 --> Undefined variable: data
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(67): view('member/create', Array)
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 12:49:13 --> Undefined variable: errors
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Views\member\create.php(4): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 4, Array)
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(230): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(1271): CodeIgniter\View\View->render('member/create', Array, true)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(74): view('member/create')
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-06-30 12:50:28 --> Return value of CodeIgniter\Language\Language::requireFile() must be of the type array, int returned
+#0 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Language\Language.php(275): CodeIgniter\Language\Language->requireFile('Language/fr/Val...')
+#1 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Language\Language.php(198): CodeIgniter\Language\Language->load('Validation', 'fr')
+#2 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Language\Language.php(118): CodeIgniter\Language\Language->parseLine('matches', 'fr')
+#3 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Common.php(846): CodeIgniter\Language\Language->getLine('Validation.matc...', Array)
+#4 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Validation\Validation.php(775): lang('Validation.matc...')
+#5 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Validation\Validation.php(335): CodeIgniter\Validation\Validation->getErrorMessage('matches', 'pass_confirm', 'pass_confirm', 'password', 'zsx')
+#6 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Validation\Validation.php(159): CodeIgniter\Validation\Validation->processRules('pass_confirm', 'pass_confirm', 'zsx', Array, Array)
+#7 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\Controller.php(183): CodeIgniter\Validation\Validation->run()
+#8 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\app\Controllers\Member.php(23): CodeIgniter\Controller->validate(Array)
+#9 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(928): App\Controllers\Member->create()
+#10 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Member))
+#11 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\vendor\codeigniter4\framework\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\GRO\jamaizer\jamaizer\jamaizer\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#13 {main}
