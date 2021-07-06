@@ -186,17 +186,7 @@ class Member extends BaseController
 				}
 			}
 
-			// pour la date de naissance (mêmes vérifs que pour le nom)
-			// if(!empty($_POST['birth'])){
-			// 	if(empty($_SESSION['member']['birth'])) {
-			// 		$newbirth = $_POST['birth'];
-			// 		$data['birth'] = $newbirth;
-			// 	} elseif ($_POST['birth'] !== $_SESSION['member']['birth']) {
-			// 		$newbirth = $_POST['birth'];
-			// 		$data['birth'] = $newbirth;
-			// 	}
-			// }
-
+			// pour la date de naissance
 			if(!empty($_POST['birth'])){
 				if((empty($_SESSION['member']['birth']) || $_POST['birth'] !== $_SESSION['member']['birth']) && $this->validate(['birth' => 'valid_date'])) {
 					$newbirth = $_POST['birth'];
