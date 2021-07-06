@@ -131,7 +131,7 @@
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <a href="#">
+                                    <a href="<?= site_url('group/view'); ?>">
                                         <img src="<?php echo base_url('images/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Chatons
                                     </a>
                                 </li>
@@ -144,6 +144,9 @@
                                     <a href="#">
                                         <img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
                                     </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="<?= site_url('group/index'); ?>">Tous mes groupes</a>
                                 </li>
                             </ul>
                         </div>

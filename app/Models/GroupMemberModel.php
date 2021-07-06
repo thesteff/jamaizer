@@ -4,17 +4,23 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Group extends Model
+class GroupMemberModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'groups';
+	protected $table                = 'group_member';
 	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = [
+		'group_id',
+		'member_id',
+		'is_group_ok',
+		'is_member_ok',
+		'is_admin'
+	];
 
 	// Dates
 	protected $useTimestamps        = false;

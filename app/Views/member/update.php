@@ -1,3 +1,4 @@
+<div class="m-2">
 <h1>Modifier mes informations</h1>
 <?php
 // var_dump($errors); 
@@ -78,5 +79,7 @@ if(isset($errors)){
 	
 	<!-- Envoyer !-->
 	<input id="create" class="btn btn-outline-dark" type="submit" value="Modifier" >
+	<a class="btn btn-outline-dark" href="<?= site_url('member/profil'); ?>">Annuler</a>
 	
 </form>
+</div>

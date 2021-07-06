@@ -37,10 +37,12 @@ $routes->add('member/inscription', 'Member::create');
 $routes->add('member/update', 'Member::update');
 $routes->add('member/connexion', 'Member::login');
 $routes->add('member/deconnexion', 'Member::logout');
-// $routes->add('member/(:segment)', 'Member::view/$1');
-
-// TODO ROUTE PROVISOIRE pour faire la mise en page du profil. A modifier absolument plus tard !!!
 $routes->add('member/profil', 'Member::view');
+
+// TODO à modifier : on doit accéder à une page différente par groupe, via un argument dans l'url
+$routes->add('group/create', 'Group::create');
+$routes->add('group/view', 'Group::view');
+$routes->add('group', 'Group::index');
 
 $routes->match(['get', 'post'], 'news/create', 'News::create');
 $routes->add('news/(:segment)', 'News::view/$1');

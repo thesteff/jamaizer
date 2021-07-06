@@ -4,6 +4,7 @@
             alt="image de profil">
         <h1 class="mx-auto p-3"><?= $_SESSION['member']['pseudo'] ?></h1>
     </div>
+    <a class="btn btn-outline-dark" href="<?= site_url('group/create'); ?>">Créer un groupe</a>
     <p>Necessitatibus et repudiandae cum voluptas placeat.Distinctio fugit distinctio. Quo voluptates perferendis. Nisi
         amet natus natus optio voluptatum. Ut fugiat commodi et. Est qui quae et est libero repudiandae quasi et. Vel
         quo nulla inventore dolore tenetur in. Omnis similique occaecati ullam voluptatem blanditiis accusantium

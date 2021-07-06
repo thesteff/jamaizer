@@ -67,9 +67,9 @@ body {
     background-color: black;
 	// background-image:url("../background-patterns/bedge_grunge/bedge_grunge.png");
 	// background-image:url("../background-patterns/cheap_diagonal_fabric/cheap_diagonal_fabric.png");
-	// background-image:url("../background-patterns/ep_naturalblack/ep_naturalblack.png");
+	background-image:url("../background-patterns/ep_naturalblack/ep_naturalblack.png");
 	// background-image:url("../background-patterns/sandpaper/sandpaper.png");
-	background-image:url("../background-patterns/tex2res4/tex2res4.png");
+	// background-image:url("../background-patterns/tex2res4/tex2res4.png");
 	// background-position:center;
 	// background-repeat:repeat;
 	// background-size: 100% auto;
@@ -235,7 +235,7 @@ footer {
 // ====================================================== //
         main {
             max-width: 700px;
-            padding: 16px;
+            // padding: 16px;
             background-color: $B;
     
 // ##################################################################### //
@@ -263,6 +263,28 @@ footer {
                 width: 100px;
                 height: 100px;
             }
+
+            // ~~~~~~~~~~ HEADER page groupe ~~~~~~~~~ //
+            #j-group-header {
+                nav {
+                    background-color: $A;
+                    border-bottom: 2px solid $C;
+                    div{
+                        // border-left: 1px $E solid;
+                        // border-right: 1px $E solid;
+                        a {
+                            color: $E;
+                            text-decoration: none;
+                        }
+                        a:hover {
+                            color: $B;
+                            background-color: $E;
+                        }
+                    }
+                }
+            }
+
+
 //  SECTION A PARTIR D'ICI, ON SORT DU MAIN  //
         }
     }
