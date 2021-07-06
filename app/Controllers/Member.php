@@ -143,6 +143,7 @@ class Member extends BaseController
 						if($this->validate(['new_pass_confirm' => 'matches[new_password]'])){
 							// on hash le nouveau password
 							$newpassword = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+							$data['password'] = $newpassword; 
 						} else {
 							// le nouveau mdp ne correspond pas à la confirmation
 							$errors[] = 'Le nouveau mot de passe ne correspond pas à la confirmation.';
@@ -186,13 +187,21 @@ class Member extends BaseController
 			}
 
 			// pour la date de naissance (mêmes vérifs que pour le nom)
-			if(!empty(trim($_POST['birth']))){
-				if(empty($_SESSION['member']['birth'])) {
-					$newbirth = trim($_POST['birth']);
+			// if(!empty($_POST['birth'])){
+			// 	if(empty($_SESSION['member']['birth'])) {
+			// 		$newbirth = $_POST['birth'];
+			// 		$data['birth'] = $newbirth;
+			// 	} elseif ($_POST['birth'] !== $_SESSION['member']['birth']) {
+			// 		$newbirth = $_POST['birth'];
+			// 		$data['birth'] = $newbirth;
+			// 	}
+			// }
+
+			if(!empty($_POST['birth'])){
+				if((empty($_SESSION['member']['birth']) || $_POST['birth'] !== $_SESSION['member']['birth']) && $this->validate(['birth' => 'valid_date'])) {
+					$newbirth = $_POST['birth'];
 					$data['birth'] = $newbirth;
-				} elseif(trim($_POST['birth']) !== $_SESSION['member']['birth']) {
-					$newbirth = trim($_POST['birth']);
-					$data['birth'] = $newbirth;
+					// dd($data);
 				}
 			}
 
@@ -209,12 +218,10 @@ class Member extends BaseController
 
 			// pour le téléphone (mêmes vérifs que pour le nom)
 			if(!empty(trim($_POST['phone']))){
-				if(empty($_SESSION['member']['phone'])) {
+				if(empty($_SESSION['member']['phone']) || trim($_POST['phone']) !== $_SESSION['member']['phone']) {
 					$newphone = trim($_POST['phone']);
 					$data['phone'] = $newphone;
-				} elseif(trim($_POST['phone']) !== $_SESSION['member']['phone']) {
-					$newphone = trim($_POST['phone']);
-					$data['phone'] = $newphone;
+					// dd($data);
 				}
 			}
 
@@ -226,15 +233,26 @@ class Member extends BaseController
 				echo view('templates/footer');
 				return;
 			} else {
-				var_dump('ça marche !');
+				$memberModel = new MemberModel();
+				// on met à jour les données du membre connecté dans la BDD
+				$memberModel->update($_SESSION['member']['id'], $data);
+				// on met à jour la session avec les nouvelles données
+				$memberUpdate = $memberModel->find($_SESSION['member']['id']);
+				$session = session();
+				// $session->destroy();
+				$data['member'] = $memberUpdate;
+				// $data['logged'] = true;
+				// dd($data);
+				$session->set($data);
+
+				// echo view('templates/header');
+				// echo view('member/update');
+				// echo view('templates/footer');		
 			}
-
 		}
-
 		echo view('templates/header');
 		echo view('member/update');
 		echo view('templates/footer');
-
 	}
 
 // ##################################################################### //
