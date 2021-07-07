@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\GroupModel;
 use App\Models\MemberModel;
 // use App\Config\Validation;
 
@@ -80,6 +81,7 @@ class Member extends BaseController
 				// TODO on affiche aussi les messages d'erreur pour expliquer pourquoi les données n'ont pas été validées
 				$data = array(
 					'pseudo' => $_POST['pseudo'],
+					'is_super_admin' => 0,
 					'email' => $_POST['email'],
 					'name' => $_POST['name'],
 					'first_name' => $_POST['first_name'],
@@ -323,9 +325,15 @@ class Member extends BaseController
 				} elseif(password_verify($password, $hash)){
 					// c'est gagné ! le mot de passe est le bon, connexion réussie ! il ne reste plus qu'à créer la session
 					
+					// ~~~~ ANCHOR CREATION DE LA SESSION ~~~~ //
 					// On fixe les variables de sessions
-					$data['member'] = $member;
 					$data['logged'] = true;
+					$data['member'] = $member;
+
+					// on récupère les groupes du membre
+					$groups = new GroupModel();
+					$myGroups = $groups->getMyGroups($member['id']);
+					$data['myGroups'] = $myGroups;
 
 					// initialisation de la session (est-ce que c'est nécessaire?)
 					$session = session();

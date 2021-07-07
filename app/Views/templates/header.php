@@ -79,6 +79,9 @@
                     </ul> -->
                     <a class="navbar-brand d-none d-lg-inline" href="<?= site_url(); ?>">Jamaïzer</a>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= site_url('group'); ?>">Les groupes</a>
+                        </li>
                         <?php if(!isset($_SESSION['logged']) || !$_SESSION['logged']) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= site_url('member/inscription'); ?>">Inscription</a>
@@ -93,6 +96,11 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= site_url('member/deconnexion'); ?>">Déconnexion</a>
+                            </li>
+                        <?php endif ?>
+                        <?php if(isset($_SESSION['logged']) && $_SESSION['logged'] && $_SESSION['member']['is_super_admin']) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= site_url('admin'); ?>">ADMIN</a>
                             </li>
                         <?php endif ?>
                     </ul>
@@ -130,12 +138,21 @@
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
+                                <?php foreach ($_SESSION['myGroups'] as $group) : ?>
                                 <li class="list-group-item">
-                                    <a href="<?= site_url('group/view'); ?>">
-                                        <img src="<?php echo base_url('images/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Chatons
+                                    <a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
+                                        <img src="<?php echo base_url('images/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1"><?= $group['name'] ?>
+                                        <div class="ms-auto">
+                                            <?php if($group['is_admin'] && $group['is_valid']) : ?>  
+                                                <i class="bi bi-gear ms-auto"></i>
+                                            <?php elseif($group['is_admin'] && !$group['is_valid']) : ?>
+                                                <i class="bi bi-patch-question ms-auto"></i>
+                                            <?php endif ?>
+                                        </div>
                                     </a>
                                 </li>
-                                <li class="list-group-item">
+                                <?php endforeach ?>
+                                <!-- <li class="list-group-item">
                                     <a href="#">
                                         <img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
                                     </a>
@@ -144,9 +161,9 @@
                                     <a href="#">
                                         <img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="list-group-item">
-                                    <a href="<?= site_url('group/index'); ?>">Tous mes groupes</a>
+                                    <a href="<?= site_url('group'); ?>">Tous mes groupes</a>
                                 </li>
                             </ul>
                         </div>

@@ -23,6 +23,7 @@
             <!-- TODO mettre une licence -->
         </footer>
 
+        <!-- SCRIPTS JQUERY -->
 
     </body>
 </html>

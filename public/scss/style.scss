@@ -2,19 +2,19 @@
 // $green-color: chartreuse;
 
 //**** Thèmes Adobe d'après l'image de fond ****//
-// Thème coloré :
-$A: #CFD989;
-$B: #F2DC6B;
-$C: #BF9106;
-$D: #D97925;
-$E: #A63005;
-
-// // Thème lumineux :
-// $A: #BBBF3B;
-// $B: #F2DA5E;
+// // Thème coloré :
+// $A: #CFD989;
+// $B: #F2DC6B;
 // $C: #BF9106;
 // $D: #D97925;
 // $E: #A63005;
+
+// Thème lumineux :
+$A: #BBBF3B;
+$B: #F2DA5E;
+$C: #BF9106;
+$D: #D97925;
+$E: #A63005;
 
 // // Thème doux : 
 // $A: #CFD989;
@@ -64,10 +64,10 @@ body {
     
 
     // ~~~~~~~~ Body Background image ~~~~~~~~ //
-    background-color: black;
+    background-color: $B;
 	// background-image:url("../background-patterns/bedge_grunge/bedge_grunge.png");
 	// background-image:url("../background-patterns/cheap_diagonal_fabric/cheap_diagonal_fabric.png");
-	background-image:url("../background-patterns/ep_naturalblack/ep_naturalblack.png");
+	// background-image:url("../background-patterns/ep_naturalblack/ep_naturalblack.png");
 	// background-image:url("../background-patterns/sandpaper/sandpaper.png");
 	// background-image:url("../background-patterns/tex2res4/tex2res4.png");
 	// background-position:center;
@@ -221,6 +221,10 @@ footer {
                         .j-img-group {
                             width: 30px;
                             height: 30px;
+                        }
+
+                        i {
+                            font-size: 18px;
                         }
                         
                     }

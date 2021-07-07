@@ -19,13 +19,23 @@ if(isset($errors)){
 		<input id="name" class="form-control" type="text" name="name" value="<?= isset($name) ? $name : "" ?>">
 	</div>
 	
-    <!-- Nom !-->
+    <?php if(isset($slug)) : ?>
+		<!-- Slug !-->
+		<!-- S'il y a un souci avec le slug, on l'affiche pour demander au membre de le modifier -->
+		<div class="mb-3 form-group">
+			<label for="slug" class="control-label">Slug</label>
+			<input id="slug" class="form-control" type="text" name="slug" value="<?= isset($slug) ? $slug : "" ?>">
+			<p>Veuillez modifier le slug car celui-ci est déjà pris, nous ne pouvons pas le générer automatiquement. Le slug est comme un pseudo mais pour votre groupe, il est unique.<br><strong> Il ne peut avoir ni caractères spéciaux, ni accents, ni ponctuation, ni espaces. Il est uniquement composé de lettres et de chiffres.</strong></p>
+		</div>
+	<?php endif ?>
+
+	<!-- Description !-->
 	<div class="mb-3 form-group">
 		<label for="description" class="control-label">Description du groupe</label>
 		<input id="description" class="form-control" type="text" name="description" value="<?= isset($description) ? $description : "" ?>">
 	</div>
 	
-    <!-- Nom !-->
+    <!-- Ville principale !-->
 	<div class="mb-3 form-group">
 		<label for="city" class="control-label">Ville principale du groupe</label>
 		<input id="city" class="form-control" type="text" name="city" value="<?= isset($city) ? $city : "" ?>">

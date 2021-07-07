@@ -16,6 +16,7 @@ class MemberModel extends Model
 	protected $protectFields        = true;
 	protected $allowedFields        = [
 		'pseudo',
+		'is_super_admin',
 		'email',
 		'password',
 		'name',
