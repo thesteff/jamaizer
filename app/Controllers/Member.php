@@ -30,6 +30,7 @@ class Member extends BaseController
 				'pass_confirm' => 'required|matches[password]',
 				'name' => 'max_length[50]',
 				'first_name' => 'max_length[50]',
+				'picture' => 'uploaded[picture]|max_size[picture,1024]',
 				'gender' => 'in_list[0,1,2,3]',
 				'birth' => 'valid_date',
 				'phone' => 'max_length[20]',
@@ -42,8 +43,11 @@ class Member extends BaseController
 				$email = trim($_POST['email']);
 				$name = trim($_POST['name']);
 				$first_name = trim($_POST['first_name']);
+				// image
+				// $file = $this->request->getFile('picture');
+				$file = $_POST['picture'];
 				$phone = trim($_POST['phone']);
-				
+				dd($file);
 				// on hash le password
 				$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				

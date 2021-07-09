@@ -31,7 +31,7 @@
     <div id="nav-logged-phone" class="container-fluid fixed-top d-lg-none d-flex justify-content-around align-items-center flex-row">
         <a  class="d-flex align-items-center my-2" href="<?= site_url('member/profil') ?>">
             <div>
-                <img src="<?php echo base_url('images/chaton-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-profil-nav-phone m-1">
+                <img src="<?php if(!empty($_SESSION['member']['picture'])){echo base_url('images/member/').$_SESSION['member']['picture'];}else{echo base_url('images/member/default-member-image.jpg');} ?>" alt="image de profil" class="rounded-circle j-img-profil-nav-phone m-1">
             </div>   
         </a>
         <a href="#" alt="Mes Groupes"><i class="bi bi-people-fill"></i></a>
@@ -121,7 +121,7 @@
             <div>
                 <a  class="row d-flex align-items-center my-2" href="<?php echo site_url('member/view'); ?>">
                     <div class="col-3">
-                        <img src="<?php echo base_url('images/chaton-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-profil m-1">
+                        <img src="<?php if(!empty($_SESSION['member']['picture'])){echo base_url('images/member/').$_SESSION['member']['picture'];}else{echo base_url('images/member/default-member-image.jpg');} ?>" alt="image de profil" class="rounded-circle j-img-profil m-1">
                     </div>
                     <div class="col-9">
                         <p class="m-1"><?= $_SESSION['member']['pseudo'] ?></p>
@@ -141,7 +141,7 @@
                                 <?php foreach ($_SESSION['myGroups'] as $group) : ?>
                                 <li class="list-group-item">
                                     <a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
-                                        <img src="<?php echo base_url('images/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1"><?= $group['name'] ?>
+                                        <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" alt="image de profil" class="rounded-circle j-img-group m-1"><?= $group['name'] ?>
                                         <div class="ms-auto">
                                             <?php if($group['is_admin'] && $group['is_valid']) : ?>  
                                                 <i class="bi bi-gear ms-auto"></i>

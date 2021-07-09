@@ -64,12 +64,12 @@ body {
     
 
     // ~~~~~~~~ Body Background image ~~~~~~~~ //
-    background-color: $B;
+    // background-color: $B;
 	// background-image:url("../background-patterns/bedge_grunge/bedge_grunge.png");
 	// background-image:url("../background-patterns/cheap_diagonal_fabric/cheap_diagonal_fabric.png");
 	// background-image:url("../background-patterns/ep_naturalblack/ep_naturalblack.png");
 	// background-image:url("../background-patterns/sandpaper/sandpaper.png");
-	// background-image:url("../background-patterns/tex2res4/tex2res4.png");
+	background-image:url("../background-patterns/tex2res4/tex2res4.png");
 	// background-position:center;
 	// background-repeat:repeat;
 	// background-size: 100% auto;
@@ -285,6 +285,21 @@ footer {
                             background-color: $E;
                         }
                     }
+                }
+            }
+
+            // ~~~~~~~ Page d'index des groupes ~~~~~~ //
+            .link_groupIndex {
+                text-decoration: none;
+                color: black;
+                .myGroupIndex {
+                    border: 4px solid $D;
+                    h5 {
+                        color: $D;
+                    }
+                }
+                .notMyGroupIndex {
+                    border: 4px solid $E;
                 }
             }
 

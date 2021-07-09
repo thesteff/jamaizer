@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\GroupModel;
 
-class ADmin extends BaseController
+class Admin extends BaseController
 {
 	// page dashboard pour SuperAdmin uniquement. Accès aux groupes, et aux publications jamaïzer
 	public function index() {

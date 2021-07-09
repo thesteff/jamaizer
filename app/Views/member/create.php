@@ -46,6 +46,12 @@ if(isset($errors)){
 		<label for="first_name" class="control-label">Prénom</label>
 		<input id="first_name" class="form-control" type="text" name="first_name" value="<?= isset($first_name) ? $first_name : "" ?>">
 	</div>
+
+	<!-- Photo de profil -->
+	<div class="mb-3">
+		<label for="picture" class="form-label">Photo de profil</label>
+		<input id="picture" class="form-control" type="file" name="picture">
+	</div>
 	
 	<!-- Date de naissance !-->
 	<div class="mb-3 form-group">

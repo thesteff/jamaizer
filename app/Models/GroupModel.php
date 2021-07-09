@@ -71,6 +71,9 @@ class GroupModel extends Model
 		$groupMember = new GroupMemberModel();
 		// on va chercher toutes les relations entre le membre en session et des groupes
 		$myGroupsMember = $groupMember->where('member_id', $id)->findAll();
+		
+		$myGroupsList = array();
+		
 		// pour chaque relation group/membre, on va chercher le groupe et si le membre est son admin, on ajoute l'info à l'objet group
 		foreach ($myGroupsMember as $myGroupMember) {
 			$group = new GroupModel();
@@ -116,8 +119,37 @@ class GroupModel extends Model
 				$listGroups[] = $group;
 			}
 		}
-		
-
 		return $listGroups;
+	}
+
+	// méthode pour sélectionner un groupe grâce à son slug. Ajoute le lien ou l'absence de lien avec le membre connecté
+	// TODO quand il y aura les autres infos (events, posts, playlists...) on pourra les récupérer ici ?
+	public function getOneGroup($slug, $memberId){
+		$groupModel = new GroupModel();
+		$group = $groupModel->where('slug', $slug)->findAll();
+		$group = $group[0];
+		
+		// on vérifie si qqn est connecté
+		if(isset($_SESSION['logged']) && $_SESSION['logged']) {
+			// un membre est connecté, on vérifie s'il est lié au groupe
+			$groupMemberModel = new GroupMemberModel();
+			// on trouve tous les groupes du membre
+			$groupMember = $groupMemberModel->where('member_id', $memberId)->findAll();
+			// pour chaque relation récupérée on vérifie si le groupe qu'on chercher en fait partie
+
+			foreach($groupMember as $relation){
+				if($relation['group_id'] == $group['id']) {
+					$group['is_member'] = true;
+					if($relation['is_admin']){
+						$group['is_admin'] = true;
+					} else {
+						$group['is_admin'] = false;
+					}
+				} else {
+					$group['is_member'] = false;
+				}
+			}
+		}
+		return $group;
 	}
 }

@@ -26,24 +26,16 @@ class Group extends BaseController
 	}
 
 	// page pour voir UN groupe
-	public function view($slug = null) {
+	public function view($slug) {
 
-		$group = new GroupModel();
-		$group = $group->where('slug', $slug)->findAll();
-		$group = $group[0];
-
-		// on vérifie si le membre connecté est admin
-		if(isset($_SESSION['logged']) && $_SESSION['logged']) {
-			// un membre est connecté, on vérifie s'il est lié au groupe
-			$groupMemberModel = new GroupMemberModel();
-			$groupMember = $groupMemberModel->where('group_id', $group['id'] && 'member_id', $_SESSION['member']['id'])->findAll();
-			$groupMember = $groupMember[0];
-			if($groupMember['is_admin']){
-				$group['is_admin'] = true;
-			} else {
-				$group['is_admin'] = false;
-			}
+		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+			$memberId = $_SESSION['member']['id'];
+		} else {
+			$memberId = 0;
 		}
+
+		$groupModel = new GroupModel();
+		$group = $groupModel->getOneGroup($slug, $memberId);
 
 		$data['group'] = $group;
 		echo view('templates/header');
