@@ -2,7 +2,7 @@
 <div class="d-flex justify-content-around flex-wrap">
     <?php foreach ($groups as $group) : ?>
         <div class="card p-2 m-1" style="flex: 1 1 300px">
-            <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="card-img-top" alt="photo du groupe">
+            <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').'/'.$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="card-img-top" alt="photo du groupe">
             <div class="card-body">
                 <h5 class="card-title"><?= $group['name'] ?></h5>
                 <p class="card-text"><?= $group['description'] ?></p>

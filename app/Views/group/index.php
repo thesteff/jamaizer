@@ -47,7 +47,7 @@
                     <div class="myGroupIndex card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="img-fluid rounded-start" alt="..." style="height: 100%">
+                                <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').'/'.$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="img-fluid rounded-start" alt="..." style="height: 100%">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -67,7 +67,7 @@
                 <div class="notMyGroupIndex card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="img-fluid rounded-start" alt="..." style="height: 100%">
+                            <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').'/'.$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="img-fluid rounded-start" alt="..." style="height: 100%">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

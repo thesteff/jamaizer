@@ -52,7 +52,7 @@ class Group extends BaseController
 // ##################################################################### //
 	public function create() {
 		if(count($_POST) > 0) {
-
+// TODO mettre à jour la session à la création et la modification d'un groupe
 			// il y a des données dans $_POST. Si le slug n'est pas généré, on le crée et on le place dans une variable
 			if((!isset($_POST['slug']) || empty($_POST['slug'])) && !empty($_POST['name'])){
 				$slug  = url_title($this->request->getPost('name'), '-', TRUE);
@@ -64,7 +64,6 @@ class Group extends BaseController
 				$slug = null;
 			}
 			$_POST['slug'] = $slug;
-			// dd($_POST);
 			// maintenant il y a forcément un slug dans $slug
 
 			// les données du formulaire sont-elles valides ?
@@ -86,7 +85,26 @@ class Group extends BaseController
 				echo view('templates/footer');
 				return;
 			} else {
-				// les vérifications sont faites, on enregistre le groupe
+				// les premières vérifications sont faites, avant d'enregistrer le groupe on vérifie l'image
+				if(!empty($_FILES['picture']['name'])){
+					$file = $this->request->getFile('picture');
+					$newPictureName = $file->getRandomName();
+					if(!$file->guessExtension()){
+						$errors[] = 'Le format du fichier téléchargé est invalide.';
+						$data['errors'] = $errors;
+						// on affiche à nouveau le formulaire
+						echo view('templates/header');
+						echo view('group/create', $data);
+						echo view('templates/footer');
+						return;
+					} else {
+						$picture = $newPictureName;
+						$data['picture'] = $picture;
+						$file = $file->move(FCPATH.'images/group', $picture);
+					}	
+				}
+
+
 				$data['name'] = trim($_POST['name']);
 				$data['slug'] = $slug;
 				$data['description'] = trim($_POST['description']);
@@ -142,10 +160,23 @@ class Group extends BaseController
 		$data = $group;
 
 		if(count($_POST) > 0) {
-
+// dd($_POST);
 			// les données du formulaire sont-elles valides ?
 			if(isset($_POST['name']) && $_POST['name'] !== $group['name']){
 				$errors[] = 'Vous ne pouvez pas modifier le nom du groupe.';
+			}
+			if(!empty($_FILES['picture']['name'])){
+				$file = $this->request->getFile('picture');
+				$newPictureName = $file->getRandomName();
+				if(!$file->guessExtension()){
+					$errors[] = 'Le format du fichier téléchargé est invalide.';
+				} else {
+					$picture = $newPictureName;
+					$data['picture'] = $picture;
+					$file = $file->move(FCPATH.'images/group', $picture);
+				}	
+			}
+			if (isset($errors)){
 				$data['errors'] = $errors;
 				if(!empty($_POST['description'])){$data['description'] = trim($_POST['description']);}
 				if(!empty($_POST['city'])){$data['city'] = trim($_POST['city']);}
@@ -159,6 +190,7 @@ class Group extends BaseController
 				$data['description'] = trim($_POST['description']);
 				// si une ville est renseignée, on l'ajoute
 				if(!empty($_POST['city'])){$data['city'] = trim($_POST['city']);}
+				if(isset($picture)){$data['picture'] = $picture;}
 				$groupUpdate = $groupModel->update($group['id'], $data);
 				// return redirect('group/view');
 			}

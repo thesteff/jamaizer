@@ -48,7 +48,8 @@ class Member extends BaseController
 				
 				// image
 				// dd($_FILES);
-				if(!empty($_FILES[0]['name'])){
+				if(!empty($_FILES['picture']['name'])){
+					// dd('not empty');
 					$file = $this->request->getFile('picture');
 					$newPictureName = $file->getRandomName();
 					if(!$file->guessExtension()){
@@ -60,6 +61,8 @@ class Member extends BaseController
 					}
 				} else {
 					$picture = "";
+					// dd('empty');
+
 				}
 				
 				// on hash le password
@@ -232,7 +235,7 @@ class Member extends BaseController
 			}
 
 			// pour l'image
-			if(!empty($_FILES[0]['name'])){
+			if(!empty($_FILES['picture']['name'])){
 				$file = $this->request->getFile('picture');
 				$newPictureName = $file->getRandomName();
 				if(!$file->guessExtension()){
