@@ -8,7 +8,9 @@ use App\Models\GroupMemberModel;
 
 class Group extends BaseController
 {
-	// page pour voir tous les groupes existants, les chercher (selon visibilité, accès possible ou pas)
+// ##################################################################### //
+//  page pour voir tous les groupes existants, les chercher (selon visibilité, accès possible ou pas)  //
+// ##################################################################### //
 	public function index() {
 
 		$groupModel = new GroupModel();
@@ -25,7 +27,9 @@ class Group extends BaseController
 		echo view('templates/footer');
 	}
 
-	// page pour voir UN groupe
+// ##################################################################### //
+// ###################### page pour voir UN groupe ##################### //
+// ##################################################################### //
 	public function view($slug) {
 
 		if(isset($_SESSION['logged']) && $_SESSION['logged']){
@@ -43,7 +47,9 @@ class Group extends BaseController
 		echo view('templates/footer');
 	}
 
-	// page pour créer un groupe
+// ##################################################################### //
+// ##################### page pour créer un groupe ##################### //
+// ##################################################################### //
 	public function create() {
 		if(count($_POST) > 0) {
 
@@ -120,8 +126,46 @@ class Group extends BaseController
 		echo view('templates/footer');
 	}
 
-	// page pour modifier un groupe
-	public function update() {
+// ##################################################################### //
+// #################### page pour modifier un groupe ################### //
+// ##################################################################### //
+	public function update($slug) {
 
+		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+			$memberId = $_SESSION['member']['id'];
+		} else {
+			return redirect('group');
+		}
+
+		$groupModel = new GroupModel();
+		$group = $groupModel->getOneGroup($slug, $memberId);
+		$data = $group;
+
+		if(count($_POST) > 0) {
+
+			// les données du formulaire sont-elles valides ?
+			if(isset($_POST['name']) && $_POST['name'] !== $group['name']){
+				$errors[] = 'Vous ne pouvez pas modifier le nom du groupe.';
+				$data['errors'] = $errors;
+				if(!empty($_POST['description'])){$data['description'] = trim($_POST['description']);}
+				if(!empty($_POST['city'])){$data['city'] = trim($_POST['city']);}
+				// on affiche à nouveau le formulaire
+				echo view('templates/header');
+				echo view('group/update', $data);
+				echo view('templates/footer');
+				return;
+			} else {
+				// les vérifications sont faites, on enregistre le groupe
+				$data['description'] = trim($_POST['description']);
+				// si une ville est renseignée, on l'ajoute
+				if(!empty($_POST['city'])){$data['city'] = trim($_POST['city']);}
+				$groupUpdate = $groupModel->update($group['id'], $data);
+				// return redirect('group/view');
+			}
+		}
+
+		echo view('templates/header');
+		echo view('group/update', $data);
+		echo view('templates/footer');
 	}
 }

@@ -40,26 +40,28 @@
         </div>
     </div>
     <div class="col-9">
-        <h2>Tous mes groupes</h2>
-    <?php foreach ($_SESSION['myGroups'] as $group): ?>
-            <a class="link_groupIndex" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
-                <div class="myGroupIndex card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="img-fluid rounded-start" alt="..." style="height: 100%">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= $group['name']?></h5>
-                                <p class="card-text"><?= $group['description']?></p>
-                                <p class="card-text"><small class="text-muted"><?= $group['city']?></small></p>
+        <?php if(isset($_SESSION['logged']) && $_SESSION['logged'] && isset($_SESSION['myGroups'])) : ?>
+            <h2>Tous mes groupes</h2>
+            <?php foreach ($_SESSION['myGroups'] as $group): ?>
+                <a class="link_groupIndex" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
+                    <div class="myGroupIndex card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>" class="img-fluid rounded-start" alt="..." style="height: 100%">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= $group['name']?></h5>
+                                    <p class="card-text"><?= $group['description']?></p>
+                                    <p class="card-text"><small class="text-muted"><?= $group['city']?></small></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </a>
-        <?php endforeach ?>
-        <h2>Découvrez aussi...</h2>
+                </a>
+            <?php endforeach ?>
+            <h2>Découvrez aussi...</h2>
+        <?php endif ?>
         <?php foreach ($groups as $group): ?>
             <a class="link_groupIndex" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
                 <div class="notMyGroupIndex card mb-3">

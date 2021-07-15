@@ -1,5 +1,7 @@
-<h1>Inscription</h1>
-<?php
+<div class="page-member-create p-2">
+
+	<h1>Inscription</h1>
+	<?php
 // var_dump($errors); 
 if(isset($errors)){
 	foreach($errors as $error){
@@ -10,13 +12,13 @@ if(isset($errors)){
 
 <!-- Formulaire !-->		
 <form id="inscription_form" method="post">
-
+	
 	<!-- Pseudo !-->
 	<div class="mb-3 form-group required">
 		<label for="pseudo" class="control-label">Pseudo</label>
 		<input id="pseudo" class="form-control" required="true" type="text" name="pseudo" value="<?= isset($pseudo) ? $pseudo : "" ?>">
 	</div>
-
+	
 	<!-- Email !-->
 	<div class="mb-3 form-group required">
 		<label for="email" class="control-label">Email</label>
@@ -34,7 +36,7 @@ if(isset($errors)){
 		<label for="pass_confirm" class="control-label">Confirmer le mot de passe</label>
 		<input id="pass_confirm" class="form-control" type="password" name="pass_confirm" required="true"  />
 	</div>
-
+	
 	<!-- Nom !-->
 	<div class="mb-3 form-group">
 		<label for="name" class="control-label">Nom</label>
@@ -46,12 +48,12 @@ if(isset($errors)){
 		<label for="first_name" class="control-label">Prénom</label>
 		<input id="first_name" class="form-control" type="text" name="first_name" value="<?= isset($first_name) ? $first_name : "" ?>">
 	</div>
-
+	
 	<!-- Photo de profil -->
-	<div class="mb-3">
+	<!-- <div class="mb-3">
 		<label for="picture" class="form-label">Photo de profil</label>
 		<input id="picture" class="form-control" type="file" name="picture">
-	</div>
+	</div> -->
 	
 	<!-- Date de naissance !-->
 	<div class="mb-3 form-group">
@@ -69,7 +71,7 @@ if(isset($errors)){
 			<option value="3" <?php if(isset($gender) && $gender == 3){echo 'selected';} ?>>Non-binaire</option>
 		</select>
 	</div>
-
+	
 	<!-- Mobile !-->
 	<div class="mb-3 form-group">
 		<label for="phone" class="control-label">N° de téléphone</label>
@@ -80,3 +82,4 @@ if(isset($errors)){
 	<input id="create" class="btn btn-outline-dark" type="submit" value="S'inscrire" >
 	
 </form>
+</div>

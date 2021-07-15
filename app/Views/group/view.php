@@ -23,15 +23,16 @@
         </div>
         <?php if(isset($group['is_admin']) && $group['is_admin']) : ?>
             <div class="mx-auto my-1">
-                <a class="p-1" href="#"><i class="bi bi-gear"></i></a>
+                <a class="p-1" href="<?= site_url('group/update/').esc($group['slug'], 'url') ?>"><i class="bi bi-gear"></i></a>
             </div>
         <?php endif ?>
     </nav>
     <?php if(isset($_SESSION['logged']) && $_SESSION['logged']) : ?>
-        <?php if(!$group['is_member']) : ?>
-            <button class="btn btn-outline-dark mt-3 ms-2">Faire partie du groupe</button>
+        <?php if(!$group['is_member'] && !isset($group['is_admin'])) : ?>
+            <a href="#" class="btn btn-outline-dark mt-3 ms-2">Faire partie du groupe</a>
         <?php endif ?>
     <?php endif ?>
+    
     <!-- TODO compléter pour dynamique : https://getbootstrap.com/docs/5.0/components/navs-tabs/#methods, et aussi gro/view/jam/view.php 'TABS AJAX' -->
     
 </div>

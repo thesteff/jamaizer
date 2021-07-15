@@ -1,4 +1,4 @@
-<div id="page-profil">
+<div id="page-profil" class="p-2">
     <div class="d-flex align-items-center">
         <img id="j-img-page-profil" class="rounded-circle p-3" src="<?php if(!empty($_SESSION['member']['picture'])){echo base_url('images/member/').$_SESSION['member']['picture'];}else{echo base_url('images/member/default-member-image.jpg');} ?>"
             alt="image de profil">

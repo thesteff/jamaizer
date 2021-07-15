@@ -41,6 +41,7 @@ $routes->add('member/profil', 'Member::view');
 
 // TODO à modifier : on doit accéder à une page différente par groupe, via un argument dans l'url
 $routes->add('group/create', 'Group::create');
+$routes->add('group/update/(:segment)', 'Group::update/$1');
 $routes->add('group/view/(:segment)', 'Group::view/$1');
 $routes->add('group', 'Group::index');
 

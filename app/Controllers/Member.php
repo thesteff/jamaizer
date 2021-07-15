@@ -30,7 +30,7 @@ class Member extends BaseController
 				'pass_confirm' => 'required|matches[password]',
 				'name' => 'max_length[50]',
 				'first_name' => 'max_length[50]',
-				'picture' => 'uploaded[picture]|max_size[picture,1024]',
+				// 'picture' => 'uploaded[picture]|max_size[picture,1024]',
 				'gender' => 'in_list[0,1,2,3]',
 				'birth' => 'valid_date',
 				'phone' => 'max_length[20]',
@@ -47,7 +47,7 @@ class Member extends BaseController
 				// $file = $this->request->getFile('picture');
 				$file = $_POST['picture'];
 				$phone = trim($_POST['phone']);
-				dd($file);
+				// dd($_FILES);
 				// on hash le password
 				$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				
@@ -63,7 +63,7 @@ class Member extends BaseController
 					'birth' => $_POST['birth'],
 					'phone' => $phone,
 				);
-				
+				// TODO enregistrement de l'image + enregistrement de "is_super_admin" = 0
 				// dd($data);
 				// on crée un objet membre
 				$member = new MemberModel;

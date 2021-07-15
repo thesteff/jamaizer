@@ -32,7 +32,7 @@ if(isset($errors)){
 	<!-- Description !-->
 	<div class="mb-3 form-group">
 		<label for="description" class="control-label">Description du groupe</label>
-		<input id="description" class="form-control" type="text" name="description" value="<?= isset($description) ? $description : "" ?>">
+		<textarea id="description" class="form-control" type="text" name="description"><?= isset($description) ? $description : "" ?></textarea>
 	</div>
 	
     <!-- Ville principale !-->

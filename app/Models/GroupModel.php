@@ -47,6 +47,7 @@ class GroupModel extends Model
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
 	
+	
 	public function adminGetGroups() {
 		// on récupère tous les groupes qui ne sont pas validés
 		$groups = $this->where('is_valid', 0)->findAll();
