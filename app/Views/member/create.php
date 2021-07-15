@@ -11,7 +11,7 @@ if(isset($errors)){
 ?>
 
 <!-- Formulaire !-->		
-<form id="inscription_form" method="post">
+<form id="inscription_form" method="post" enctype="multipart/form-data">
 	
 	<!-- Pseudo !-->
 	<div class="mb-3 form-group required">
@@ -50,10 +50,10 @@ if(isset($errors)){
 	</div>
 	
 	<!-- Photo de profil -->
-	<!-- <div class="mb-3">
+	<div class="mb-3">
 		<label for="picture" class="form-label">Photo de profil</label>
 		<input id="picture" class="form-control" type="file" name="picture">
-	</div> -->
+	</div>
 	
 	<!-- Date de naissance !-->
 	<div class="mb-3 form-group">

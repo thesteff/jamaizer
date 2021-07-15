@@ -24,6 +24,7 @@ class MemberModel extends Model
 		'birth',
 		'gender',
 		'phone',
+		'picture',
 	];
 
 	// Dates

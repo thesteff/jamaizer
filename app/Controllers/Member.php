@@ -30,7 +30,7 @@ class Member extends BaseController
 				'pass_confirm' => 'required|matches[password]',
 				'name' => 'max_length[50]',
 				'first_name' => 'max_length[50]',
-				// 'picture' => 'uploaded[picture]|max_size[picture,1024]',
+				// 'picture' => 'max_size[picture,1024]',
 				'gender' => 'in_list[0,1,2,3]',
 				'birth' => 'valid_date',
 				'phone' => 'max_length[20]',
@@ -43,11 +43,25 @@ class Member extends BaseController
 				$email = trim($_POST['email']);
 				$name = trim($_POST['name']);
 				$first_name = trim($_POST['first_name']);
-				// image
-				// $file = $this->request->getFile('picture');
-				$file = $_POST['picture'];
 				$phone = trim($_POST['phone']);
+				
+				
+				// image
 				// dd($_FILES);
+				if(!empty($_FILES[0]['name'])){
+					$file = $this->request->getFile('picture');
+					$newPictureName = $file->getRandomName();
+					if(!$file->guessExtension()){
+						$errors[] = 'Le format du fichier téléchargé est invalide.';
+						return;
+					} else {
+						$picture = $newPictureName;
+						$file = $file->move(FCPATH.'images/member', $picture);
+					}
+				} else {
+					$picture = "";
+				}
+				
 				// on hash le password
 				$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				
@@ -61,6 +75,7 @@ class Member extends BaseController
 					'first_name' => $first_name,
 					'gender' => $_POST['gender'],
 					'birth' => $_POST['birth'],
+					'picture' => $picture,
 					'phone' => $phone,
 				);
 				// TODO enregistrement de l'image + enregistrement de "is_super_admin" = 0
@@ -113,7 +128,6 @@ class Member extends BaseController
 // ######################## SECTION PAGE UPDATE ######################## //
 // ##################################################################### //
 	public function update() {
-		// dd($_SESSION['logged']);
 		$errors = array();
 
 		// petite sécurité : s'il n'y a pas de membre en session ou que 'logged' dans la session est false, on redirige vers la page d'accueil
@@ -122,7 +136,6 @@ class Member extends BaseController
 		}
 
 		if(count($_POST) > 0) {
-// dd($_POST);
 			// On vérifie que le pseudo n'a pas été modifié
 			if(isset($_POST['pseudo'])){
 				if($_POST['pseudo'] !== $_SESSION['member']['pseudo']){
@@ -136,7 +149,6 @@ class Member extends BaseController
 				}
 			}
 			// On vérifie si member a rentré qqch dans un champ de mot de passe pour le modifier
-			// dd($_SESSION);
 			if(!empty($_POST['password']) || !empty($_POST['new_password']) || !empty($_POST['new_pass_confirm'])) {
 				// au moins un des trois champs de mot de passe est remplis, on vérifie que les trois sont bien remplis
 				if(!empty($_POST['password']) && !empty($_POST['new_password']) && !empty($_POST['new_pass_confirm'])) {
@@ -197,7 +209,6 @@ class Member extends BaseController
 				if((empty($_SESSION['member']['birth']) || $_POST['birth'] !== $_SESSION['member']['birth']) && $this->validate(['birth' => 'valid_date'])) {
 					$newbirth = $_POST['birth'];
 					$data['birth'] = $newbirth;
-					// dd($data);
 				}
 			}
 
@@ -217,9 +228,22 @@ class Member extends BaseController
 				if(empty($_SESSION['member']['phone']) || trim($_POST['phone']) !== $_SESSION['member']['phone']) {
 					$newphone = trim($_POST['phone']);
 					$data['phone'] = $newphone;
-					// dd($data);
 				}
 			}
+
+			// pour l'image
+			if(!empty($_FILES[0]['name'])){
+				$file = $this->request->getFile('picture');
+				$newPictureName = $file->getRandomName();
+				if(!$file->guessExtension()){
+					$errors[] = 'Le format du fichier téléchargé est invalide.';
+				} else {
+					$picture = $newPictureName;
+					$data['picture'] = $picture;
+					$file = $file->move(FCPATH.'images/member', $picture);
+				}	
+			}
+			
 
 			if(count($errors) > 0) {
 				// il y a eu des erreurs, on n'enregitre pas et on réaffiche le formulaire préremplis
@@ -228,7 +252,8 @@ class Member extends BaseController
 				echo view('member/update', $data);
 				echo view('templates/footer');
 				return;
-			} else {
+
+			} elseif(isset($data)) {
 				$memberModel = new MemberModel();
 				// on met à jour les données du membre connecté dans la BDD
 				$memberModel->update($_SESSION['member']['id'], $data);
@@ -237,13 +262,8 @@ class Member extends BaseController
 				$session = session();
 				// $session->destroy();
 				$data['member'] = $memberUpdate;
-				// $data['logged'] = true;
-				// dd($data);
 				$session->set($data);
-
-				// echo view('templates/header');
-				// echo view('member/update');
-				// echo view('templates/footer');		
+	
 			}
 		}
 		echo view('templates/header');

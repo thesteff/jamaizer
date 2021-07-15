@@ -168,4 +168,11 @@ class Group extends BaseController
 		echo view('group/update', $data);
 		echo view('templates/footer');
 	}
+
+// ##################################################################### //
+//  INTEGRER UN GROUPE (pour l'instant pas une page, mais peut-être plus tard un popup?)  //
+// ##################################################################### //
+	public function becomeGroupMember($slug){
+		
+	}
 }

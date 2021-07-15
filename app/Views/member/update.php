@@ -10,7 +10,7 @@ if(isset($errors)){
 ?>
 
 <!-- Formulaire !-->		
-<form id="inscription_form" method="post">
+<form id="inscription_form" method="post" enctype="multipart/form-data">
 
 	<!-- Pseudo !-->
 	<div class="mb-3 form-group required">
@@ -71,6 +71,12 @@ if(isset($errors)){
 		</select>
 	</div>
 
+	<!-- Photo de profil -->
+	<div class="mb-3">
+		<label for="picture" class="form-label">Photo de profil</label>
+		<input id="picture" class="form-control" type="file" name="picture">
+	</div>
+
 	<!-- Mobile !-->
 	<div class="mb-3 form-group">
 		<label for="phone" class="control-label">N° de téléphone</label>
@@ -79,7 +85,7 @@ if(isset($errors)){
 	
 	<!-- Envoyer !-->
 	<input id="create" class="btn btn-outline-dark" type="submit" value="Modifier" >
-	<a class="btn btn-outline-dark" href="<?= site_url('member/profil'); ?>">Annuler</a>
+	<a class="btn btn-outline-dark" href="<?= site_url('member/profil'); ?>">Retour</a>
 	
 </form>
 </div>
