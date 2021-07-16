@@ -29,67 +29,6 @@ class Group extends BaseController
 	}
 
 // ##################################################################### //
-// ###################### page pour voir UN groupe ##################### //
-// ##################################################################### //
-	public function view($slug) {
-		// on vérifie si qqn est connecté, pour envoyer l'id de cette personne ou un id nul
-		if(isset($_SESSION['logged']) && $_SESSION['logged']){
-			$memberId = $_SESSION['member']['id'];
-		} else {
-			$memberId = 0;
-		}
-		
-		$groupModel = new GroupModel();
-		$group = $groupModel->getOneGroup($slug, $memberId);
-		// dd($group);
-		// on vérifie s'il y a déjà une requête envoyée par le membre au groupe
-		$requestModel = new RequestModel();
-		$request = $requestModel->getOneGroupRequest($group['id'], $memberId);
-		
-		if(!empty($request)){
-			$group['request'] = true;
-		} else {
-			$group['request'] = false;
-		}
-
-		// ====================================================== //
-		// = //  envoie de requête pour rejoindre un groupe  // = //
-		// ====================================================== //
-		/**
-		 * On vérifie : 
-		 * - que le membre est connecté
-		 * - que le membre ne fait pas partie du groupe
-		 * - que le membre n'est pas admin du groupe
-		 * - que des données sont envoyées via $_POST
-		 */
-		if(isset($_SESSION['logged']) && $_SESSION['logged'] && !$group['is_member'] && !isset($group['is_admin']) && count($_POST) > 0) {
-			if($this->validate(['message' => 'required'])){
-				$groupId = $group['id'];
-				$message = trim($_POST['message']);
-				$memberId = $_SESSION['member']['id'];
-			} else {
-				$errors[] = 'Pour envoyer une demande, veuillez écrire un message';
-				$data['errors'] = $errors;
-				echo view('templates/header');
-				echo view('group/view', $data);
-				echo view('templates/footer');
-				return;
-			}
-			// dd('ready to set');
-			$requestModel->setGroupRequest($groupId, $message, $memberId);
-			$success['groupRequest'] = 'Votre demande pour rejoindre le groupe a bien été envoyée !';
-			$data['success'] = $success;
-		} 
-		
-		
-		
-		$data['group'] = $group;
-		echo view('templates/header');
-		echo view('group/view', $data);
-		echo view('templates/footer');
-	}
-
-// ##################################################################### //
 // ##################### page pour créer un groupe ##################### //
 // ##################################################################### //
 	public function create() {
@@ -186,9 +125,117 @@ class Group extends BaseController
 		echo view('templates/footer');
 	}
 
-// ##################################################################### //
-// #################### page pour modifier un groupe ################### //
-// ##################################################################### //
+	// ##################################################################### //
+	// ###################### pages pour voir UN groupe #################### //
+	// ##################################################################### //
+	// ====================================================== //
+	// =================== page d'accueil =================== //
+	// ====================================================== //
+	public function view($slug) {
+		// on vérifie si qqn est connecté, pour envoyer l'id de cette personne ou un id nul
+		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+			$memberId = $_SESSION['member']['id'];
+		} else {
+			$memberId = 0;
+		}
+		
+		$groupModel = new GroupModel();
+		$group = $groupModel->getOneGroup($slug, $memberId);
+		// dd($group);
+		// on vérifie s'il y a déjà une requête envoyée par le membre au groupe
+		$requestModel = new RequestModel();
+		$request = $requestModel->getOneGroupRequest($group['id'], $memberId);
+		
+		if(!empty($request)){
+			$group['request'] = true;
+		} else {
+			$group['request'] = false;
+		}
+
+		// ====================================================== //
+		// = //  envoie de requête pour rejoindre un groupe  // = //
+		// ====================================================== //
+		/**
+		 * On vérifie : 
+		 * - que le membre est connecté
+		 * - que le membre ne fait pas partie du groupe
+		 * - que le membre n'est pas admin du groupe
+		 * - que des données sont envoyées via $_POST
+		 */
+		if(isset($_SESSION['logged']) && $_SESSION['logged'] && !$group['is_member'] && !isset($group['is_admin']) && count($_POST) > 0) {
+			if($this->validate(['message' => 'required'])){
+				$groupId = $group['id'];
+				$message = trim($_POST['message']);
+				$memberId = $_SESSION['member']['id'];
+			} else {
+				$errors[] = 'Pour envoyer une demande, veuillez écrire un message';
+				$data['errors'] = $errors;
+				echo view('templates/header');
+				echo view('group/view', $data);
+				echo view('templates/footer');
+				return;
+			}
+			
+			$requestModel->setGroupRequest($groupId, $message, $memberId);
+			$success['groupRequest'] = 'Votre demande pour rejoindre le groupe a bien été envoyée !';
+			$data['success'] = $success;
+		} 
+		
+		
+		
+		$data['group'] = $group;
+		echo view('templates/header');
+		echo view('group/view/header', $data);
+		echo view('group/view/home', $data);
+		echo view('templates/footer');
+	}
+
+	// ====================================================== //
+	// =================== page "A propos" ================== //
+	// ====================================================== //
+
+
+	// ====================================================== //
+	// ================== pages Evénements ================== //
+	// ====================================================== //
+
+	// ====================================================== //
+	// =================== page palylists =================== //
+	// ====================================================== //
+
+	// ====================================================== //
+	// ==================== page membres ==================== //
+	// ====================================================== //
+
+	// ====================================================== //
+	// ============== ADMIN page notifications ============== //
+	// ====================================================== //
+	public function notification($slug) {
+		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+			$memberId = $_SESSION['member']['id'];
+		} else {
+			return redirect('group');
+		}
+		
+		$groupModel = new GroupModel();
+		$group = $groupModel->getOneGroup($slug, $memberId);
+		$data['group'] = $group;
+
+		$requestModel = new RequestModel();
+		$requests = $requestModel->getGroupRequests($group['id']);
+		$data['requests'] = $requests;
+
+		echo view('templates/header');
+		// echo view('group/view/header', $data);
+		echo view('group/view/notification', $data);
+		echo view('templates/footer');
+	}
+
+
+
+	// ====================================================== //
+	// ================ ADMIN page paramètres =============== //
+	// ====================================================== //
 	public function update($slug) {
 
 		if(isset($_SESSION['logged']) && $_SESSION['logged']){
@@ -238,14 +285,10 @@ class Group extends BaseController
 		}
 
 		echo view('templates/header');
-		echo view('group/update', $data);
+		// echo view('group/view/header', $data);
+		echo view('group/view/update', $data);
 		echo view('templates/footer');
 	}
 
-// ##################################################################### //
-//  INTEGRER UN GROUPE (pour l'instant pas une page, mais peut-être plus tard un popup?)  //
-// ##################################################################### //
-	public function requestMemberToGroup($slug){
-		
-	}
+
 }

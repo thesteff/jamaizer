@@ -23,15 +23,13 @@
             <a class="p-1" href="#">Membres</a>
         </div>
         <?php if(isset($group['is_admin']) && $group['is_admin']) : ?>
-        <div class="mx-auto my-1">
-        <!-- notifications pour l'admin du groupe -->
-        
-            <a class="p-1 position-relative fs-5" href="#"><i class="bi bi-bell"></i></a>
-
-
-            <a class="p-1 fs-5" href="<?= site_url('group/update/').esc($group['slug'], 'url') ?>"><i
-                    class="bi bi-gear"></i></a>
-        </div>
+            <div class="mx-auto my-1">
+                <!-- notifications pour l'admin du groupe -->    
+                <a class="p-1 position-relative fs-5" href="<?= site_url('group/notification/').esc($group['slug'], 'url') ?>"><i class="bi bi-bell"></i></a>
+                <!-- accès aux paramètres pour l'admin du groupe -->
+                <a class="p-1 fs-5" href="<?= site_url('group/update/').esc($group['slug'], 'url') ?>"><i
+                        class="bi bi-gear"></i></a>
+            </div>
         <?php endif ?>
     </nav>
     <?php if(isset($_SESSION['logged']) && $_SESSION['logged']) : ?>
@@ -81,22 +79,4 @@
 
 </div>
 <div id="j-group-main" class="p-2">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt animi amet temporibus sed repellendus
-        necessitatibus facere et, aperiam ex iusto enim possimus voluptate ipsam non dignissimos voluptatem quos quo
-        labore!</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt animi amet temporibus sed repellendus
-        necessitatibus facere et, aperiam ex iusto enim possimus voluptate ipsam non dignissimos voluptatem quos quo
-        labore!</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt animi amet temporibus sed repellendus
-        necessitatibus facere et, aperiam ex iusto enim possimus voluptate ipsam non dignissimos voluptatem quos quo
-        labore!</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt animi amet temporibus sed repellendus
-        necessitatibus facere et, aperiam ex iusto enim possimus voluptate ipsam non dignissimos voluptatem quos quo
-        labore!</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt animi amet temporibus sed repellendus
-        necessitatibus facere et, aperiam ex iusto enim possimus voluptate ipsam non dignissimos voluptatem quos quo
-        labore!</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt animi amet temporibus sed repellendus
-        necessitatibus facere et, aperiam ex iusto enim possimus voluptate ipsam non dignissimos voluptatem quos quo
-        labore!</p>
-</div>
+    

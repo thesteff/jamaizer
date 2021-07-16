@@ -59,4 +59,10 @@ class MemberModel extends Model
 	protected $afterFind            = [];
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
+
+	public function getOneMember($memberId){
+		$memberModel = new MemberModel();
+		$member = $memberModel->find($memberId);
+		return $member;
+	}
 }
