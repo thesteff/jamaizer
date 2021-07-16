@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\GroupModel;
 use App\Controllers\BaseController;
 use App\Models\GroupMemberModel;
+use App\Models\RequestModel;
 
 class Group extends BaseController
 {
@@ -31,16 +32,57 @@ class Group extends BaseController
 // ###################### page pour voir UN groupe ##################### //
 // ##################################################################### //
 	public function view($slug) {
-
+		// on vérifie si qqn est connecté, pour envoyer l'id de cette personne ou un id nul
 		if(isset($_SESSION['logged']) && $_SESSION['logged']){
 			$memberId = $_SESSION['member']['id'];
 		} else {
 			$memberId = 0;
 		}
-
+		
 		$groupModel = new GroupModel();
 		$group = $groupModel->getOneGroup($slug, $memberId);
+		// dd($group);
+		// on vérifie s'il y a déjà une requête envoyée par le membre au groupe
+		$requestModel = new RequestModel();
+		$request = $requestModel->getOneGroupRequest($group['id'], $memberId);
+		
+		if(!empty($request)){
+			$group['request'] = true;
+		} else {
+			$group['request'] = false;
+		}
 
+		// ====================================================== //
+		// = //  envoie de requête pour rejoindre un groupe  // = //
+		// ====================================================== //
+		/**
+		 * On vérifie : 
+		 * - que le membre est connecté
+		 * - que le membre ne fait pas partie du groupe
+		 * - que le membre n'est pas admin du groupe
+		 * - que des données sont envoyées via $_POST
+		 */
+		if(isset($_SESSION['logged']) && $_SESSION['logged'] && !$group['is_member'] && !isset($group['is_admin']) && count($_POST) > 0) {
+			if($this->validate(['message' => 'required'])){
+				$groupId = $group['id'];
+				$message = trim($_POST['message']);
+				$memberId = $_SESSION['member']['id'];
+			} else {
+				$errors[] = 'Pour envoyer une demande, veuillez écrire un message';
+				$data['errors'] = $errors;
+				echo view('templates/header');
+				echo view('group/view', $data);
+				echo view('templates/footer');
+				return;
+			}
+			// dd('ready to set');
+			$requestModel->setGroupRequest($groupId, $message, $memberId);
+			$success['groupRequest'] = 'Votre demande pour rejoindre le groupe a bien été envoyée !';
+			$data['success'] = $success;
+		} 
+		
+		
+		
 		$data['group'] = $group;
 		echo view('templates/header');
 		echo view('group/view', $data);
@@ -52,7 +94,7 @@ class Group extends BaseController
 // ##################################################################### //
 	public function create() {
 		if(count($_POST) > 0) {
-// TODO mettre à jour la session à la création et la modification d'un groupe
+			// TODO mettre à jour la session à la création et la modification d'un groupe
 			// il y a des données dans $_POST. Si le slug n'est pas généré, on le crée et on le place dans une variable
 			if((!isset($_POST['slug']) || empty($_POST['slug'])) && !empty($_POST['name'])){
 				$slug  = url_title($this->request->getPost('name'), '-', TRUE);
@@ -160,7 +202,6 @@ class Group extends BaseController
 		$data = $group;
 
 		if(count($_POST) > 0) {
-// dd($_POST);
 			// les données du formulaire sont-elles valides ?
 			if(isset($_POST['name']) && $_POST['name'] !== $group['name']){
 				$errors[] = 'Vous ne pouvez pas modifier le nom du groupe.';
@@ -204,7 +245,7 @@ class Group extends BaseController
 // ##################################################################### //
 //  INTEGRER UN GROUPE (pour l'instant pas une page, mais peut-être plus tard un popup?)  //
 // ##################################################################### //
-	public function becomeGroupMember($slug){
+	public function requestMemberToGroup($slug){
 		
 	}
 }

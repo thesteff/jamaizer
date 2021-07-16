@@ -1,0 +1,35 @@
+CREATE TABLE events(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    group_id INT,
+    FOREIGN KEY (group_id) REFERENCES groups(id),
+    name VARCHAR(255),
+    description TEXT,
+    date_start DATE,
+    date_end DATE
+);
+
+CREATE TABLE date (
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES events(id),
+    name VARCHAR(255),
+    description TEXT,
+    date_start DATETIME,
+    date_end DATETIME
+);
+
+CREATE TABLE request(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    member_id INT,
+    message TEXT,
+    FOREIGN KEY (member_id) REFERENCES member(id),
+    sent_by_member BOOLEAN,
+    group_id INT,
+    FOREIGN KEY (group_id) REFERENCES groups(id),
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES events(id),
+    date_id INT,
+    FOREIGN KEY (date_id) REFERENCES date(id),
+    admin_id INT,
+    FOREIGN KEY (admin_id) REFERENCES member(id)
+);

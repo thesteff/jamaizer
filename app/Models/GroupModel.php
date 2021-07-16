@@ -127,28 +127,24 @@ class GroupModel extends Model
 	// TODO quand il y aura les autres infos (events, posts, playlists...) on pourra les récupérer ici ?
 	public function getOneGroup($slug, $memberId){
 		$groupModel = new GroupModel();
-		$group = $groupModel->where('slug', $slug)->findAll();
-		$group = $group[0];
+		$group = $groupModel->where('slug', $slug)->first();
 		
 		// on vérifie si qqn est connecté
 		if(isset($_SESSION['logged']) && $_SESSION['logged']) {
 			// un membre est connecté, on vérifie s'il est lié au groupe
 			$groupMemberModel = new GroupMemberModel();
-			// on trouve tous les groupes du membre
-			$groupMember = $groupMemberModel->where('member_id', $memberId)->findAll();
-			// pour chaque relation récupérée on vérifie si le groupe qu'on chercher en fait partie
-
-			foreach($groupMember as $relation){
-				if($relation['group_id'] == $group['id']) {
-					$group['is_member'] = true;
-					if($relation['is_admin']){
-						$group['is_admin'] = true;
-					} else {
-						$group['is_admin'] = false;
-					}
-				} else {
-					$group['is_member'] = false;
+			// on cherche si une relation existe entre le groupe et le membre
+			$relation = $groupMemberModel->where(['member_id' => $memberId, 'group_id' => $group['id']])->first();
+			
+			if (!empty($relation)){
+				$group['is_member'] = true;
+				if($relation['is_admin']){
+					$group['is_admin'] = true;
+				}	else {
+					$group['is_admin'] = false;
 				}
+			} else {
+				$group['is_member'] = false;
 			}
 		}
 		return $group;

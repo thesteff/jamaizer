@@ -34,10 +34,10 @@
                 <img src="<?php if(!empty($_SESSION['member']['picture'])){echo base_url('images/member/').'/'.$_SESSION['member']['picture'];}else{echo base_url('images/member/default-member-image.jpg');} ?>" alt="image de profil" class="rounded-circle j-img-profil-nav-phone m-1">
             </div>   
         </a>
-        <a href="#" alt="Mes Groupes"><i class="bi bi-people-fill"></i></a>
+        <a href="<?= site_url('group'); ?>" alt="Mes Groupes"><i class="bi bi-people-fill"></i></a>
         <a href="#" alt="Mes événements"><i class="bi bi-calendar3-fill"></i></a>
         <a href="#" alt="Mes messages"><i class="bi bi-chat-dots-fill"></i></a>
-        <a href="#" alt="Déconnexion"><i class="bi bi-door-open-fill"></i></a>
+        <a href="<?= site_url('member/deconnexion'); ?>" alt="Déconnexion"><i class="bi bi-door-open-fill"></i></a>
     </div>
 <?php endif ?>
 
