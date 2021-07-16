@@ -15,14 +15,37 @@
 
     <!-- Icones bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	
+	
+	<!-- JQuery 3.6.0 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" 
+		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous">
+	</script>
+	
 
     <!-- Style maison -->
-    <link rel="stylesheet" href="<?php echo base_url('/css/style.min.css'); ?>">
+    <!-- <link rel="stylesheet" href="<?php echo base_url('/css/style.min.css'); ?>"> !-->
+	<link rel="stylesheet" href="<?php echo base_url('/css/style.css'); ?>">
+	
 
     <title>Jamaïzer</title>
+	
 </head>
 
-<body>
+	<!-- JAVASCRIPT -->
+	<script type="text/javascript">
+
+		$(function() {
+			// add padding top to show content behind navbar
+			navbar_height = document.querySelector('.navbar').offsetHeight;
+			document.body.style.paddingTop = navbar_height + 'px';
+		});
+		
+
+	</script>
+
+
+<body id="bootstrap-overrides">
 
 <?php if(isset($_SESSION['logged']) && $_SESSION['logged']) : ?>
 <!-- // ##################################################################### // -->
@@ -46,7 +69,7 @@
 <!-- // ############################### HEADER ############################## // -->
 <!-- // ##################################################################### // -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark mt-auto">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark  mt-auto">
             <div class="container-fluid">
                 <a class="navbar-brand d-lg-none" href="<?= site_url('') ?>">
                     <h2>Jamaïzer</h2>
@@ -251,7 +274,3 @@
 <!-- // ######################### Ouverture du MAIN ######################### // -->
 <!-- // ##################################################################### // -->
         <main class="mx-auto my-0">
-
-
-
-        <!-- TODO mettre contact et à propos dans le footer, garder uniquement le header connecté en mode phone, ajouter J pour accueil,  -->

@@ -1,4 +1,5 @@
 <h1>Les Actus Jamaïzer</h1>
+
 <?php for ($i=0; $i < 5 ; $i++) : ?>
 <div class="card my-3 mx-md-3 mx-1">
     <div class="card-header j-card-header">
