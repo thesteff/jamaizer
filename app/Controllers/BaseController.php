@@ -45,8 +45,7 @@ class BaseController extends Controller
 	 * @param ResponseInterface $response
 	 * @param LoggerInterface   $logger
 	 */
-	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-	{
+	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger) {
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 
@@ -55,6 +54,9 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.: 
 		$this->session = \Config\Services::session();
+		
+		// On récupère les infos du membres s'il est connecté
+		//$data['session'] = $this->session;
 		
 	}
 }

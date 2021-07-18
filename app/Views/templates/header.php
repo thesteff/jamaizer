@@ -224,7 +224,7 @@
 <body id="bootstrap-overrides">
 
 
-<?php if ($session->logged) : ?>
+<?php if (isset($session) && $session->logged) : ?>
 <!-- // ##################################################################### // -->
 <!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
 <!-- // ##################################################################### // -->
@@ -264,7 +264,7 @@
                         </li>
 						
 						<!-- Non connecté !-->
-                        <?php if ( !$session->logged ) : ?>
+                        <?php if (!isset($session) || !$session->logged ) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('member/inscription'); ?>">Inscription</a>
                             </li>
@@ -289,7 +289,7 @@
                         <?php endif; ?>
 						
 						<!-- Super Admin !-->
-                        <?php if(isset($_SESSION['logged']) && $_SESSION['logged'] && $_SESSION['member']['is_super_admin']) : ?>
+                        <?php if(isset($session) && ($session->logged && $_SESSION['member']['is_super_admin']) ) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('admin'); ?>">ADMIN</a>
                             </li>

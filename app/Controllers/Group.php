@@ -12,11 +12,12 @@ class Group extends BaseController
 //  page pour voir tous les groupes existants, les chercher (selon visibilité, accès possible ou pas)  //
 // ##################################################################### //
 	public function index() {
-
+		
 		$groupModel = new GroupModel();
-		if(isset($_SESSION['member']['id'])) {
+		if (isset($_SESSION['member']['id'])) {
 			$memberId = $_SESSION['member']['id'];
-		} else {
+		}
+		else {
 			$memberId = 0;
 		}
 		$groups = $groupModel->indexGroups($memberId);
@@ -31,10 +32,11 @@ class Group extends BaseController
 // ###################### page pour voir UN groupe ##################### //
 // ##################################################################### //
 	public function view($slug) {
-
-		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+	
+		if (isset($_SESSION['logged']) && $_SESSION['logged']) {
 			$memberId = $_SESSION['member']['id'];
-		} else {
+		}
+		else {
 			$memberId = 0;
 		}
 
@@ -51,6 +53,7 @@ class Group extends BaseController
 // ##################### page pour créer un groupe ##################### //
 // ##################################################################### //
 	public function create() {
+
 		if(count($_POST) > 0) {
 // TODO mettre à jour la session à la création et la modification d'un groupe
 			// il y a des données dans $_POST. Si le slug n'est pas généré, on le crée et on le place dans une variable
