@@ -37,7 +37,6 @@ $C: #BF9106;
 $D: #D97925;
 $E: #A63005;
 
-
 $primary: #FFB300;
 $secondary: #EA5800;
 $neutral: #ccc;
@@ -45,53 +44,53 @@ $light: #fff;
 $dark: #4d2d1e;
 
 $soften: 5;
-$softer: 13;
-$softest: 25;
+$softer: 10;
+$softest: 18;
 
 
 $colors: (
 	primary: (
 		base: $primary,
-		light: lighten($primary, $softer),
-		dark: darken($primary, $softer),
-		lighter: lighten($primary, $soften),
-		darker: darken($primary, $soften),
+		light: lighten($primary, $soften),
+		dark: darken($primary, $soften),
+		lighter: lighten($primary, $softer),
+		darker: darken($primary, $softer),
 		lightest: lighten($primary, $softest),
 		darkest: darken($primary, $softest),
 	),
 	secondary: (
 		base: $secondary,
-		light: lighten($secondary, $softer),
-		dark: darken($secondary, $softer),
-		lighter: lighten($secondary, $soften),
-		darker: darken($secondary, $soften),
+		light: lighten($secondary, $soften),
+		dark: darken($secondary, $soften),
+		lighter: lighten($secondary, $softer),
+		darker: darken($secondary, $softer),
 		lightest: lighten($secondary, $softest),
 		darkest: darken($secondary, $softest),
 	),
 	neutral: (
 		base: $neutral,
-		light: lighten($neutral, $softer),
-		dark: darken($neutral, $softer),
-		lighter: lighten($neutral, $soften),
-		darker: darken($neutral, $soften),
+		light: lighten($neutral, $soften),
+		dark: darken($neutral, $soften),
+		lighter: lighten($neutral, $softer),
+		darker: darken($neutral, $softer),
 		lightest: lighten($neutral, $softest),
 		darkest: darken($neutral, $softest),
 	),
 	light: (
 		base: $light,
-		light: lighten($light, $softer),
-		dark: darken($light, $softer),
-		lighter: lighten($light, $soften),
-		darker: darken($light, $soften),
+		light: lighten($light, $soften),
+		dark: darken($light, $soften),
+		lighter: lighten($light, $softer),
+		darker: darken($light, $softer),
 		lightest: lighten($light, $softest),
 		darkest: darken($light, $softest),
 	),
 	dark: (
 		base: $dark,
-		light: lighten($dark, $softer),
-		dark: darken($dark, $softer),
-		lighten: lighten($dark, $soften),
-		darker: darken($dark, $soften),
+		light: lighten($dark, $soften),
+		dark: darken($dark, $soften),
+		lighter: lighten($dark, $softer),
+		darker: darken($dark, $softer),
 		lightest: lighten($dark, $softest),
 		darkest: darken($dark, $softest),
 	),
@@ -140,25 +139,80 @@ $colors: (
     // ~~~~~~~~~~~~~~ Body Fonts & Color ~~~~~~~~~~~~~ //
 	color: clr(neutral);	
 	
-    a, li, label, button {
-        font-family : rimouski;
-		letter-spacing: 0.5px;
-    }
+	a {
+		color: clr(secondary, light);
+		text-decoration: none;
+		
+		&:hover {
+			color: clr(secondary, lighter);
+			text-decoration: underline;
+		}
+	}
+
 	
-	p {
+    li, label, button, .j-label {
         font-family : rimouski;
+		letter-spacing: 0.6px;
     }
 
     h1, h2, h3, h4, h5, h6 {
         color: clr(primary);
         font-family: BorisBlackBloxx;
-        // text-align: center;
     }
 	
-
     img {
         object-fit: cover;
     }
+	
+	// ~~~~~~~~~~~~~~ Buttons ~~~~~~~~~~~~~ //
+	.btn-primary {
+		color: clr(light, dark);
+		background-color: clr(primary);
+		border-color: clr(primary, lighter);
+		
+		&:hover {
+			color: clr(light);
+			background-color: clr(primary, light);
+			border-color: clr(primary, lightest);
+		}
+	}
+	
+	
+	
+	// ~~~~~~~~~~~~~~ Modal ~~~~~~~~~~~~~ //
+	.modal {
+	
+		.default {
+			.modal-content {
+			
+				background-color: clr(dark, dark);
+				border-style: solid;
+				border-color: clr(dark, lightest);
+				border-width: 1px;
+				
+				.modal-header {
+					font-family : rimouski;
+					background-color: clr(dark, darker);
+					border-bottom-style: solid;
+					border-color: clr(secondary, darkest);
+					border-bottom-width: 3px;
+				}
+				
+				.modal-footer {
+					background-color: clr(dark, darker);
+					border-color: clr(secondary, darkest);
+					justify-content: center;
+				}
+			}
+		}	
+	}
+	
+	// ~~~~~~~~~~~~~~ Input ~~~~~~~~~~~~~ //
+	.form-control:focus {
+		border-color: clr(dark, darker);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+	}
+	
 
 // ##################################################################### //
 // ######################### SECTION TEMPLATES ######################### //
@@ -189,15 +243,20 @@ $colors: (
 // ====================================================== //
     header {
         .navbar, .navbar-dark {
-            background-color: clr(dark, dark);
+            background-color: clr(dark, darker);
 			
 			border-bottom-style: solid;
-			border-color: clr(dark, light);
+			border-color: clr(dark, lighter);
 			border-bottom-width: 1px;
-            
-            // https://getbootstrap.com/docs/5.0/components/navbar/
-            .nav-link, .navbar-nav {
-                color: $D;
+			
+            .nav-link, .navbar-nav, .navbar-brand {
+				color: clr(primary, dark);
+				
+				&:hover {
+					color: clr(primary, lightest);
+					text-decoration: none;
+				}
+				
             }
         }
     }
@@ -227,98 +286,121 @@ $colors: (
 	}
 
 // ====================================================== //
-// =============== grosse div aside + main ============== //
+// ==================== Sidebar + main ================== //
 // ====================================================== //
-    // #j-big-container = la div qui englobe le main et l'aside
-    #j-big-container {
-        max-width: 1000px;
-        margin: auto;
+    // #j-container = la div qui englobe le main et l'aside
+    #j-container {
+	
+        //max-width: 1000px;
+        //margin: auto;
         
-        display: flex;
-        justify-content: space-around;
-        align-items: stretch;
+        // display: flex;
+        // justify-content: space-around;
+        // align-items: stretch;
         
 // ====================================================== //
 // =========== aside (connecté.e, format ordi) ========== //
 // ====================================================== //
-        aside {
-            width: 250px;
-            background-color: $D;
 
-            .j-img-profil {
-                width: 50px;
-                height: 50px;
-                // border-radius: 25px;
-            }
+        #j-sidebar-container {
+		
+            background-color: clr(dark, darker);
+			overflow: scroll;
+			overflow-x: hidden;
+			scrollbar-width: none;
+			
+			border-right-style: solid;
+			border-color: clr(dark, lighter);
+			border-right-width: 1px;
+			
+			#j-sidebar {
+			
+				img#avatar {
+					width: 38px;
+					height: 38px;
+					// border-radius: 25px;
+				}
 
-            .j-accordion {
-                border: none;
-                border-radius: 0;
-                background-color: $D;
+				.accordion {
+					border: none;
+					border-radius: 0;
+					background-color: $D;
 
-                .j-accordion-item {
-                    background-color: $A;
-                    // .j-accordion-header {
-                        //     font-size: small;
-                        // }
-                    a {
-                        color: black;
-                        font-size: small;
-                        // text-align: center;
-                    }
+					.accordion-item {
+						background-color: $A;
+						// .j-accordion-header {
+							//     font-size: small;
+							// }
+						a {
+							color: black;
+							font-size: small;
+							// text-align: center;
+						}
 
-                    .accordion-body {
-                        padding: 0;
-                    }
-                    .j-accordion-button {
-                        color: $E;
-                        background-color: $B;
-                        font-size: small;
-                    }
+						.accordion-body {
+							padding: 0;
+						}
+						.accordion-button {
+							color: $E;
+							background-color: $B;
+							font-size: small;
+						}
 
-                    .list-group-item {
-                        background-color: $A;
-                        font-size: small;
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: flex-start;
-                        // align-items: center;
-                        flex-direction: column;
+						.list-group-item {
+							background-color: $A;
+							font-size: small;
+							display: flex;
+							flex-wrap: wrap;
+							justify-content: flex-start;
+							// align-items: center;
+							flex-direction: column;
 
-                        .j-a-event {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            p {
-                                margin: 0;
-                                text-align: center;
-                            }
+							.a-event {
+								display: flex;
+								justify-content: space-between;
+								align-items: center;
+								p {
+									margin: 0;
+									text-align: center;
+								}
 
-                        }
+							}
 
-                        .j-img-group {
-                            width: 30px;
-                            height: 30px;
-                        }
+							.img-group {
+								width: 30px;
+								height: 30px;
+							}
 
-                        i {
-                            font-size: 18px;
-                        }
-                        
-                    }
+							i {
+								font-size: 18px;
+							}
+							
+						}
 
-                }
-            }
-            
+					}
+				}
+				
+				#footer {
+					line-height: 1.2rem;
+				}
+			}
         }
 
 // ====================================================== //
 // ======================== main ======================== //
 // ====================================================== //
+		/*@media (max-width: 978px) {
+			main.container {
+				padding: 0px;
+				margin: 0px;
+			}
+		}*/
+
         main {
-            max-width: 700px;
-            // padding: 16px;
-            background-color: clr(dark, dark);
+            //max-width: 700px;
+            background-color: clr(dark, darker);
+			
+			
 
 // ##################################################################### //
 // ######################## ELEMENTS SPECIFIQUES ####################### //

@@ -7,10 +7,9 @@ use App\Models\GroupModel;
 use App\Models\MemberModel;
 // use App\Config\Validation;
 
-class Member extends BaseController
-{
-	public function index()
-	{
+class Member extends BaseController {
+	
+	public function index() {
 		//
 	}
 
