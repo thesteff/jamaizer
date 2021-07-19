@@ -5,13 +5,24 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\GroupModel;
 use App\Models\MemberModel;
-// use App\Config\Validation;
+use CodeIgniter\HTTP\IncomingRequest;
 
 class Member extends BaseController {
 	
 	public function index() {
 		//
 	}
+	
+// ##################################################################### //
+// ######################## SECTION PAGE PROFIL ######################## //
+// ##################################################################### //
+	public function view() {
+		
+		echo view('templates/header');
+		echo view('member/view');
+		echo view('templates/footer');
+	}
+	
 
 // ##################################################################### //
 // ###################### SECTION PAGE INSCRIPTION ##################### //
@@ -278,134 +289,135 @@ class Member extends BaseController {
 // ##################################################################### //
 	public function login() {
 		
-		// on vérifie si des données sont déjà envoyées dans $_POST
-		if (count($_POST) > 0) {
+		//log_message("debug","********* Member->login");
 		
-			// il y a des données dans $_POST, on vérifie si les deux champs sont remplis.
-			if($this->validate([
-				'input'     => 'required',
-				'password'  => 'required',
-			]))
-			{
-				// les champs ont été remplis, on vérifie maintenant si l'input "input" correspond à un mail ou à un pseudo dans la BDD
-				$input = trim($_POST['input']);
+		$input = trim($_POST['input']); // email ou pseudo
+		$password = trim($_POST['password']);
 
+		$members_model = new MemberModel();
 
-				if($this->validate(['input'=>'is_unique[member.pseudo]']) && $this->validate(['input'=>'is_unique[member.pseudo]']))
-				{
-					// l'input ne correspond à rien ni parmi les pseudo, ni parmi les emails ! il y a donc une erreur. 
-					// retour au formulaire avec un message d'erreur
-					$error = "Le pseudo, l'email ou le mot de passe est invalide, veuillez à nouveau écrire vos identifiants.";
-					$data['error'] = $error;
-					echo view('templates/header');
-					echo view('member/login', $data);
-					echo view('templates/footer');
-					return;
-				} 
-				$this->validator->reset();
+		// On check les input pseudo et email avec la base de donnée
+		$pseudo_exist = $this->validate(['input' => 'is_not_unique[member.pseudo]']);
+		$this->validator->reset();
+		$email_exist = $this->validate(['input' => 'is_not_unique[member.email]']);
+
+		// On récupère le membre grace au pseudo
+		if ( $pseudo_exist ) $member = $members_model->where('pseudo', $input)->first();
+		// On récupère le membre grace au mail si le pseudo n'a rien donné
+		else if ( $email_exist ) $member = $members_model->where('email', $input)->first();
+		
+		$state = true;
+		// L'utilisateur existe bien dans la base
+		if ($pseudo_exist || $email_exist) {
+			
+			//log_message("debug","member : ".json_encode($member));
+
+			// On vérifie le password
+			$hash = $member['password'];
+			if ( password_verify($password, $hash) ) {
+						
+				// On liste les événements auxquel le membres participe pour les rendre accessibles directement à partir du menu sans faire de reload
+				//$arrayEvent = [];
+				//$arrayEvent = $members_model->get_jams($member->id);
+				//log_message("debug",json_encode($arrayEvent));
 				
-				if($this->validate(['input' => 'is_not_unique[member.pseudo]'])){
-					$pseudo = $input;
-					// l'input existe bien dans les pseudo !
-					$member = new MemberModel();
-					$member = $member->where('pseudo', $pseudo)->findAll();
-				}
-				$this->validator->reset();
+				// On récupère les notifications
+				//$arrayNotif = [];
+				//$arrayNotif = $members_model->get_notifications($member->id);
+				//log_message("debug","******* Members :: login :: arrayNotif : ".json_encode($arrayNotif));
 
-				// TODO l'email ne marche pas pour se connecter. POURQUOI???
-				if($this->validate(['input' => 'is_not_unique[member.email]'])){
-					$email = $input;
-					// l'input existe bien dans les email !
-					$member = new MemberModel();
-					$member = $member->where('email', $email)->findAll();
+				// On fixe les variables de sessions
+				$data = array(
+								'logged' => true,
+								'member' => $member
+							);
+				$this->session->set($data);
+				
+				// On actualise le date_access
+				$members_model->update($member['id'], [ 'date_access' => date('c') ] );
+				
+				// Pour le domaine on enlève http:// ou https://
+				$domain = substr(base_url(),strpos(base_url(),"//")+2);
+				// Pour le domaine on enlève le / en fin de string	
+				if (substr($domain,-1) == '/') $domain = substr($domain,0,-1);
+				
+				//log_message("debug","Members::login : ".$domain);
+				
+				// On s'occupe de créer le cookie pour le remember_me et on actualise le membre
+				$rdmStr = random_string('alnum',64);
+				$cookie = array(
+					'name'   => 'remember_me',
+					'value'  => $rdmStr,
+					'expire' => '15778800',            // 6 mois
+					'domain' => $domain,
+					'path'   => '/'
+					// nbUnreadMessage => fixé via menu.php et Ajax_Members::get_nb_unread_message
+					// lastCheckUnreadMessage => idem
+				);
+				set_cookie($cookie);
+				//log_message('debug', "  ******* Set_Cookie : ".json_encode($cookie)."   ******");
+				
+				$members_model->update($member['id'], [ 'cookie_str' => $rdmStr ]);
 
-				}
-				// normalement on ne récupère qu'un membre. Si ce n'est pas le cas, on renvoie un message d'erreur.
-
-				// on a bien récupéré notre membre, soit par son pseudo soit par son email
-
-				// on vérifie quand même qu'on a bien récupéré un membre, ni plus ni moins.
-				if(count($member) != 1){
-					$error = "Il y a eu une erreur. Veuillez réessayer. Si le problème persiste, prenez contact avec l'équipe technique. Merci de votre compréhension.";
-					$data['error'] = $error;
-					echo view('templates/header');
-					echo view('member/login', $data);
-					echo view('templates/footer');
-					return;
-				}
-
-				$member = $member[0];
-				// à ce stade-là notre membre est trouvé, on vérifie que son mot de passe est le bon.
-				$password = $_POST['password'];
-				// dd($member);
-				$hash = $member['password'];
-				if(!password_verify($password, $hash)){
-					// le mot de passe n'est pas valide, il ne correspond ni au pseudo ni au mail
-					// on affiche un message d'erreur. Pour raison de sécurité, on ne précise pas d'où vient l'erreur.
-					$error = "Le pseudo, l'email ou le mot de passe est invalide, veuillez à nouveau écrire vos identifiants.";
-					$data['error'] = $error;
-					echo view('templates/header');
-					echo view('member/login', $data);
-					echo view('templates/footer');
-					return;
-				} elseif(password_verify($password, $hash)){
-					// c'est gagné ! le mot de passe est le bon, connexion réussie ! il ne reste plus qu'à créer la session
-					
-					// ~~~~ ANCHOR CREATION DE LA SESSION ~~~~ //
-					// On fixe les variables de sessions
-					$data['logged'] = true;
-					$data['member'] = $member;
-
-					// on récupère les groupes du membre
-					$groups = new GroupModel();
-					$myGroups = $groups->getMyGroups($member['id']);
-					$data['myGroups'] = $myGroups;
-
-					// initialisation de la session (est-ce que c'est nécessaire?)
-					$session = session();
-
-					$session->set($data);
-					// dd($_SESSION);
-					return redirect('member/profil');
-
-				}
-
-			} else {
-				$error = "Veuillez remplir les deux champs avant de valider le formulaire.";
-				$data['error'] = $error;
-				echo view('templates/header');
-				echo view('member/login', $data);
-				echo view('templates/footer');
-				return;
+				$return_data = array(
+					'state' => 1,
+					'data' => ""
+				);
+				$output = json_encode($return_data);
+				echo $output;
 			}
-		} 
-		echo view('templates/header');
-		echo view('member/login');
-		echo view('templates/footer');
-		return;
+			
+			// Pass incorrect
+			else $state = false;
+		}
+		// pseudo ou email inexistant dans la bd
+		else $state = false;
+		
+		// Erreur
+		if ($state == false) {
+			$return_data = array(
+				'state' => 0,
+				'data' => "Identifiant/email inconnu ou mot de passe incorrect."
+			);
+			$output = json_encode($return_data);
+			echo $output;
+		}
 	}
+	
 
 // ##################################################################### //
 // ###################### SECTION PAGE DECONNEXION ##################### //
 // ##################################################################### //
 	public function logout(){
-		$session = session();
+		/*$session = session();
 
 		$session->destroy();
 
 		$data['logged'] = false;
 		$session->set($data);
 
-		return redirect('member/connexion');
+		return redirect('member/connexion');*/
+		
+		$members_model = new MemberModel();
+		
+		// On update le cookie du membre dans la base (sinon, reconnection automatique)
+		//$members_model->update_cookie($this->session->id, '');
+		$members_model->update($this->session->member['id'], [ 'cookie_str' => '' ]);
+		
+		$this->session->destroy();
+		
+		// Pour le domaine on enlève http:// ou https://
+		$domain = substr(base_url(),strpos(base_url(),"//")+2);
+		// Pour le domaine on enlève le / en fin de string	
+		if (substr($domain,-1) == '/') $domain = substr($domain,0,-1);
+		
+		delete_cookie("remember_me", $domain);
+		
+		// On reste sur la même page mais la session sera destroy
+		$uri = new \CodeIgniter\HTTP\URI(previous_url());
+		header('Location: '.base_url($uri->getPath()));
+		exit;
 	}
 
-// ##################################################################### //
-// ######################## SECTION PAGE PROFIL ######################## //
-// ##################################################################### //
-	public function view() {
-		
-		echo view('templates/header');
-		echo view('member/view');
-		echo view('templates/footer');
-	}
+
 }

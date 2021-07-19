@@ -33,10 +33,12 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+// MEMBRES
+$routes->add('ajax_member/(:any)', 'Ajax_member::$1');
 $routes->add('member/inscription', 'Member::create');
 $routes->add('member/update', 'Member::update');
-$routes->add('member/connexion', 'Member::login');
-$routes->add('member/deconnexion', 'Member::logout');
+$routes->add('member/login', 'Member::login');
+$routes->add('member/logout', 'Member::logout');
 $routes->add('member/profil', 'Member::view');
 
 // TODO à modifier : on doit accéder à une page différente par groupe, via un argument dans l'url
