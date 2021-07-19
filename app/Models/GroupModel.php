@@ -59,7 +59,7 @@ class GroupModel extends Model
 			$adminGroupMember = $groupMember->where('group_id', $group['id'])->findAll();
 			// normalement on ne récupère qu'une ligne, parce qu'il n'y a pas eu la possibilités d'ajouter d'autres admin au groupe
 			$adminGroupMember = $adminGroupMember[0];
-			log_message('debug', json_encode($adminGroupMember));
+			// log_message('debug', json_encode($adminGroupMember));
 			$adminMember = $member->find($adminGroupMember['member_id']);
 			$group['created_by'] = $adminMember['pseudo'];
 			$invalidGroups[] = $group;
@@ -125,30 +125,26 @@ class GroupModel extends Model
 
 	// méthode pour sélectionner un groupe grâce à son slug. Ajoute le lien ou l'absence de lien avec le membre connecté
 	// TODO quand il y aura les autres infos (events, posts, playlists...) on pourra les récupérer ici ?
-	public function getOneGroup($slug, $memberId){
+	public function getOneGroup($slug, $memberId = 0){
 		$groupModel = new GroupModel();
-		$group = $groupModel->where('slug', $slug)->findAll();
-		$group = $group[0];
+		$group = $groupModel->where('slug', $slug)->first();
 		
 		// on vérifie si qqn est connecté
-		if(isset($_SESSION['logged']) && $_SESSION['logged']) {
+		if(isset($_SESSION['logged']) && $_SESSION['logged'] && $memberId > 0) {
 			// un membre est connecté, on vérifie s'il est lié au groupe
 			$groupMemberModel = new GroupMemberModel();
-			// on trouve tous les groupes du membre
-			$groupMember = $groupMemberModel->where('member_id', $memberId)->findAll();
-			// pour chaque relation récupérée on vérifie si le groupe qu'on chercher en fait partie
-
-			foreach($groupMember as $relation){
-				if($relation['group_id'] == $group['id']) {
-					$group['is_member'] = true;
-					if($relation['is_admin']){
-						$group['is_admin'] = true;
-					} else {
-						$group['is_admin'] = false;
-					}
-				} else {
-					$group['is_member'] = false;
+			// on cherche si une relation existe entre le groupe et le membre
+			$relation = $groupMemberModel->where(['member_id' => $memberId, 'group_id' => $group['id']])->first();
+			
+			if (!empty($relation)){
+				$group['is_member'] = true;
+				if($relation['is_admin']){
+					$group['is_admin'] = true;
+				}	else {
+					$group['is_admin'] = false;
 				}
+			} else {
+				$group['is_member'] = false;
 			}
 		}
 		return $group;
