@@ -1,3 +1,11 @@
+<?php
+
+	use CodeIgniter\I18n\Time;
+
+	// On récupère les variables de sessions
+	$session = \Config\Services::session();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -18,9 +26,7 @@
 	
 	
 	<!-- JQuery 3.6.0 -->
-	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" 
-		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous">
-	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	
 
     <!-- Style maison -->
@@ -66,13 +72,18 @@
 		});
 		// Gestion de l'autofocus sur les modal box
 		$('#modal_login').on('shown.bs.modal', function () {
-			$('#input').focus();
+			$('#modal_login #input').focus();
+		});
+		// Init lorsqu'on ferme la modal de login
+		$('#modal_login').on('hidden.bs.modal', function () {
+			$("#modal_login #password").val("");
+			$("#modal_login #input").val("");
 		});
 		$('#modal_msg').on('shown.bs.modal', function () {
-			$('#modal_close').focus();
+			$('#modal_msg #modal_close').focus();
 		});
 		$('#modal_msg').on('hidden.bs.modal', function () {
-			$('#pass').focus();
+			$('#password').focus();
 		});
 		$('#modal_forgotten').on('shown.bs.modal', function () {
 			$('#email').focus();
@@ -110,40 +121,39 @@
 		document.body.style.cursor = 'wait';
 		
 		// Requète ajax au serveur
-		$.post("<?php echo site_url('members/login'); ?>",
+		$.post("<?php echo site_url('member/login'); ?>",
 		
 			// On récupère les données nécessaires
 			{
 				'input':$('#input').val(),
-				'pass':$('#pass').val()
+				'password':$('#password').val()
 			},
 			
 			// On traite la réponse du serveur			
 			function (return_data) {
 				
-				console.log(return_data);
-				
+				//console.log(return_data);
 				$obj = JSON.parse(return_data);
+				
 				// On change le curseur
 				document.body.style.cursor = 'default';
 
-				// Utilisateur loggé
+				// Utilisateur loggé => on recharge la page actuelle
 				if ($obj['state'] == 1) {
 					location.reload();
 				}
 				
-				//Utilisateur non loggé
+				//Utilisateur non loggé => Erreur
 				else {
-					// Erreur
-					$("#modal_msg .modal-dialog").removeClass("success");
-					$("#modal_msg .modal-dialog").addClass("error");
-					$("#modal_msg .modal-dialog").addClass("backdrop","static");
-					$("#modal_msg .modal-header").html("Erreur !");
+					// On ferme la modal de login et on vide ses input
+					$("#modal_login").modal('hide');
+					
+					// On affiche la modal d'erreur
+					$("#modal_msg .modal-header .modal-title").html("Erreur !");
 					$("#modal_msg .modal-body").html($obj['data']);
-					$("#modal_msg .modal-footer").html('<a id="modal_close" href="#" data-dismiss="modal">Fermer</a>');
+					$("#modal_msg .modal-footer").html('<a id="modal_close" href="#" data-bs-dismiss="modal">Fermer</a>');
 
-					// On cache la modal de login et on vide ses input
-					$("#pass").val("");
+					
 					$("#modal_msg").modal('show');
 				}
 			}
@@ -174,7 +184,7 @@
 		document.body.style.cursor = 'wait';
 		
 		// Requète ajax au serveur
-		$.post("<?php echo site_url('ajax_members/forgotten'); ?>",
+		$.post("<?php echo site_url('ajax_member/forgotten'); ?>",
 		
 			// On récupère les données nécessaires
 			{'email':$('#email').val()
@@ -183,30 +193,35 @@
 			// On traite la réponse du serveur			
 			function (return_data) {
 				
+				//console.log(return_data);
 				$obj = JSON.parse(return_data);
+				
 				// On change le curseur
 				document.body.style.cursor = 'default';
 
 				// Mot de passe envoyé par email
 				if ($obj['state'] == 1) {
 					// Success
-					$("#modal_msg .modal-dialog").removeClass("error");
+					// On affiche la modal d'erreur
+					$("#modal_msg .modal-header .modal-title").html("Email envoyé");
+					$("#modal_msg .modal-body").html($obj['data']);
+					$("#modal_msg .modal-footer").html('<a id="modal_close" href="#" data-bs-dismiss="modal">Fermer</a>');
+					
+					
+					/*$("#modal_msg .modal-dialog").removeClass("error");
 					$("#modal_msg .modal-dialog").addClass("success");
 					$("#modal_msg .modal-dialog").addClass("backdrop","static");
 					$("#modal_msg .modal-header").html("Email envoyé");
 					$("#modal_msg .modal-body").html($obj['data']);
-					$("#modal_msg .modal-footer").html('<a id="modal_close" href="#" data-dismiss="modal">Fermer</a>');
+					$("#modal_msg .modal-footer").html('<a id="modal_close" href="#" data-dismiss="modal">Fermer</a>');*/
 				}
 				
-				//Utilisateur non loggé
+				// Erreur lors de l'envoie de mail
 				else {
-					// Erreur
-					$("#modal_msg .modal-dialog").removeClass("success");
-					$("#modal_msg .modal-dialog").addClass("error");
-					$("#modal_msg .modal-dialog").addClass("backdrop","static");
-					$("#modal_msg .modal-header").html("Erreur !");
+					// On affiche la modal d'erreur
+					$("#modal_msg .modal-header .modal-title").html("Erreur !");
 					$("#modal_msg .modal-body").html($obj['data']);
-					$("#modal_msg .modal-footer").html('<a id="modal_close" href="#" data-dismiss="modal">Fermer</a>');
+					$("#modal_msg .modal-footer").html('<a id="modal_close" href="#" data-bs-dismiss="modal">Fermer</a>');
 				}
 				
 				// On cache la modal de forgotten et on vide ses input
@@ -223,13 +238,12 @@
 
 <body id="bootstrap-overrides">
 
-
-<?php if (isset($session) && $session->logged) : ?>
+<?php if (isset($session->logged) && $session->logged) : ?>
 <!-- // ##################################################################### // -->
 <!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
 <!-- // ##################################################################### // -->
     <div id="nav-logged-phone" class="container-fluid fixed-top d-lg-none d-flex justify-content-around align-items-center flex-row">
-        <a  class="d-flex align-items-center my-2" href="<?= site_url('member/profil') ?>">
+        <a  class="d-flex align-items-center my-2" href="<?php echo site_url('member/profil') ?>">
             <div>
                 <img src="<?php if(!empty($_SESSION['member']['picture'])){echo base_url('images/member/').'/'.$_SESSION['member']['picture'];}else{echo base_url('images/member/default-member-image.jpg');} ?>" alt="image de profil" class="rounded-circle j-img-profil-nav-phone m-1">
             </div>   
@@ -264,7 +278,7 @@
                         </li>
 						
 						<!-- Non connecté !-->
-                        <?php if (!isset($session) || !$session->logged ) : ?>
+                        <?php if ( !isset($session->logged) || !$session->logged ) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('member/inscription'); ?>">Inscription</a>
                             </li>
@@ -284,12 +298,12 @@
                                 <a class="nav-link" href="<?php echo site_url('member/profil'); ?>">Profil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('member/deconnexion'); ?>">Déconnexion</a>
+                                <a class="nav-link" href="<?php echo site_url('member/logout'); ?>">Déconnexion</a>
                             </li>
                         <?php endif; ?>
 						
 						<!-- Super Admin !-->
-                        <?php if(isset($session) && ($session->logged && $_SESSION['member']['is_super_admin']) ) : ?>
+                        <?php if( isset($session->logged) && ($session->logged && $session->member['is_super_admin']) ) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('admin'); ?>">ADMIN</a>
                             </li>
@@ -305,8 +319,7 @@
     <div id="j-container" class="container-fluid">
 	<div class="row flex-nowrap">
 
-
-<?php if(isset($_SESSION['logged']) && $_SESSION['logged']) : ?>
+<?php if (isset($session->logged) && $session->logged) : ?>
 <!-- // ####################################################################### // -->
 <!-- // ####################### NAV SIDEBAR ORDI LOGGED ####################### // -->
 <!-- // ####################################################################### // -->
@@ -321,17 +334,18 @@
 						<div class="col-3">
 							<img id="avatar" class="rounded-circle m-1" alt="image de profil" 
 								src="<?php 
-									if (!empty($_SESSION['member']['picture'])) echo base_url('images/member/').'/'.$_SESSION['member']['picture'];
+									if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
 									else echo base_url('images/member/default-member-image.jpg');
 								?>">
 						</div>
 						<div class="col-9">
-							<p class="m-1"><?= $_SESSION['member']['pseudo'] ?></p>
+							<p class="m-1"><?= $session->member['pseudo'] ?></p>
 						</div>
 					</a>
 				</div>
 				
 				<!-- LIST GROUP !-->
+				<?php if (isset($session->myGroups)) : ?>
 				<div class="accordion">
 					<div class="accordion-item">
 						<h5 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -342,7 +356,7 @@
 						<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
 							<div class="accordion-body">
 								<ul class="list-group list-group-flush">
-									<?php foreach ($_SESSION['myGroups'] as $group) : ?>
+									<?php foreach ($session->myGroups as $group) : ?>
 									<li class="list-group-item">
 										<a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
 											<img alt="image de profil" class="rounded-circle img-group m-1"
@@ -456,6 +470,7 @@
 					</div>!-->
 					
 				</div> <!-- On ferme l'accordéon !-->
+				<?php endif; ?>
 				
 				<!-- FOOTER !-->
 				<div id="footer" class="container text-center pt-3">

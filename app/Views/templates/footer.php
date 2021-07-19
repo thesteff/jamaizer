@@ -47,12 +47,12 @@
 					
 						<!-- Nom ou Email!-->
 						<div class="mb-3">
-							<input id="input" type="text" class="form-control" required="true" name="email" placeholder="Pseudo ou Email">
+							<input id="input" type="input" class="form-control" required="true" name="input" placeholder="Pseudo ou Email">
 						</div>
 						
 						<!-- Pass !-->
 						<div class="mb-3">
-							<input id="pass" type="password" class="form-control" required="true" name="pass" placeholder="Mot de passe">
+							<input id="password" type="password" class="form-control" required="true" name="password" placeholder="Mot de passe">
 						</div>
 						
 						<!-- Connexion !-->
@@ -109,11 +109,27 @@
 	<div id="show_mentions" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-dialog-centered default modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">Mentions légales</div>
+				<div class="modal-header">
+					<h5 class="modal-title">Mentions légales</h5>
+				</div>
 				<div class="modal-body">
 					<p>Les informations recueillies sont nécessaires pour votre adhésion.<br>
 						Elles font l’objet d’un traitement informatique et sont destinées au secrétariat de l’association. En application des articles 39 et suivants de la loi du 6 janvier 1978 modifiée, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez nous adresser un message à l'adresse suivante : <a href="mailto:contact@le-gro.com"><b>contact@le-gro.com</b></a>.</p>
 				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- Dialogue box de resultat !-->
+	<div id="modal_msg" class="modal fade" role="dialog" data-keyboard="true" data-backdrop="static">
+		<div class="modal-dialog modal-dialog-centered default">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer"></div>
 			</div>
 		</div>
 	</div>
