@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class MemberModel extends Model
+class DateRegistrationModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'member';
+	protected $table                = 'date_registration';
 	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
@@ -15,18 +15,9 @@ class MemberModel extends Model
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
 	protected $allowedFields        = [
-		'pseudo',
-		'is_super_admin',
-		'email',
-		'password',
-		'name',
-		'first_name',
-		'birth',
-		'gender',
-		'phone',
-		'picture',
-		'date_access',
-		'cookie_str'
+		'date_id',
+		'event_registration_id',
+		'is_admin',
 	];
 
 	// Dates
@@ -37,16 +28,7 @@ class MemberModel extends Model
 	protected $deletedField         = 'deleted_at';
 
 	// Validation
-	protected $validationRules      = [
-		// 'pseudo'     => 'required|is_unique[member.pseudo]|max_length[50]',
-        // 'email'        => 'required|valid_email|max_length[100]',
-        // 'password'     => 'required|max_length[100]',
-        // 'pass_confirm' => 'required|matches[password]',
-		// 'name' => 'max_length[50]',
-		// 'first_name' => 'max_length[50]',
-		// 'gender' => 'in_list[0,1,2,3]',
-		// 'phone' => 'max_length[20]',
-	];
+	protected $validationRules      = [];
 	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
@@ -61,10 +43,6 @@ class MemberModel extends Model
 	protected $afterFind            = [];
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
-
-	public function getOneMember($memberId){
-		$memberModel = new MemberModel();
-		$member = $memberModel->find($memberId);
-		return $member;
-	}
+	
+		
 }
