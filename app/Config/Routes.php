@@ -41,7 +41,8 @@ $routes->add('member/profil', 'Member::view');
 
 
 $routes->add('group/(:segment)/event/create', 'Event::create/$1');
-$routes->add('group/(:segment)/event/(:segment)/update', 'Event::update/$1/$2');
+$routes->add('group/(:segment)/event/(:segment)/(:segment)', 'Event::viewOneEvent/$1/$2');
+$routes->add('group/(:segment)/event/(:segment)/(:segment)/update', 'Event::update/$1/$2');
 $routes->add('group/(:segment)/event', 'Event::viewGroupsEvents/$1');
 
 $routes->add('group/create', 'Group::create');

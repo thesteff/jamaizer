@@ -48,6 +48,11 @@ class RequestModel extends Model
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
 	
+
+
+// ##################################################################### //
+// ##################### Demandes liées aux groupes #################### //
+// ##################################################################### //
 	public function getOneGroupRequest($groupId, $memberId){
         $requestModel = new RequestModel();
         $request = $requestModel->where(['group_id' => $groupId, 'member_id' => $memberId])->first();
@@ -90,4 +95,52 @@ class RequestModel extends Model
             $newRequest->insert($data);
         }
     }
+
+// ##################################################################### //
+// #################### Demandes liées aux événements ################## //
+// ##################################################################### //
+	public function getOneEventRequest($eventId, $memberId){
+		$requestModel = new RequestModel();
+		$request = $requestModel->where(['event_id' => $eventId, 'member_id' => $memberId])->first();
+		return $request;
+	}
+
+	public function getEventRequests($eventId){
+		$requestModel = new RequestModel();
+		$requestsOk = [];
+		// on récupère toutes les requêtes du evente
+		// TODO pour l'instant on n'a qu'un critère puisqu'on n'a qu'une sorte de requête : d'un membre à un event. donc il faudra rajouter plein de paramètres !
+		$requests = $requestModel->where(['event_id' => $eventId])->findAll();
+		// on récupère maintenant le membre qui correspond à chaque requête
+		$memberModel = new MemberModel();
+		foreach ($requests as $request) {
+			$member = $memberModel->getOneMember($request['member_id']);
+			// $request['member_pseudo'] = $member['pseudo'];
+			// $request['member_picture'] = $member['picture'];
+			$request['member'] = $member;
+			$requestsOk[] = $request;
+		}
+
+		return $requestsOk;
+	}
+
+	public function setEventRequest($eventId, $message, $memberId){
+		$newRequest = new RequestModel();
+		
+		$requestExists = $newRequest->getOneEventRequest($eventId, $memberId);
+		if(empty($requestExists)){
+			$data = array(
+				'message' => $message,
+				'member_id' => $memberId,
+				'sent_by_member' => true,
+				'group_id' => null,
+				'event_id' => $eventId,
+				'date_id' => null,
+				'admin_id' => null
+			);
+			$newRequest->insert($data);
+		}
+	}
+
+
 }

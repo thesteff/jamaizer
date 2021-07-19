@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\EventModel;
 use App\Models\EventRegistrationModel;
 use App\Models\GroupModel;
+use App\Models\RequestModel;
 
 class Event extends BaseController
 {
@@ -55,6 +56,7 @@ class Event extends BaseController
 
                 // on inscrit ensuite le membre connecté à l'event', en le mettant en admin
                 // pour ça il faut d'abord récupérer l'event
+                // TODO il faut peut-être améliorer la méthode. Car là il y a une possibilité d'être enregistré sur le mauvais event si un membre crée au même moment (ou plutôt une petite fraction de seconde plus tard) un event avec le même nom et la même description exactement.
                 $event = $eventModel->where(['name' => $name, 'description' => $description])->orderBy('id', 'DESC')->first();
                 $data = array(
                     'event_id' => $event['id'],
@@ -131,6 +133,56 @@ class Event extends BaseController
         
         echo view('templates/header');
         echo view('event/view', $data);
+        echo view('templates/footer');
+    }
+
+    public function viewOneEvent($slug, $eventId){
+        if(isset($_SESSION['logged']) && $_SESSION['logged']){
+            $memberId = $_SESSION['member']['id'];
+        } else {
+            $memberId = 0;
+        }
+        $groupModel = new GroupModel();
+        $group = $groupModel->getOneGroup($slug, $memberId);
+        
+        $eventModel = new EventModel();
+        $event = $eventModel->getOneEvent($eventId, $memberId);
+        
+        // ====================================================== //
+		// = //  envoie de requête pour rejoindre un groupe  // = //
+		// ====================================================== //
+		/**
+         * On vérifie : 
+         * - que le membre est connecté
+         * - que le membre ne fait pas partie de l'événement
+         * - que le membre n'est pas admin de l'événement
+         * - que des données sont envoyées via $_POST
+		 */
+        if(isset($_SESSION['logged']) && $_SESSION['logged'] && !$event['is_member'] && !$event['is_admin'] && count($_POST) > 0) {
+            if($this->validate(['message' => 'required'])){
+				$eventId = $event['id'];
+				$message = trim($_POST['message']);
+				$memberId = $_SESSION['member']['id'];
+			} else {
+				$errors[] = 'Pour envoyer une demande, veuillez écrire un message';
+				$data['errors'] = $errors;
+				echo view('templates/header');
+				echo view('event/viewOne', $data);
+				echo view('templates/footer');
+				return;
+			}
+			
+            $requestModel = new RequestModel();
+			$requestModel->setEventRequest($eventId, $message, $memberId);
+			$success['eventRequest'] = 'Votre demande pour rejoindre l\'événement a bien été envoyée !';
+			$data['success'] = $success;
+		} 
+
+        $data['group'] = $group;
+        $data['event'] = $event;
+        
+        echo view('templates/header');
+        echo view('event/viewOne', $data);
         echo view('templates/footer');
     }
 

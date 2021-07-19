@@ -18,10 +18,13 @@
             </div>
             <div class="card-footer">
                 <?php if(isset($group['is_admin']) && $group['is_admin']) : ?>
-                    <a href="<?= site_url('group/'.$group['slug'].'/event/'.$event['id'].'/update') ?>" type="button" class="btn btn-outline-dark mt-3 ms-2">
+                    <a href="<?= site_url('group/'.$group['slug'].'/event/'.$event['id'].'/'.$event['name'].'/update') ?>" type="button" class="btn btn-outline-dark mt-3 ms-2">
                         Modifier l'événement
                     </a>
                 <?php endif ?>
+                <a href="<?= site_url('group/'.$group['slug'].'/event/'.$event['id'].'/'.$event['name']) ?>" type="button" class="btn btn-outline-dark mt-3 ms-2">
+                    Voir l'événement
+                </a>
             </div>
         </div>
     </div>

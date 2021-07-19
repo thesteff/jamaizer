@@ -58,12 +58,35 @@ class EventModel extends Model
         return $events;
     }
 
-    public function getOneEvent($eventId){
+    /**
+     * Fonction pour trouver un événement. Il faut au moins l'ID de l'event pour le trouver.
+     * Si on ajoute en argument l'id du membre (membre connecté), la méthode ajoute des infos à l'event : est-ce que le membre est inscrit à cet event ? Est-ce que le membre est admin ?
+     */
+    public function getOneEvent($eventId, $memberId = 0){
         $eventModel = new EventModel();
         $event = $eventModel->where('id', $eventId)->first();
+
         // TODO ajouter l'admin de l'event
 
-        return $event;
+        if($memberId != 0){
+            $eventRegistrationModel = new EventRegistrationModel();
+            $eventRegistration = $eventRegistrationModel->where(['event_id' => $eventId, 'member_id' => $memberId])->first();
+            if(!empty($eventRegistration)){
+                $event['is_member'] = true;
+                if($eventRegistration['is_admin']){
+                    $event['is_admin'] = true;
+                } else {
+                    $event['is_admin'] = false;
+                }
+            } else {
+                $event['is_member'] = false;
+                $event['is_admin'] = false;
+            }
+        }
+        
+        $eventOk = $event;
+
+        return $eventOk;
     }
 	
 }
