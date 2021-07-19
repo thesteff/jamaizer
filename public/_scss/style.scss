@@ -9,13 +9,6 @@
 // $D: #D97925;
 // $E: #A63005;
 
-// Thème lumineux :
-$A: #BBBF3B;
-$B: #F2DA5E;
-$C: #BF9106;
-$D: #D97925;
-$E: #A63005;
-
 // // Thème doux : 
 // $A: #CFD989;
 // $B: #F2DA5E;
@@ -36,6 +29,83 @@ $E: #A63005;
 // $C: #26220E;
 // $D: #F2DD72;
 // $E: #8C2804;
+
+// Thème lumineux :
+$A: #BBBF3B;
+$B: #F2DA5E;
+$C: #BF9106;
+$D: #D97925;
+$E: #A63005;
+
+
+//$primary: #FFB300;
+$primary: #000;
+$secondary: #EA5800;
+$neutral: #ccc;
+$light: #fff;
+$dark: #4d2d1e;
+
+$soften: 5;
+$softer: 13;
+$softest: 25;
+
+
+$colors: (
+	primary: (
+		base: $primary,
+		light: lighten($primary, $softer),
+		dark: darken($primary, $softer),
+		lighter: lighten($primary, $soften),
+		darker: darken($primary, $soften),
+		lightest: lighten($primary, $softest),
+		darkest: darken($primary, $softest),
+	),
+	secondary: (
+		base: $secondary,
+		light: lighten($secondary, $softer),
+		dark: darken($secondary, $softer),
+		lighter: lighten($secondary, $soften),
+		darker: darken($secondary, $soften),
+		lightest: lighten($secondary, $softest),
+		darkest: darken($secondary, $softest),
+	),
+	neutral: (
+		base: $neutral,
+		light: lighten($neutral, $softer),
+		dark: darken($neutral, $softer),
+		lighter: lighten($neutral, $soften),
+		darker: darken($neutral, $soften),
+		lightest: lighten($neutral, $softest),
+		darkest: darken($neutral, $softest),
+	),
+	light: (
+		base: $light,
+		light: lighten($light, $softer),
+		dark: darken($light, $softer),
+		lighter: lighten($light, $soften),
+		darker: darken($light, $soften),
+		lightest: lighten($light, $softest),
+		darkest: darken($light, $softest),
+	),
+	dark: (
+		base: $dark,
+		light: lighten($dark, $softer),
+		dark: darken($dark, $softer),
+		lighten: lighten($dark, $soften),
+		darker: darken($dark, $soften),
+		lightest: lighten($dark, $softest),
+		darkest: darken($dark, $softest),
+	),
+);
+
+
+@function clr($base, $shade: base) {
+	$color: map-get(map-get($colors, $base), $shade);
+	@return $color;
+}
+
+
+
 
 
 // // **** Variables pour customiser la navbar-dark de bootstrap **** //
@@ -59,31 +129,33 @@ $E: #A63005;
 }
 
 
-body {
+#bootstrap-overrides {
 
     
-
     // ~~~~~~~~ Body Background image ~~~~~~~~ //
-    // background-color: $B;
-	// background-image:url("../background-patterns/bedge_grunge/bedge_grunge.png");
-	// background-image:url("../background-patterns/cheap_diagonal_fabric/cheap_diagonal_fabric.png");
-	// background-image:url("../background-patterns/ep_naturalblack/ep_naturalblack.png");
-	// background-image:url("../background-patterns/sandpaper/sandpaper.png");
-	background-image:url("../background-patterns/tex2res4/tex2res4.png");
+    background-color: clr(dark, darkest);
 	// background-position:center;
 	// background-repeat:repeat;
 	// background-size: 100% auto;
 
-    // ~~~~~~~~~~~~~~ Body Fonts ~~~~~~~~~~~~~ //
-    p, a, li, label, button {
+    // ~~~~~~~~~~~~~~ Body Fonts & Color ~~~~~~~~~~~~~ //
+	color: clr(neutral);	
+	
+    a, li, label, button {
+        font-family : rimouski;
+		letter-spacing: 0.5px;
+    }
+	
+	p {
         font-family : rimouski;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        color: $E;
+        color: clr(primary);
         font-family: BorisBlackBloxx;
-        text-align: center;
+        // text-align: center;
     }
+	
 
     img {
         object-fit: cover;
@@ -117,9 +189,12 @@ body {
 // ================== Header principal ================== //
 // ====================================================== //
     header {
-        .navbar, .navbar-dark {    
-            min-height: 100px;
-            background-color: $E;
+        .navbar, .navbar-dark {
+            background-color: clr(dark, dark);
+			
+			border-bottom-style: solid;
+			border-color: clr(dark, light);
+			border-bottom-width: 1px;
             
             // https://getbootstrap.com/docs/5.0/components/navbar/
             .nav-link, .navbar-nav {
@@ -131,22 +206,26 @@ body {
 // ====================================================== //
 // ======================= footer ======================= //
 // ====================================================== //
-footer {
-    background-color: $E;
-    min-height: 50px;
-    
-    color: white;
-    text-align: center;
-    font-size: small;
+	footer {
+		background-color: clr(dark, dark);
+		
+		border-top-style: solid;
+		border-color: clr(dark, lightest);
+		border-top-width: 1px;
+		
+		color: white;
+		text-align: center;
+		font-size: small;
 
-    a {
-        color: white;
-        text-decoration: none;
-    }
-    a:hover {
-        color: $B;
-    }
-}
+		a {
+			color: white;
+			text-decoration: none;
+			padding: 0px 5px;
+		}
+		a:hover {
+			color: $B;
+		}
+	}
 
 // ====================================================== //
 // =============== grosse div aside + main ============== //
@@ -240,8 +319,8 @@ footer {
         main {
             max-width: 700px;
             // padding: 16px;
-            background-color: $B;
-    
+            background-color: clr(dark, dark);
+
 // ##################################################################### //
 // ######################## ELEMENTS SPECIFIQUES ####################### //
 // ##################################################################### //
@@ -249,12 +328,23 @@ footer {
 
             // ~~~~~~~~~~~ Bootstrap cards ~~~~~~~~~~~ //
             .card {
-                
+			
+                color: clr(secondary);
+				background-color: clr(dark);
+				
+				border-style: solid;
+				border-color: clr(dark, lightest);
+				border-top-width: 1px;
+						
+				.card-title {
+					
+				}
+				
                 .j-card-header {
-                    background-color: $C;
+                    background-color: clr(primary, dark);
                 }
                 .j-card-footer {
-                    background-color: $C;
+                    background-color: clr(primary);
                     color: $B;
                 }
     
@@ -289,7 +379,8 @@ footer {
             }
 
             // ~~~~~~~ Page d'index des groupes ~~~~~~ //
-            .link_groupIndex {
+			
+            /*.link_groupIndex {
                 text-decoration: none;
                 color: black;
                 .myGroupIndex {
@@ -301,7 +392,7 @@ footer {
                 .notMyGroupIndex {
                     border: 4px solid $E;
                 }
-            }
+            }*/
 
 
 //  SECTION A PARTIR D'ICI, ON SORT DU MAIN  //

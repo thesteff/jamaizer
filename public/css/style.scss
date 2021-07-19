@@ -1,0 +1,482 @@
+// $sand-color: sandybrown;
+// $green-color: chartreuse;
+
+//**** Thèmes Adobe d'après l'image de fond ****//
+// // Thème coloré :
+// $A: #CFD989;
+// $B: #F2DC6B;
+// $C: #BF9106;
+// $D: #D97925;
+// $E: #A63005;
+
+// // Thème doux : 
+// $A: #CFD989;
+// $B: #F2DA5E;
+// $C: #D99543;
+// $D: #D97925;
+// $E: #A63005;
+
+// // Thème profond : 
+// $A: #CFD989;
+// $B: #8C770F;
+// $C: #F2DD72;
+// $D: #BF5E0A;
+// $E: #A63005;
+
+// // Thème sombre : 
+// $A: #515916;
+// $B: #8C8418;
+// $C: #26220E;
+// $D: #F2DD72;
+// $E: #8C2804;
+
+// Thème lumineux :
+$A: #BBBF3B;
+$B: #F2DA5E;
+$C: #BF9106;
+$D: #D97925;
+$E: #A63005;
+
+$primary: #FFB300;
+$secondary: #EA5800;
+$neutral: #ccc;
+$light: #fff;
+$dark: #4d2d1e;
+
+$soften: 5;
+$softer: 10;
+$softest: 18;
+
+
+$colors: (
+	primary: (
+		base: $primary,
+		light: lighten($primary, $soften),
+		dark: darken($primary, $soften),
+		lighter: lighten($primary, $softer),
+		darker: darken($primary, $softer),
+		lightest: lighten($primary, $softest),
+		darkest: darken($primary, $softest),
+	),
+	secondary: (
+		base: $secondary,
+		light: lighten($secondary, $soften),
+		dark: darken($secondary, $soften),
+		lighter: lighten($secondary, $softer),
+		darker: darken($secondary, $softer),
+		lightest: lighten($secondary, $softest),
+		darkest: darken($secondary, $softest),
+	),
+	neutral: (
+		base: $neutral,
+		light: lighten($neutral, $soften),
+		dark: darken($neutral, $soften),
+		lighter: lighten($neutral, $softer),
+		darker: darken($neutral, $softer),
+		lightest: lighten($neutral, $softest),
+		darkest: darken($neutral, $softest),
+	),
+	light: (
+		base: $light,
+		light: lighten($light, $soften),
+		dark: darken($light, $soften),
+		lighter: lighten($light, $softer),
+		darker: darken($light, $softer),
+		lightest: lighten($light, $softest),
+		darkest: darken($light, $softest),
+	),
+	dark: (
+		base: $dark,
+		light: lighten($dark, $soften),
+		dark: darken($dark, $soften),
+		lighter: lighten($dark, $softer),
+		darker: darken($dark, $softer),
+		lightest: lighten($dark, $softest),
+		darkest: darken($dark, $softest),
+	),
+);
+
+
+@function clr($base, $shade: base) {
+	$color: map-get(map-get($colors, $base), $shade);
+	@return $color;
+}
+
+
+
+
+
+// // **** Variables pour customiser la navbar-dark de bootstrap **** //
+// $navbar-dark-color:                 $D;
+// $navbar-dark-hover-color:           $B;
+// $navbar-dark-active-color:          $B;
+// $navbar-dark-disabled-color:        rgba($B, .25);
+// $navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+// $navbar-dark-toggler-border-color:  rgba($B, .1);
+
+// ********* POLICES *************// 
+@font-face {
+	font-family: BorisBlackBloxx;
+	src: url('fonts/BorisBlackBloxx.woff');
+}
+
+@font-face{
+    font-family : rimouski;
+    src : url('fonts/rimouski.woff');
+    src : url('fonts/rimouski.woff') format('woff');
+}
+
+
+#bootstrap-overrides {
+
+    
+    // ~~~~~~~~ Body Background image ~~~~~~~~ //
+    background-color: clr(dark, darkest);
+	// background-position:center;
+	// background-repeat:repeat;
+	// background-size: 100% auto;
+
+    // ~~~~~~~~~~~~~~ Body Fonts & Color ~~~~~~~~~~~~~ //
+	color: clr(neutral);	
+	
+	a {
+		color: clr(secondary, light);
+		text-decoration: none;
+		
+		&:hover {
+			color: clr(secondary, lighter);
+			text-decoration: underline;
+		}
+	}
+
+	
+    li, label, button, .j-label {
+        font-family : rimouski;
+		letter-spacing: 0.6px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: clr(primary);
+        font-family: BorisBlackBloxx;
+    }
+	
+    img {
+        object-fit: cover;
+    }
+	
+	// ~~~~~~~~~~~~~~ Buttons ~~~~~~~~~~~~~ //
+	.btn-primary {
+		color: clr(light, dark);
+		background-color: clr(primary);
+		border-color: clr(primary, lighter);
+		
+		&:hover {
+			color: clr(light);
+			background-color: clr(primary, light);
+			border-color: clr(primary, lightest);
+		}
+	}
+	
+	
+	
+	// ~~~~~~~~~~~~~~ Modal ~~~~~~~~~~~~~ //
+	.modal {
+	
+		.default {
+			.modal-content {
+			
+				background-color: clr(dark, dark);
+				border-style: solid;
+				border-color: clr(dark, lightest);
+				border-width: 1px;
+				
+				.modal-header {
+					font-family : rimouski;
+					background-color: clr(dark, darker);
+					border-bottom-style: solid;
+					border-color: clr(secondary, darkest);
+					border-bottom-width: 3px;
+				}
+				
+				.modal-footer {
+					background-color: clr(dark, darker);
+					border-color: clr(secondary, darkest);
+					justify-content: center;
+				}
+			}
+		}	
+	}
+	
+	// ~~~~~~~~~~~~~~ Input ~~~~~~~~~~~~~ //
+	.form-control:focus {
+		border-color: clr(dark, darker);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+	}
+	
+
+// ##################################################################### //
+// ######################### SECTION TEMPLATES ######################### //
+// ##################################################################### //
+
+// ====================================================== //
+// ============= Nav connecté sur téléphone ============= //
+// ====================================================== //
+    #nav-logged-phone {
+        background-color: $D;
+        min-height: 35px;
+        a {
+            color: black;
+        }
+        .j-img-profil-nav-phone {
+            width: 40px;
+            height: 40px;
+            border: 4px $E solid;
+        }
+        i {
+            font-size: 25px;
+            color: $E
+        }
+    }
+
+// ====================================================== //
+// ================== Header principal ================== //
+// ====================================================== //
+    header {
+        .navbar, .navbar-dark {
+            background-color: clr(dark, darker);
+			
+			border-bottom-style: solid;
+			border-color: clr(dark, lighter);
+			border-bottom-width: 1px;
+			
+            .nav-link, .navbar-nav, .navbar-brand {
+				color: clr(primary, dark);
+				
+				&:hover {
+					color: clr(primary, lightest);
+					text-decoration: none;
+				}
+				
+            }
+        }
+    }
+
+// ====================================================== //
+// ======================= footer ======================= //
+// ====================================================== //
+	footer {
+		background-color: clr(dark, dark);
+		
+		border-top-style: solid;
+		border-color: clr(dark, lightest);
+		border-top-width: 1px;
+		
+		color: white;
+		text-align: center;
+		font-size: small;
+
+		a {
+			color: white;
+			text-decoration: none;
+			padding: 0px 5px;
+		}
+		a:hover {
+			color: $B;
+		}
+	}
+
+// ====================================================== //
+// ==================== Sidebar + main ================== //
+// ====================================================== //
+    // #j-container = la div qui englobe le main et l'aside
+    #j-container {
+	
+        //max-width: 1000px;
+        //margin: auto;
+        
+        // display: flex;
+        // justify-content: space-around;
+        // align-items: stretch;
+        
+// ====================================================== //
+// =========== aside (connecté.e, format ordi) ========== //
+// ====================================================== //
+
+        #j-sidebar-container {
+		
+            background-color: clr(dark, darker);
+			overflow: scroll;
+			overflow-x: hidden;
+			scrollbar-width: none;
+			
+			border-right-style: solid;
+			border-color: clr(dark, lighter);
+			border-right-width: 1px;
+			
+			#j-sidebar {
+			
+				img#avatar {
+					width: 38px;
+					height: 38px;
+					// border-radius: 25px;
+				}
+
+				.accordion {
+					border: none;
+					border-radius: 0;
+					background-color: $D;
+
+					.accordion-item {
+						background-color: $A;
+						// .j-accordion-header {
+							//     font-size: small;
+							// }
+						a {
+							color: black;
+							font-size: small;
+							// text-align: center;
+						}
+
+						.accordion-body {
+							padding: 0;
+						}
+						.accordion-button {
+							color: $E;
+							background-color: $B;
+							font-size: small;
+						}
+
+						.list-group-item {
+							background-color: $A;
+							font-size: small;
+							display: flex;
+							flex-wrap: wrap;
+							justify-content: flex-start;
+							// align-items: center;
+							flex-direction: column;
+
+							.a-event {
+								display: flex;
+								justify-content: space-between;
+								align-items: center;
+								p {
+									margin: 0;
+									text-align: center;
+								}
+
+							}
+
+							.img-group {
+								width: 30px;
+								height: 30px;
+							}
+
+							i {
+								font-size: 18px;
+							}
+							
+						}
+
+					}
+				}
+				
+				#footer {
+					line-height: 1.2rem;
+				}
+			}
+        }
+
+// ====================================================== //
+// ======================== main ======================== //
+// ====================================================== //
+		/*@media (max-width: 978px) {
+			main.container {
+				padding: 0px;
+				margin: 0px;
+			}
+		}*/
+
+        main {
+            //max-width: 700px;
+            background-color: clr(dark, darker);
+			
+			
+
+// ##################################################################### //
+// ######################## ELEMENTS SPECIFIQUES ####################### //
+// ##################################################################### //
+//  SECTION A PARTIR D'ICI, TOUT EST DANS MAIN  //
+
+            // ~~~~~~~~~~~ Bootstrap cards ~~~~~~~~~~~ //
+            .card {
+			
+                color: clr(secondary);
+				background-color: clr(dark);
+				
+				border-style: solid;
+				border-color: clr(dark, lightest);
+				border-top-width: 1px;
+						
+				.card-title {
+					
+				}
+				
+                .j-card-header {
+                    background-color: clr(primary, dark);
+                }
+                .j-card-footer {
+                    background-color: clr(primary);
+                    color: $B;
+                }
+    
+                img {
+                    max-width: 100%;
+                }
+            }
+
+            #j-img-page-profil {
+                width: 100px;
+                height: 100px;
+            }
+
+            // ~~~~~~~~~~ HEADER page groupe ~~~~~~~~~ //
+            #j-group-header {
+                nav {
+                    background-color: $A;
+                    border-bottom: 2px solid $C;
+                    div{
+                        // border-left: 1px $E solid;
+                        // border-right: 1px $E solid;
+                        a {
+                            color: $E;
+                            text-decoration: none;
+                        }
+                        a:hover {
+                            color: $B;
+                            background-color: $E;
+                        }
+                    }
+                }
+            }
+
+            // ~~~~~~~ Page d'index des groupes ~~~~~~ //
+			
+            /*.link_groupIndex {
+                text-decoration: none;
+                color: black;
+                .myGroupIndex {
+                    border: 4px solid $D;
+                    h5 {
+                        color: $D;
+                    }
+                }
+                .notMyGroupIndex {
+                    border: 4px solid $E;
+                }
+            }*/
+
+
+//  SECTION A PARTIR D'ICI, ON SORT DU MAIN  //
+        }
+    }
+}

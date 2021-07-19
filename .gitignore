@@ -124,4 +124,19 @@ nb-configuration.xml
 /results/
 /phpunit*.xml
 /.phpunit.*.cache
+<<<<<<< HEAD
 
+=======
+
+
+
+# Archived files
+/_archives
+
+#-------------------------
+# Ressources Files
+#-------------------------
+
+public/ressources/*
+public/images/avatar/*
+>>>>>>> steff
