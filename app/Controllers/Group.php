@@ -217,7 +217,7 @@ class Group extends BaseController
 		
 		$groupModel = new GroupModel();
 		$group = $groupModel->getOneGroup($slug, $memberId);
-		// dd($group);
+		
 		$requestModel = new RequestModel();
 		$requests = $requestModel->getGroupRequests($group['id']);
 		
@@ -238,7 +238,7 @@ class Group extends BaseController
 		 * - $_GET[1] = l'id du membre
 		 */
 		// dd($_GET);
-		// TODO ajouter ici une vérification pour être sûre que la personne sonnectée est admin du groupe
+		// TODO ajouter ici une vérification pour être sûre que la personne connectée est admin du groupe
 		if(isset($_SESSION['logged']) && $_SESSION['logged']){
 			$groupId = $_GET[0];
 			$memberId = $_GET[1];
@@ -248,10 +248,15 @@ class Group extends BaseController
 				'is_admin' => false,
 			);
 			
-			// dd($data);
-
+			// on crée la relation membre groupe => le membre fait maintenant partie du groupe
 			$groupMemberModel = new GroupMemberModel();
             $groupMemberModel->insert($data);
+
+			// on supprime la requête qui n'est plus utile
+			$requestModel = new RequestModel();
+			$request = $requestModel->where(['group_id' => $groupId, 'member_id' => $memberId])->first();
+			// dd($request);
+			$requestModel->delete($request);
             
 			return  redirect('group');
         } else {

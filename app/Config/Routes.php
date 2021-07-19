@@ -39,7 +39,11 @@ $routes->add('member/connexion', 'Member::login');
 $routes->add('member/deconnexion', 'Member::logout');
 $routes->add('member/profil', 'Member::view');
 
-// TODO à modifier : on doit accéder à une page différente par groupe, via un argument dans l'url
+
+$routes->add('group/(:segment)/event/create', 'Event::create/$1');
+$routes->add('group/(:segment)/event/(:segment)/update', 'Event::update/$1/$2');
+$routes->add('group/(:segment)/event', 'Event::viewGroupsEvents/$1');
+
 $routes->add('group/create', 'Group::create');
 $routes->add('group/view/(:segment)', 'Group::view/$1');
 $routes->add('group/update/(:segment)', 'Group::update/$1');

@@ -56,6 +56,7 @@ class RequestModel extends Model
 
     public function getGroupRequests($groupId){
         $requestModel = new RequestModel();
+		$requestsOk = [];
         // on récupère toutes les requêtes du groupe
         // TODO pour l'instant on n'a qu'un critère puisqu'on n'a qu'une sorte de requête : d'un membre à un groupe. donc il faudra rajouter plein de paramètres !
         $requests = $requestModel->where(['group_id' => $groupId])->findAll();

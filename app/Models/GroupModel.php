@@ -125,12 +125,12 @@ class GroupModel extends Model
 
 	// méthode pour sélectionner un groupe grâce à son slug. Ajoute le lien ou l'absence de lien avec le membre connecté
 	// TODO quand il y aura les autres infos (events, posts, playlists...) on pourra les récupérer ici ?
-	public function getOneGroup($slug, $memberId){
+	public function getOneGroup($slug, $memberId = 0){
 		$groupModel = new GroupModel();
 		$group = $groupModel->where('slug', $slug)->first();
 		
 		// on vérifie si qqn est connecté
-		if(isset($_SESSION['logged']) && $_SESSION['logged']) {
+		if(isset($_SESSION['logged']) && $_SESSION['logged'] && $memberId > 0) {
 			// un membre est connecté, on vérifie s'il est lié au groupe
 			$groupMemberModel = new GroupMemberModel();
 			// on cherche si une relation existe entre le groupe et le membre
