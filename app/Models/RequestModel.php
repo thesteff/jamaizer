@@ -59,15 +59,17 @@ class RequestModel extends Model
         // on récupère toutes les requêtes du groupe
         // TODO pour l'instant on n'a qu'un critère puisqu'on n'a qu'une sorte de requête : d'un membre à un groupe. donc il faudra rajouter plein de paramètres !
         $requests = $requestModel->where(['group_id' => $groupId])->findAll();
-        
         // on récupère maintenant le membre qui correspond à chaque requête
         $memberModel = new MemberModel();
         foreach ($requests as $request) {
-            $member = $memberModel->getOneMember($request['member_id']);
-            $request['member'] = $member;
+			$member = $memberModel->getOneMember($request['member_id']);
+			// $request['member_pseudo'] = $member['pseudo'];
+			// $request['member_picture'] = $member['picture'];
+			$request['member'] = $member;
+			$requestsOk[] = $request;
         }
 
-        return $requests;
+        return $requestsOk;
     }
     
     public function setGroupRequest($groupId, $message, $memberId){

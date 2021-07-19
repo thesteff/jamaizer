@@ -112,8 +112,6 @@ class Group extends BaseController
 				$data = array(
 					'group_id' => $groupId,
 					'member_id' => $_SESSION['member']['id'],
-					'is_group_ok' => true,
-					'is_member_ok' => true,
 					'is_admin' => true
 				);
 				$groupMember->insert($data);
@@ -219,10 +217,11 @@ class Group extends BaseController
 		
 		$groupModel = new GroupModel();
 		$group = $groupModel->getOneGroup($slug, $memberId);
-		$data['group'] = $group;
-
+		// dd($group);
 		$requestModel = new RequestModel();
 		$requests = $requestModel->getGroupRequests($group['id']);
+		
+		$data['group'] = $group;
 		$data['requests'] = $requests;
 
 		echo view('templates/header');
@@ -230,6 +229,35 @@ class Group extends BaseController
 		echo view('group/view/notification', $data);
 		echo view('templates/footer');
 	}
+
+	//  ! pas une page ! pour accepter un membre dans un groupe  //
+    public function acceptMemberInGroup(){
+        /**
+		 * On récupère dans l'url les argumrents pour la méthode :
+		 * - $_GET[0] = l'id du groupe
+		 * - $_GET[1] = l'id du membre
+		 */
+		// dd($_GET);
+		// TODO ajouter ici une vérification pour être sûre que la personne sonnectée est admin du groupe
+		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+			$groupId = $_GET[0];
+			$memberId = $_GET[1];
+            $data = array(
+				'group_id' => $groupId,
+				'member_id' => $memberId,
+				'is_admin' => false,
+			);
+			
+			// dd($data);
+
+			$groupMemberModel = new GroupMemberModel();
+            $groupMemberModel->insert($data);
+            
+			return  redirect('group');
+        } else {
+            return redirect('group');
+        }
+    }
 
 
 

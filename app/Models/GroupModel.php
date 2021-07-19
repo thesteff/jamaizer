@@ -59,7 +59,7 @@ class GroupModel extends Model
 			$adminGroupMember = $groupMember->where('group_id', $group['id'])->findAll();
 			// normalement on ne récupère qu'une ligne, parce qu'il n'y a pas eu la possibilités d'ajouter d'autres admin au groupe
 			$adminGroupMember = $adminGroupMember[0];
-			log_message('debug', json_encode($adminGroupMember));
+			// log_message('debug', json_encode($adminGroupMember));
 			$adminMember = $member->find($adminGroupMember['member_id']);
 			$group['created_by'] = $adminMember['pseudo'];
 			$invalidGroups[] = $group;

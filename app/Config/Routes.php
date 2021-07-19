@@ -43,6 +43,7 @@ $routes->add('member/profil', 'Member::view');
 $routes->add('group/create', 'Group::create');
 $routes->add('group/view/(:segment)', 'Group::view/$1');
 $routes->add('group/update/(:segment)', 'Group::update/$1');
+$routes->add('group/notification/accept', 'Group::acceptMemberInGroup');
 $routes->add('group/notification/(:segment)', 'Group::notification/$1');
 $routes->add('group', 'Group::index');
 
