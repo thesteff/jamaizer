@@ -43,12 +43,15 @@ $routes->add('member/profil', 'Member::view');
 
 
 $routes->add('group/(:segment)/event/create', 'Event::create/$1');
+$routes->add('group/(:segment)/event/(:segment)/(:segment)/members/accept/(:segment)', 'Event::acceptMemberInEvent');
 $routes->add('group/(:segment)/event/(:segment)/(:segment)', 'Event::viewOneEvent/$1/$2');
+$routes->add('group/(:segment)/event/(:segment)/(:segment)/members', 'Event::members/$1/$2');
 $routes->add('group/(:segment)/event/(:segment)/(:segment)/update', 'Event::update/$1/$2');
 $routes->add('group/(:segment)/event', 'Event::viewGroupsEvents/$1');
 
 $routes->add('group/create', 'Group::create');
 $routes->add('group/view/(:segment)', 'Group::view/$1');
+$routes->add('group/(:segment)/about', 'Group::about/$1');
 $routes->add('group/update/(:segment)', 'Group::update/$1');
 $routes->add('group/notification/accept', 'Group::acceptMemberInGroup');
 $routes->add('group/notification/(:segment)', 'Group::notification/$1');

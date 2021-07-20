@@ -53,6 +53,7 @@
 		});
 		
 		// Affichage dynamique de la scrollbar de la sidebar (on affiche que si nécessaire)
+		// TODO attention ça ne fonctionne pas sur chrome, la scrollbar est affichée en permanence même s'il n'y a rien à faire défiler
 		$("#j-sidebar-container").mouseenter(function() {
 			realSize = parseInt($("#j-sidebar").css("height"),10);
 			if(realSize > parseInt($("#j-sidebar-container").css("height"),10)) {
@@ -237,11 +238,11 @@
 
 
 <body id="bootstrap-overrides">
-
-<?php if (isset($session->logged) && $session->logged) : ?>
-<!-- // ##################################################################### // -->
-<!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
-<!-- // ##################################################################### // -->
+	<?php if (isset($session->logged) && $session->logged) : ?>
+		<!-- // ##################################################################### // -->
+		<!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
+		<!-- // ##################################################################### // -->
+	<!-- cette nav est cachée derrière le header -->
     <div id="nav-logged-phone" class="container-fluid fixed-top d-lg-none d-flex justify-content-around align-items-center flex-row">
         <a  class="d-flex align-items-center my-2" href="<?php echo site_url('member/profil') ?>">
             <div>
@@ -255,12 +256,11 @@
     </div>
 <?php endif ?>
 
-
 <!-- // ##################################################################### // -->
 <!-- // ######################### HEADER NAVBAR ############################## // -->
 <!-- // ##################################################################### // -->
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark  mt-auto">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark mt-auto">
             <div class="container-fluid">
                 <a class="navbar-brand d-lg-none" href="<?php echo site_url('') ?>">
                     <h2>Jamaïzer</h2>
@@ -316,159 +316,159 @@
 
 
 <!-- //  Ouverture de la div qui contient MAIN et SIDEBAR  // -->
-    <div id="j-container" class="container-fluid">
+<!-- pourquoi avoir doublé les div ? -->
+<div id="j-container" class="container-fluid">
 	<div class="row flex-nowrap">
-
-<?php if (isset($session->logged) && $session->logged) : ?>
-<!-- // ####################################################################### // -->
-<!-- // ####################### NAV SIDEBAR ORDI LOGGED ####################### // -->
-<!-- // ####################################################################### // -->
-        <div id="j-sidebar-container" class="fixed-top col-auto col-md-3 col-xl-2">
-		<div class="row">
-		
-			<div id="j-sidebar">
-			
-				<!-- Pseudo !-->
-				<div>
-					<a class="row d-flex align-items-center my-2" href="<?php echo site_url('member/view'); ?>">
-						<div class="col-3">
-							<img id="avatar" class="rounded-circle m-1" alt="image de profil" 
+		<?php if (isset($session->logged) && $session->logged) : ?>
+			<!-- // ####################################################################### // -->
+			<!-- // ####################### NAV SIDEBAR ORDI LOGGED ####################### // -->
+			<!-- // ####################################################################### // -->
+			<div id="j-sidebar-container" class="fixed-top col-auto col-md-3 col-xl-2">
+				<div class="row">
+					
+					<div id="j-sidebar">
+						
+						<!-- Pseudo !-->
+						<div>
+							<a class="row d-flex align-items-center my-2" href="<?php echo site_url('member/profil'); ?>">
+							<div class="col-3">
+								<img id="avatar" class="rounded-circle m-1" alt="image de profil" 
 								src="<?php 
-									if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
-									else echo base_url('images/member/default-member-image.jpg');
-								?>">
+											if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
+											else echo base_url('images/member/default-member-image.jpg');
+											?>">
+								</div>
+								<div class="col-9">
+									<p class="m-1"><?= $session->member['pseudo'] ?></p>
+								</div>
+							</a>
 						</div>
-						<div class="col-9">
-							<p class="m-1"><?= $session->member['pseudo'] ?></p>
-						</div>
-					</a>
-				</div>
-				
-				<!-- LIST GROUP !-->
-				<?php if (isset($session->myGroups)) : ?>
-				<div class="accordion">
-					<div class="accordion-item">
-						<h5 class="accordion-header" id="panelsStayOpen-headingOne">
-							<button class="accordion-button j-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-								<i class="bi bi-people-fill mx-2"></i> Mes Groupes
-							</button>
-						</h5>
-						<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-							<div class="accordion-body">
-								<ul class="list-group list-group-flush">
-									<?php foreach ($session->myGroups as $group) : ?>
-									<li class="list-group-item">
-										<a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
-											<img alt="image de profil" class="rounded-circle img-group m-1"
-												src="<?php 
-													if (!empty($group['picture'])) echo base_url('images/group/').'/'.$group['picture'];
-													else echo base_url('images/group/default-group-image.jpg'); ?>">
-											
-											<?php echo $group['name'] ?>
-											<div class="ms-auto">
-												<?php if($group['is_admin'] && $group['is_valid']) : ?>  
-													<i class="bi bi-gear ms-auto"></i>
-												<?php elseif($group['is_admin'] && !$group['is_valid']) : ?>
-													<i class="bi bi-patch-question ms-auto"></i>
-												<?php endif ?>
-											</div>
-										</a>
-									</li>
-									<?php endforeach ?>
-									<!-- <li class="list-group-item">
-										<a href="#">
-											<img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
-										</a>
-									</li>
-									<li class="list-group-item">
-										<a href="#">
-											<img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
-										</a>
-									</li> -->
-									<li class="list-group-item">
-										<a href="<?= site_url('group'); ?>">Tous mes groupes</a>
-									</li>
-								</ul>
+						
+						<!-- LIST GROUP !-->
+						<?php if (isset($session->myGroups)) : ?>
+						<div class="accordion">
+							<div class="accordion-item">
+								<h5 class="accordion-header" id="panelsStayOpen-headingOne">
+									<button class="accordion-button j-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+										<i class="bi bi-people-fill mx-2"></i> Mes Groupes
+									</button>
+								</h5>
+								<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+									<div class="accordion-body">
+										<ul class="list-group list-group-flush">
+											<?php foreach ($session->myGroups as $group) : ?>
+											<li class="list-group-item">
+												<a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
+													<img alt="image de profil" class="rounded-circle img-group m-1"
+														src="<?php 
+															if (!empty($group['picture'])) echo base_url('images/group/').'/'.$group['picture'];
+															else echo base_url('images/group/default-group-image.jpg'); ?>">
+													
+													<?php echo $group['name'] ?>
+													<div class="ms-auto">
+														<?php if($group['is_admin'] && $group['is_valid']) : ?>  
+															<i class="bi bi-gear ms-auto"></i>
+														<?php elseif($group['is_admin'] && !$group['is_valid']) : ?>
+															<i class="bi bi-patch-question ms-auto"></i>
+														<?php endif ?>
+													</div>
+												</a>
+											</li>
+											<?php endforeach ?>
+											<!-- <li class="list-group-item">
+												<a href="#">
+													<img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
+												</a>
+											</li>
+											<li class="list-group-item">
+												<a href="#">
+													<img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
+												</a>
+											</li> -->
+											<li class="list-group-item">
+												<a href="<?= site_url('group'); ?>">Tous mes groupes</a>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					
-					<!-- LIST DATE !-->
-					<div class="accordion-item">
-						<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-							<i class="bi bi-calendar3-fill mx-2"></i> Mes prochaines dates
-							</button>
-						</h5>
-						<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-							<div class="accordion-body">
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">
-										<a href="#" class="a-event">
-											<img src="<?php echo base_url('images/group/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-											<p>La Jam des Chatons</p>
-										</a>
-										15.08.21
-									</li>
-									<li class="list-group-item">
-										<a href="#" class="a-event">
-											<img src="<?php echo base_url('images/group/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-											<p>Pélicans en folie - Concert d'ouverture</p>
-										</a>
-										15.08.21
-									</li>
-									<li class="list-group-item">
-										<a href="#" class="a-event">
-											<img src="<?php echo base_url('images/group/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-											<p>Le bal des Autruches</p>
-										</a>
-										15.08.21
-									</li>
-									<li class="list-group-item">
-										<a href="#">Toutes mes dates</a>
-									</li>
-								</ul>
+							
+							<!-- LIST DATE !-->
+							<div class="accordion-item">
+								<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+									<i class="bi bi-calendar3-fill mx-2"></i> Mes prochaines dates
+									</button>
+								</h5>
+								<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+									<div class="accordion-body">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item">
+												<a href="#" class="a-event">
+													<img src="<?php echo base_url('images/group/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
+													<p>La Jam des Chatons</p>
+												</a>
+												15.08.21
+											</li>
+											<li class="list-group-item">
+												<a href="#" class="a-event">
+													<img src="<?php echo base_url('images/group/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
+													<p>Pélicans en folie - Concert d'ouverture</p>
+												</a>
+												15.08.21
+											</li>
+											<li class="list-group-item">
+												<a href="#" class="a-event">
+													<img src="<?php echo base_url('images/group/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
+													<p>Le bal des Autruches</p>
+												</a>
+												15.08.21
+											</li>
+											<li class="list-group-item">
+												<a href="#">Toutes mes dates</a>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<!--<div class="accordion-item j-accordion-item">
-						<h5 class="accordion-header j-accordion-header" id="panelsStayOpen-headingThree">
-							<button class="accordion-button j-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-							<i class="bi bi-chat-dots-fill mx-2"></i>Mes messages
-							</button>
-						</h5>
-						<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-							<div class="accordion-body">
-							<ul class="list-group list-group-flush">
-									<li class="list-group-item flex-column">
-										<a href="#">
-											<img src="<?php echo base_url('images/member/chaton-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-											Chaton
-										</a>
-										"Salut, ça va ?"
-									</li>
-									<li class="list-group-item flex-column">
-										<a href="#">
-											<img src="<?php echo base_url('images/member/pelican-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-											Pélican
-										</a>
-										"Hello !"
-									</li>
-									<li class="list-group-item flex-column">
-										<a href="#">
-											<img src="<?php echo base_url('images/member/autruche-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-											Autruche
-										</a>
-										"Est-ce que tu sais combien de touches a un piano ?"
-									</li>
-									<li class="list-group-item">
-										<a href="#"> Tous mes messages</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>!-->
-					
+							<!--<div class="accordion-item j-accordion-item">
+								<h5 class="accordion-header j-accordion-header" id="panelsStayOpen-headingThree">
+									<button class="accordion-button j-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+									<i class="bi bi-chat-dots-fill mx-2"></i>Mes messages
+									</button>
+								</h5>
+								<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+									<div class="accordion-body">
+									<ul class="list-group list-group-flush">
+											<li class="list-group-item flex-column">
+												<a href="#">
+													<img src="<?php echo base_url('images/member/chaton-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
+													Chaton
+												</a>
+												"Salut, ça va ?"
+											</li>
+											<li class="list-group-item flex-column">
+												<a href="#">
+													<img src="<?php echo base_url('images/member/pelican-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
+													Pélican
+												</a>
+												"Hello !"
+											</li>
+											<li class="list-group-item flex-column">
+												<a href="#">
+													<img src="<?php echo base_url('images/member/autruche-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
+													Autruche
+												</a>
+												"Est-ce que tu sais combien de touches a un piano ?"
+											</li>
+											<li class="list-group-item">
+												<a href="#"> Tous mes messages</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>!-->
+							
 				</div> <!-- On ferme l'accordéon !-->
 				<?php endif; ?>
 				

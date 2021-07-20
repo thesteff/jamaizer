@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\EventModel;
 use App\Models\EventRegistrationModel;
+use App\Models\GroupMemberModel;
 use App\Models\GroupModel;
 use App\Models\RequestModel;
 
@@ -67,11 +68,15 @@ class Event extends BaseController
                 $eventRegistrationModel->insert($data);
             }
         }
-        $groupModel = new GroupModel();
-        $group = $groupModel->getOneGroup($slug, $_SESSION['member']['id']);
-        $data['group'] = $group;
+        // $groupModel = new GroupModel();
+        // $group = $groupModel->getOneGroup($slug, $_SESSION['member']['id']);
+        // $data['group'] = $group;
+
+        $groupController = new Group;
+        $data = $groupController->header($slug);
 
         echo view('templates/header');
+        echo view('group/view/header', $data);
         echo view('event/create', $data);
         echo view('templates/footer');
     }
@@ -104,13 +109,17 @@ class Event extends BaseController
             // return redirect('group/view');
 		} 
 
-        $groupModel = new GroupModel();
-        $group = $groupModel->getOneGroup($slug, $_SESSION['member']['id']);
-        $data['group'] = $group;
+        // $groupModel = new GroupModel();
+        // $group = $groupModel->getOneGroup($slug, $_SESSION['member']['id']);
+        // $data['group'] = $group;
+
+        $groupController = new Group;
+        $data = $groupController->header($slug);
         
         $data['event'] = $event;
         
         echo view('templates/header');
+        echo view('group/view/header', $data);
         echo view('event/update', $data);
         echo view('templates/footer');
     }
@@ -122,16 +131,19 @@ class Event extends BaseController
             $memberId = 0;
         }
 
-        $groupModel = new GroupModel();
-        $group = $groupModel->getOneGroup($slug, $memberId);
+        // $groupModel = new GroupModel();
+        // $group = $groupModel->getOneGroup($slug, $memberId);
         
+        $groupController = new Group;
+        $data = $groupController->header($slug);
+
         $eventModel = new EventModel();
         $events = $eventModel->getGroupsEvents($slug);
 
-        $data['group'] = $group;
         $data['events'] = $events;
         
         echo view('templates/header');
+        echo view('group/view/header', $data);
         echo view('event/view', $data);
         echo view('templates/footer');
     }
@@ -142,9 +154,11 @@ class Event extends BaseController
         } else {
             $memberId = 0;
         }
-        $groupModel = new GroupModel();
-        $group = $groupModel->getOneGroup($slug, $memberId);
-        
+        // $groupModel = new GroupModel();
+        // $group = $groupModel->getOneGroup($slug, $memberId);
+        $groupController = new Group;
+        $data = $groupController->header($slug);
+
         $eventModel = new EventModel();
         $event = $eventModel->getOneEvent($eventId, $memberId);
         
@@ -178,12 +192,64 @@ class Event extends BaseController
 			$data['success'] = $success;
 		} 
 
-        $data['group'] = $group;
+        // $data['group'] = $group;
         $data['event'] = $event;
         
         echo view('templates/header');
+        echo view('group/view/header', $data);
         echo view('event/viewOne', $data);
         echo view('templates/footer');
+    }
+
+    public function members($slug, $eventId){
+        $groupController = new Group;
+        $data = $groupController->header($slug);
+        // dd($data);
+
+        $eventModel = new EventModel();
+        $event = $eventModel->getOneEvent($eventId);
+        $data['event'] = $event;
+        
+        $eventRequestModel = new RequestModel();
+        $eventRequests = $eventRequestModel->getEventRequests($eventId);
+        $data['eventRequests'] = $eventRequests;
+
+        $eventRegistrationModel = new EventRegistrationModel();
+        $eventRegistrations = $eventRegistrationModel->getEventRegistrations($eventId);
+        $data['eventRegistrations'] = $eventRegistrations;
+
+        echo view('templates/header');
+        echo view('group/view/header', $data);
+        echo view('event/members', $data);
+        echo view('templates/footer');
+    }
+
+    //  ! pas une page ! pour accepter un membre dans un groupe  //
+    public function acceptMemberInEvent($slug, $eventId, $eventName, $memberId){
+
+		// TODO ajouter ici une vérification pour être sûre que la personne connectée est admin de l'event
+		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+			$eventId = $_GET[0];
+			$memberId = $_GET[1];
+            $data = array(
+				'event_id' => $eventId,
+				'member_id' => $memberId,
+				'is_admin' => false,
+			);
+			
+			// on crée la relation membre groupe => le membre fait maintenant partie du groupe
+			$eventRegistrationModel = new EventRegistrationModel();
+            $eventRegistrationModel->insert($data);
+
+			// on supprime la requête qui n'est plus utile
+			$requestModel = new RequestModel();
+			$request = $requestModel->where(['event_id' => $eventId, 'member_id' => $memberId])->first();
+			$requestModel->delete($request);
+            
+			return  redirect('group');
+        } else {
+            return redirect('group');
+        }
     }
 
 }

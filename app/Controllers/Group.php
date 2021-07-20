@@ -128,10 +128,7 @@ class Group extends BaseController
 	// ##################################################################### //
 	// ###################### pages pour voir UN groupe #################### //
 	// ##################################################################### //
-	// ====================================================== //
-	// =================== page d'accueil =================== //
-	// ====================================================== //
-	public function view($slug) {
+	public function header($slug){
 		// on vérifie si qqn est connecté, pour envoyer l'id de cette personne ou un id nul
 		if(isset($_SESSION['logged']) && $_SESSION['logged']){
 			$memberId = $_SESSION['member']['id'];
@@ -184,6 +181,13 @@ class Group extends BaseController
 		
 		
 		$data['group'] = $group;
+		return $data;
+	}
+	// ====================================================== //
+	// =================== page d'accueil =================== //
+	// ====================================================== //
+	public function view($slug) {
+		$data = $this->header($slug);
 		echo view('templates/header');
 		echo view('group/view/header', $data);
 		echo view('group/view/home', $data);
@@ -193,7 +197,13 @@ class Group extends BaseController
 	// ====================================================== //
 	// =================== page "A propos" ================== //
 	// ====================================================== //
-
+	public function about($slug){
+		$data = $this->header($slug);
+		echo view('templates/header');
+		echo view('group/view/header', $data);
+		echo view('group/view/home', $data);
+		echo view('templates/footer');
+	}
 
 	// ====================================================== //
 	// ================== pages Evénements ================== //
@@ -211,23 +221,18 @@ class Group extends BaseController
 	// ============== ADMIN page notifications ============== //
 	// ====================================================== //
 	public function notification($slug) {
-		if(isset($_SESSION['logged']) && $_SESSION['logged']){
-			$memberId = $_SESSION['member']['id'];
-		} else {
-			return redirect('group');
-		}
-		
+		$data = $this->header($slug);
+
 		$groupModel = new GroupModel();
-		$group = $groupModel->getOneGroup($slug, $memberId);
+		$group = $groupModel->getOneGroup($slug, $this->session->member['id']);
 		
 		$requestModel = new RequestModel();
-		$requests = $requestModel->getGroupRequests($group['id']);
-		
-		$data['group'] = $group;
+		$requests = $requestModel->getGroupRequests($data['group']['id']);
+
 		$data['requests'] = $requests;
 
 		echo view('templates/header');
-		// echo view('group/view/header', $data);
+		echo view('group/view/header', $data);
 		echo view('group/view/notification', $data);
 		echo view('templates/footer');
 	}

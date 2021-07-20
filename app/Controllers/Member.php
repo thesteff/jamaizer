@@ -326,10 +326,17 @@ class Member extends BaseController {
 				//$arrayNotif = $members_model->get_notifications($member->id);
 				//log_message("debug","******* Members :: login :: arrayNotif : ".json_encode($arrayNotif));
 
+				// on récupère les groupes du membre pour les ajouter à la session
+				$groups = new GroupModel();
+				$myGroups = $groups->getMyGroups($member['id']);
+				// $data['myGroups'] = $myGroups;
+
+
 				// On fixe les variables de sessions
 				$data = array(
 								'logged' => true,
-								'member' => $member
+								'member' => $member,
+								'myGroups' => $myGroups
 							);
 				$this->session->set($data);
 				
