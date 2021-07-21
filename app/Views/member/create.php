@@ -79,7 +79,7 @@ if(isset($errors)){
 	</div>
 	
 	<!-- Envoyer !-->
-	<input id="create" class="btn btn-outline-dark" type="submit" value="S'inscrire" >
+	<input id="create" class="btn btn-primary" type="submit" value="S'inscrire" >
 	
 </form>
 </div>
