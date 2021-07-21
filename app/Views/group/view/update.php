@@ -38,8 +38,9 @@ if(isset($errors)){
 	
 	
 	<!-- Envoyer !-->
-	<button id="update_group" class="btn btn-outline-dark" type="submit">Enregistrer les modifications</button>
-	<a class="btn btn-outline-dark" href="<?= site_url('group').'/'.esc($slug, 'url') ?>">Retour</a>
+	<button id="update_group" class="btn btn-outline-light" type="submit">Enregistrer les modifications</button>
+	<a class="btn btn-outline-light" href="<?= site_url('group').'/'.esc($slug, 'url').'/delete' ?>">Retour</a>
+	<a class="btn btn-outline-light" href="<?= site_url('group').'/'.esc($slug, 'url') ?>">Retour</a>
 	
 </form>
 </div>

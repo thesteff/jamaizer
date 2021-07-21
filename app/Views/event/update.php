@@ -17,16 +17,6 @@ if(isset($errors)){
 		<input id="name" class="form-control" type="text" name="name" value="<?= isset($event['name']) ? $event['name'] : "" ?>">
 	</div>
 
-	<?php if(isset($event['slug'])) : ?>
-		<!-- Slug !-->
-		<!-- S'il y a un souci avec le slug, on l'affiche pour demander au membre de le modifier -->
-		<div class="mb-3 form-group">
-			<label for="slug" class="control-label">Slug</label>
-			<input id="slug" class="form-control" type="text" name="slug" value="<?= isset($slug) ? $slug : "" ?>">
-			<p>Veuillez modifier le slug car celui-ci est déjà pris, nous ne pouvons pas le générer automatiquement. Le slug est comme un pseudo mais pour votre event, il est unique (même dans le cas de 2 événements ayant le même nom).<br><strong> Il ne peut avoir ni caractères spéciaux, ni accents, ni ponctuation, ni espaces. Il est uniquement composé de lettres et de chiffres.</strong></p>
-		</div>
-	<?php endif ?>
-
 	<!-- Description !-->
 	<div class="mb-3 form-group">
 		<label for="description" class="control-label">Description de l'événement</label>
@@ -48,9 +38,10 @@ if(isset($errors)){
 	</div>
 
 	<!-- Envoyer !-->
-	<input id="updateEvent" class="btn btn-outline-dark" type="submit" value="Modifier l'événement" >
+	<input id="updateEvent" class="btn btn-outline-light" type="submit" value="Modifier l'événement" >
 	
 </form>
 </div>
 
-<a href="<?= site_url('group/'.$group['slug'].'/event') ?>">Retour</a>
+<a class="btn btn-outline-light" href="<?= site_url('group/'.$group['slug'].'/event/'.$event['slug'].'/delete') ?>">Supprimer l'événement</a>
+<a class="btn btn-outline-light" href="<?= site_url('group/'.$group['slug'].'/event') ?>">Retour</a>

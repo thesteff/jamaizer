@@ -20,7 +20,9 @@ class GroupModel extends Model
 		'description',
 		'picture',
 		'city',
-		'is_valid'
+		'is_valid',
+		'updated_at',
+		'deleted_at',
 	];
 
 	// Dates
@@ -56,13 +58,15 @@ class GroupModel extends Model
 		$member = new MemberModel();
 
 		foreach ($groups as $group) {
-			$adminGroupMember = $groupMember->where('group_id', $group['id'])->findAll();
-			// normalement on ne récupère qu'une ligne, parce qu'il n'y a pas eu la possibilités d'ajouter d'autres admin au groupe
-			$adminGroupMember = $adminGroupMember[0];
-			// log_message('debug', json_encode($adminGroupMember));
-			$adminMember = $member->find($adminGroupMember['member_id']);
-			$group['created_by'] = $adminMember['pseudo'];
-			$invalidGroups[] = $group;
+			if($group['deleted_at'] == null){
+				$adminGroupMember = $groupMember->where('group_id', $group['id'])->findAll();
+				// normalement on ne récupère qu'une ligne, parce qu'il n'y a pas eu la possibilités d'ajouter d'autres admin au groupe
+				$adminGroupMember = $adminGroupMember[0];
+				// log_message('debug', json_encode($adminGroupMember));
+				$adminMember = $member->find($adminGroupMember['member_id']);
+				$group['created_by'] = $adminMember['pseudo'];
+				$invalidGroups[] = $group;
+			}
 		}
 		return $invalidGroups;
 	}
@@ -80,16 +84,22 @@ class GroupModel extends Model
 			$group = new GroupModel();
 			// on récupère l'objet groupe correspondant à la relation
 			$myGroup = $group->find($myGroupMember['group_id']);
-			// on vérifie si le member est admin
-			if($myGroupMember['is_admin']){
-				// le membre est admin du groupe, on le précise dans l'objet groupe
-				$myGroup['is_admin'] = true;
-			} else {
-				// le membre n'est pas admin du groupe, on le précise dans l'objet groupe
-				$myGroup['is_admin'] = false;
+
+			// on vérifie que le groupe n'a pas été supprimé
+			if($group['deleted_at'] == null){
+
+				// on vérifie si le member est admin
+				if($myGroupMember['is_admin']){
+					// le membre est admin du groupe, on le précise dans l'objet groupe
+					$myGroup['is_admin'] = true;
+				} else {
+					// le membre n'est pas admin du groupe, on le précise dans l'objet groupe
+					$myGroup['is_admin'] = false;
+				}
+
+				// enfin on ajoute l'objet groupe dans la liste des groupes du membre
+				$myGroupsList[] = $myGroup;
 			}
-			// enfin on ajoute l'objet groupe dans la liste des groupes du membre
-			$myGroupsList[] = $myGroup;
 		}
 		return $myGroupsList;
 	}
@@ -106,18 +116,21 @@ class GroupModel extends Model
 		// on garde seulement les groupes dont on ne fait pas partie
 		$groupMemberModel = new GroupMemberModel();
 		foreach($groups as $group) {
-			// on prend toutes les relations qui concernent ce groupe
-			$groupMember = $groupMemberModel->where('group_id', $group['id'])->findAll();
-			// on vérifie qu'aucune de ces relations ne concerne notre membre
-			$isNotMyGroup = true;
-			foreach($groupMember as $xGroup){
-				if($xGroup['member_id'] == $memberId) {
-					$isNotMyGroup = false;
+			// on vérifie que le groupe n'a pas été supprimé
+			if($group['deleted_at'] == null){
+				// on prend toutes les relations qui concernent ce groupe
+				$groupMember = $groupMemberModel->where('group_id', $group['id'])->findAll();
+				// on vérifie qu'aucune de ces relations ne concerne notre membre
+				$isNotMyGroup = true;
+				foreach($groupMember as $xGroup){
+					if($xGroup['member_id'] == $memberId) {
+						$isNotMyGroup = false;
+					}
 				}
-			}
 
-			if ($isNotMyGroup == true){
-				$listGroups[] = $group;
+				if ($isNotMyGroup == true){
+					$listGroups[] = $group;
+				}
 			}
 		}
 		return $listGroups;
@@ -128,7 +141,9 @@ class GroupModel extends Model
 	public function getOneGroupBySlug($slug, $memberId = 0){
 		$groupModel = new GroupModel();
 		$group = $groupModel->where('slug', $slug)->first();
-		
+		if($group['deleted_at'] == null){
+			return $group = null;
+		}
 		// on vérifie si qqn est connecté
 		if(isset($_SESSION['logged']) && $_SESSION['logged'] && $memberId > 0) {
 			// un membre est connecté, on vérifie s'il est lié au groupe
@@ -153,6 +168,11 @@ class GroupModel extends Model
 	public function getOneGroup($groupId, $memberId = 0){
 		$groupModel = new GroupModel();
 		$group = $groupModel->first('group_id', $groupId);
+		
+		// on vérifie que le groupe n'a pas été supprimé
+		if($group['deleted_at'] == null){
+			return $group = null;
+		}
 		
 		// on vérifie si qqn est connecté
 		if(isset($_SESSION['logged']) && $_SESSION['logged'] && $memberId > 0) {

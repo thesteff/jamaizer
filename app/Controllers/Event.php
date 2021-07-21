@@ -8,6 +8,7 @@ use App\Models\EventRegistrationModel;
 use App\Models\GroupMemberModel;
 use App\Models\GroupModel;
 use App\Models\RequestModel;
+use CodeIgniter\I18n\Time;
 
 class Event extends BaseController
 {
@@ -117,7 +118,7 @@ class Event extends BaseController
             $data['description'] = trim($_POST['description']);
             $data['date_start'] = $_POST['date_start'];
             $data['date_end'] = $_POST['date_end'];
-            
+            $data['updated_at'] = Time::now();
             $eventUpdate = $eventModel->update($event['id'], $data);
             $event = $eventModel->getOneEventBySlug($eventSlug);
             // return redirect('group/view');
@@ -136,6 +137,14 @@ class Event extends BaseController
         echo view('group/view/header', $data);
         echo view('event/update', $data);
         echo view('templates/footer');
+    }
+
+    public function delete($groupSlug, $eventSlug){
+        $eventModel = new EventModel();
+        $event = $eventModel->getOneEventBySlug($eventSlug);
+        $data['deleted_at'] = Time::now();
+        $eventModel->update($event['id'], $data);
+        return redirect()->to('group/'.$groupSlug.'/event');
     }
 
     public function viewGroupsEvents($groupSlug){

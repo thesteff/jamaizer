@@ -22,7 +22,8 @@ class EventModel extends Model
 		'date_start',
 		'date_end',
 		'created_at',
-		'updated_at'
+		'updated_at',
+		'deleted_at',
 	];
 
 	// Dates
@@ -55,8 +56,15 @@ class EventModel extends Model
 
         $eventModel = new EventModel();
         $events = $eventModel->where('group_id', $group['id'])->findAll();
+		
+		$eventsOk = [];
+		foreach($events as $event){
+			if($event['deleted_at'] === null){
+				$eventsOk[] = $event;
+			}
+		}
 
-        return $events;
+        return $eventsOk;
     }
 
     /**
@@ -66,6 +74,10 @@ class EventModel extends Model
     public function getOneEventBySlug($eventSlug, $memberId = 0){
         $eventModel = new EventModel();
         $event = $eventModel->where('slug', $eventSlug)->first();
+
+		if($event['deleted_at'] != null){
+			return $eventOk = null;
+		}
 
         // TODO ajouter l'admin de l'event
 
@@ -103,24 +115,24 @@ class EventModel extends Model
 			$eventModel = new EventModel();
 			// on récupère l'objet event correspondant à la relation
 			$event = $eventModel->find($registration['event_id']);
-			
-			// on vérifie si le member est admin
-			if($registration['is_admin']){
-				// le membre est admin de l'event, on le précise dans l'objet event
-				$event['is_admin'] = true;
-			} else {
-				// le membre n'est pas admin du groupe, on le précise dans l'objet groupe
-				$event['is_admin'] = false;
-			}
-			
-			// on récupère le groupe correspondant
-			$groupModel = new GroupModel();
-			$group = $groupModel->getOneGroup($event['group_id']);
-			$event['group'] = $group;
+			if($event['deleted_at'] === null){
+				// on vérifie si le member est admin
+				if($registration['is_admin']){
+					// le membre est admin de l'event, on le précise dans l'objet event
+					$event['is_admin'] = true;
+				} else {
+					// le membre n'est pas admin du groupe, on le précise dans l'objet groupe
+					$event['is_admin'] = false;
+				}
+				
+				// on récupère le groupe correspondant
+				$groupModel = new GroupModel();
+				$group = $groupModel->getOneGroup($event['group_id']);
+				$event['group'] = $group;
 
-			
-			// enfin on ajoute l'objet groupe dans la liste des groupes du membre
-			$myEventsList[] = $event;
+				// enfin on ajoute l'objet groupe dans la liste des groupes du membre
+				$myEventsList[] = $event;
+			}
 		}
 		return $myEventsList;
 	}

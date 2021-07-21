@@ -80,6 +80,8 @@ $routes->group('group', function($routes){
 			$routes->group('(:segment)', function($routes){ // segment = slug de l'event
 				$routes->add('', 'Event::viewOneEvent/$1/$2');
 				$routes->add('update', 'Event::update/$1/$2');
+//TODO modifier l'usage de cette route "delete", car elle ne génère pas de vue
+				$routes->add('delete', 'Event::delete/$1/$2');
 				$routes->add('members', 'Event::members/$1/$2');
 //TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
 				$routes->add('members/accept/(:segment)', 'Event::acceptMemberInEvent/$1/$2/$3	');

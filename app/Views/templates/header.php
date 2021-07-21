@@ -404,11 +404,16 @@
 										<ul class="list-group list-group-flush">
 											<?php foreach($session->myEvents as $event) : ?>
 											<li class="list-group-item">
-												<a href="<?= site_url('group').'/'.esc($event['group']['slug'], 'url').'/event/'.esc($event['name'], 'url') ?>" class="a-event">
+												<a href="<?= site_url('group').'/'.esc($event['group']['slug'], 'url').'/event/'.esc($event['slug'], 'url') ?>" class="a-event">
 													<img src="<?php 
 															if (!empty($event['group']['picture'])) echo base_url('images/group/').'/'.$group['picture'];
 															else echo base_url('images/group/default-group-image.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
 													<p><?= $event['name'] ?></p>
+													<div class="ms-auto">
+														<?php if($event['is_admin']) : ?>  
+															<i class="bi bi-gear ms-auto"></i>
+														<?php endif ?>
+													</div>
 												</a>
 											</li>
 											<?php endforeach ?>

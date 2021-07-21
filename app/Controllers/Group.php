@@ -6,6 +6,7 @@ use App\Models\GroupModel;
 use App\Controllers\BaseController;
 use App\Models\GroupMemberModel;
 use App\Models\RequestModel;
+use CodeIgniter\I18n\Time;
 
 class Group extends BaseController
 {
@@ -281,11 +282,14 @@ class Group extends BaseController
 		if(isset($_SESSION['logged']) && $_SESSION['logged']){
 			$memberId = $_SESSION['member']['id'];
 		} else {
-			return redirect('group');
+			return redirect()->to('group/'.$slug);
 		}
 
 		$groupModel = new GroupModel();
 		$group = $groupModel->getOneGroupBySlug($slug, $memberId);
+		if(!isset($group['is_admin']) || !$group['is_admin']){
+			return redirect()->to('group/'.$slug);
+		}
 		$data = $group;
 
 		if(count($_POST) > 0) {
@@ -319,7 +323,8 @@ class Group extends BaseController
 				// si une ville est renseignée, on l'ajoute
 				if(!empty($_POST['city'])){$data['city'] = trim($_POST['city']);}
 				if(isset($picture)){$data['picture'] = $picture;}
-				$groupUpdate = $groupModel->update($group['id'], $data);
+				$data['updated_at'] = Time::now();
+				$groupModel->update($group['id'], $data);
 				// return redirect('group/view');
 			}
 		}
@@ -330,5 +335,23 @@ class Group extends BaseController
 		echo view('templates/footer');
 	}
 
+	public function delete($slug){
+		if(isset($_SESSION['logged']) && $_SESSION['logged']){
+			$memberId = $_SESSION['member']['id'];
+		} else {
+			return redirect()->to('group/'.$slug);
+		}
 
+		$groupModel = new GroupModel();
+		$group = $groupModel->getOneGroupBySlug($slug, $memberId);
+		if(!isset($group['is_admin']) || !$group['is_admin']){
+			return redirect()->to('group/'.$slug);
+		}
+
+		$groupModel = new GroupModel();
+		$group = $groupModel->getOneBySlug($slug);
+		$data['deleted_at'] = Time::now();
+        $groupModel->update($group['id'], $data);
+        return redirect()->to('group');
+	}
 }
