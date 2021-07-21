@@ -1,6 +1,6 @@
             </main>
 
-        </div>	<!-- On ferme la row !-->
+        </div>	<!-- On ferme l'item flew !-->
 		</div>	<!-- On ferme le j-container !-->
 		
         <!--   <footer class="mt-auto footer">

@@ -101,15 +101,15 @@ class Member extends BaseController {
 				$member->insert($data);
 		
 				// on crée un message de succès pour confirmer l'inscription
-				$inscriptionSuccess = "Votre inscription a bien été effectuée ! Vous pouvez à présent vous connecter à Jamaïzer !";
+				/*$inscriptionSuccess = "Votre inscription a bien été effectuée ! Vous pouvez à présent vous connecter à Jamaïzer !";
 				$data = [];
 				$data['inscriptionSuccess'] = [$inscriptionSuccess];
 				$data['pseudo'] = $pseudo;
+				
 				// TODO on redirige vers la page de connexion, avec le message de succès et le pseudo pour préremplir le formulaire de connexion
 				return redirect('member/login', $data);
 			} 
-			else 
-			{
+			else {
 				// si au moins une donnée n'est pas validée, on réaffiche le formulaire sans entrer le membre dans la BDD, et on préremplis les données qui ont déjà été renseignées
 				// TODO on affiche aussi les messages d'erreur pour expliquer pourquoi les données n'ont pas été validées
 				$data = array(
