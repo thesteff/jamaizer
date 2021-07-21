@@ -3,15 +3,15 @@
         <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').'/'.$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>"
             class="card-img rounded-0" alt="photo du groupe">
         <div class="card-img-overlay d-flex justify-content-end align-items-center flex-column">
-            <h1 class="card-title" <?php if(!$group['is_valid']){echo 'style="color: black"';} ?>><?= $group['name'] ?>
-            </h1>
+            <a href="<?= site_url('group/').esc($group['slug'], 'url') ?>"><h1 class="card-title" <?php if(!$group['is_valid']){echo 'style="color: black"';} ?>><?= $group['name'] ?>
+            </h1></a>
             <?php if(!$group['is_valid']){echo '<p class="p-1" style="background-color: white">Le groupe est en attente de validation</p>';} ?>
         </div>
     </div>
 
     <nav class="d-flex" <?php if(!$group['is_valid']){echo 'style="background-color: lightgrey"';} ?>>
         <div class="mx-auto my-1">
-            <a class="p-1" href="#">A propos</a>
+            <a class="p-1" href="<?= site_url('group').'/'.esc($group['slug']).'/about' ?>">A propos</a>
         </div>
         <div class="mx-auto my-1">
             <a class="p-1" href="<?= site_url('group/'.$group['slug'].'/event') ?>">Evénements</a>
@@ -25,9 +25,9 @@
         <?php if(isset($group['is_admin']) && $group['is_admin']) : ?>
             <div class="mx-auto my-1">
                 <!-- notifications pour l'admin du groupe -->    
-                <a class="p-1 position-relative fs-5" href="<?= site_url('group/notification/').esc($group['slug'], 'url') ?>"><i class="bi bi-bell"></i></a>
+                <a class="p-1 position-relative fs-5" href="<?= site_url('group/').esc($group['slug'], 'url').'/notification' ?>"><i class="bi bi-bell"></i></a>
                 <!-- accès aux paramètres pour l'admin du groupe -->
-                <a class="p-1 fs-5" href="<?= site_url('group/update/').esc($group['slug'], 'url') ?>"><i
+                <a class="p-1 fs-5" href="<?= site_url('group/').esc($group['slug'], 'url').'/update' ?>"><i
                         class="bi bi-gear"></i></a>
             </div>
         <?php endif ?>

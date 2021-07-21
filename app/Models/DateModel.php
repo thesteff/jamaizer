@@ -17,6 +17,7 @@ class DateModel extends Model
 	protected $allowedFields        = [
 		'event_id',
 		'name',
+		'slug',
 		'description',
 		'date_start',
 		'date_end',

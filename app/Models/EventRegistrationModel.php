@@ -44,5 +44,26 @@ class EventRegistrationModel extends Model
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
 	
-		
+	public function getEventRegistrations($eventSlug){
+		// on retrouve l'event grâce à son slug
+		$eventModel = new EventModel();
+		$event = $eventModel->getOneEventBySlug($eventSlug);
+
+		// on retrouve toutes les inscriptions liées à cet event
+		$eventRegistrationModel = new EventRegistrationModel();
+		$registrations = $eventRegistrationModel->where('event_id', $event['id'])->findALl();
+		$registrationsOk = [];
+
+		// on récupère maintenant le membre qui correspond à chaque inscription
+		$memberModel = new MemberModel();
+		foreach ($registrations as $registration) {
+			$member = $memberModel->getOneMember($registration['member_id']);
+			// $registration['member_pseudo'] = $member['pseudo'];
+			// $registration['member_picture'] = $member['picture'];
+			$registration['member'] = $member;
+			$registrationsOk[] = $registration;
+		}
+
+		return $registrationsOk;
+	}
 }

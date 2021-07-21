@@ -99,18 +99,24 @@ class RequestModel extends Model
 // ##################################################################### //
 // #################### Demandes liées aux événements ################## //
 // ##################################################################### //
-	public function getOneEventRequest($eventId, $memberId){
+	public function getOneEventRequest($eventSlug, $memberId){
+		$eventModel = new EventModel();
+		$event = $eventModel->getOneEventBySlug($eventSlug);
+		
 		$requestModel = new RequestModel();
-		$request = $requestModel->where(['event_id' => $eventId, 'member_id' => $memberId])->first();
+		$request = $requestModel->where(['event_id' => $event['id'], 'member_id' => $memberId])->first();
 		return $request;
 	}
 
-	public function getEventRequests($eventId){
+	public function getEventRequests($eventSlug){
+		$eventModel = new EventModel();
+		$event = $eventModel->getOneEventBySlug($eventSlug);
+
 		$requestModel = new RequestModel();
 		$requestsOk = [];
 		// on récupère toutes les requêtes du evente
 		// TODO pour l'instant on n'a qu'un critère puisqu'on n'a qu'une sorte de requête : d'un membre à un event. donc il faudra rajouter plein de paramètres !
-		$requests = $requestModel->where(['event_id' => $eventId])->findAll();
+		$requests = $requestModel->where(['event_id' => $event['id']])->findAll();
 		// on récupère maintenant le membre qui correspond à chaque requête
 		$memberModel = new MemberModel();
 		foreach ($requests as $request) {
@@ -124,17 +130,20 @@ class RequestModel extends Model
 		return $requestsOk;
 	}
 
-	public function setEventRequest($eventId, $message, $memberId){
+	public function setEventRequest($eventSlug, $message, $memberId){
+		$eventModel = new EventModel();
+		$event = $eventModel->getOneEventBySlug($eventSlug);
+
 		$newRequest = new RequestModel();
 		
-		$requestExists = $newRequest->getOneEventRequest($eventId, $memberId);
+		$requestExists = $newRequest->getOneEventRequest($event['id'], $memberId);
 		if(empty($requestExists)){
 			$data = array(
 				'message' => $message,
 				'member_id' => $memberId,
 				'sent_by_member' => true,
 				'group_id' => null,
-				'event_id' => $eventId,
+				'event_id' => $event['id'],
 				'date_id' => null,
 				'admin_id' => null
 			);

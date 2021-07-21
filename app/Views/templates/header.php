@@ -53,6 +53,7 @@
 		});
 		
 		// Affichage dynamique de la scrollbar de la sidebar (on affiche que si nécessaire)
+		// TODO attention ça ne fonctionne pas sur chrome, la scrollbar est affichée en permanence même s'il n'y a rien à faire défiler
 		$("#j-sidebar-container").mouseenter(function() {
 			realSize = parseInt($("#j-sidebar").css("height"),10);
 			if(realSize > parseInt($("#j-sidebar-container").css("height"),10)) {
@@ -96,19 +97,15 @@
 	function refresh() {
 		//console.log(":: refresh()");
 		
-		// On ajouter un padding top pour permettre l'affiche du haut du main
+		// On ajouter un padding top pour permettre l'affiche du haut du main et de la sidebar
 		navbarHeight = document.querySelector('.navbar').offsetHeight;
-		document.body.style.paddingTop = navbarHeight + 'px';
-		
+		$("main").css("padding-top", navbarHeight+"px");
 		$("#j-sidebar-container").css("top", navbarHeight+"px");
 		
-		// On ajuste la taille de la sidebar
+		// On ajuste la taille de la sidebar 
 		sidebarHeight = window.innerHeight - navbarHeight;
 		$("#j-sidebar-container").css("height",sidebarHeight+"px");
-		
-		// On ajuste la taille du main panel
-		/*mainPanelHeight = parseInt($("#main-col").css("height"),10) - parseInt($("#main-header").css("height"),10) - 2 - parseInt($("#main-footer").css("height"),10);
-		$("#main-panel").css("height",mainPanelHeight+"px");*/
+
 		
 	}
 	
@@ -121,7 +118,7 @@
 		document.body.style.cursor = 'wait';
 		
 		// Requète ajax au serveur
-		$.post("<?php echo site_url('member/login'); ?>",
+		$.post("<?php echo site_url('ajax_member/login'); ?>",
 		
 			// On récupère les données nécessaires
 			{
@@ -237,11 +234,11 @@
 
 
 <body id="bootstrap-overrides">
-
-<?php if (isset($session->logged) && $session->logged) : ?>
-<!-- // ##################################################################### // -->
-<!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
-<!-- // ##################################################################### // -->
+	<?php if (isset($session->logged) && $session->logged) : ?>
+		<!-- // ##################################################################### // -->
+		<!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
+		<!-- // ##################################################################### // -->
+	<!-- cette nav est cachée derrière le header -->
     <div id="nav-logged-phone" class="container-fluid fixed-top d-lg-none d-flex justify-content-around align-items-center flex-row">
         <a  class="d-flex align-items-center my-2" href="<?php echo site_url('member/profil') ?>">
             <div>
@@ -251,16 +248,15 @@
         <a href="<?= site_url('group'); ?>" alt="Mes Groupes"><i class="bi bi-people-fill"></i></a>
         <a href="#" alt="Mes événements"><i class="bi bi-calendar3-fill"></i></a>
         <a href="#" alt="Mes messages"><i class="bi bi-chat-dots-fill"></i></a>
-        <a href="<?= site_url('member/deconnexion'); ?>" alt="Déconnexion"><i class="bi bi-door-open-fill"></i></a>
+        <a href="<?= site_url('ajax_member/deconnexion'); ?>" alt="Déconnexion"><i class="bi bi-door-open-fill"></i></a>
     </div>
 <?php endif ?>
-
 
 <!-- // ##################################################################### // -->
 <!-- // ######################### HEADER NAVBAR ############################## // -->
 <!-- // ##################################################################### // -->
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark  mt-auto">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark mt-auto">
             <div class="container-fluid">
                 <a class="navbar-brand d-lg-none" href="<?php echo site_url('') ?>">
                     <h2>Jamaïzer</h2>
@@ -282,9 +278,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('member/inscription'); ?>">Inscription</a>
                             </li>
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('member/connexion'); ?>">Connexion</a>
-                            </li>!-->
 							
 							<!-- modal_login est dans le footer !-->
 							<li class="nav-item">
@@ -298,7 +291,7 @@
                                 <a class="nav-link" href="<?php echo site_url('member/profil'); ?>">Profil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('member/logout'); ?>">Déconnexion</a>
+                                <a class="nav-link" href="<?php echo site_url('ajax_member/logout'); ?>">Déconnexion</a>
                             </li>
                         <?php endif; ?>
 						
@@ -316,159 +309,117 @@
 
 
 <!-- //  Ouverture de la div qui contient MAIN et SIDEBAR  // -->
-    <div id="j-container" class="container-fluid">
-	<div class="row flex-nowrap">
-
-<?php if (isset($session->logged) && $session->logged) : ?>
-<!-- // ####################################################################### // -->
-<!-- // ####################### NAV SIDEBAR ORDI LOGGED ####################### // -->
-<!-- // ####################################################################### // -->
-        <div id="j-sidebar-container" class="fixed-top col-auto col-md-3 col-xl-2">
-		<div class="row">
-		
-			<div id="j-sidebar">
+<div id="j-container" class="container-fluid">
+	<div class="flex-nowrap">
+		<?php if (isset($session->logged) && $session->logged) : ?>
+			<!-- // ####################################################################### // -->
+			<!-- // ####################### NAV SIDEBAR ORDI LOGGED ####################### // -->
+			<!-- // ####################################################################### // -->
+			<div id="j-sidebar-container" class="fixed-top col-auto col-md-3 col-xl-2">
 			
-				<!-- Pseudo !-->
-				<div>
-					<a class="row d-flex align-items-center my-2" href="<?php echo site_url('member/view'); ?>">
+				<div id="j-sidebar">
+						
+					<!-- Pseudo !-->
+					<div>
+						<a class="row d-flex align-items-center my-2" href="<?php echo site_url('member/profil'); ?>">
 						<div class="col-3">
 							<img id="avatar" class="rounded-circle m-1" alt="image de profil" 
-								src="<?php 
-									if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
-									else echo base_url('images/member/default-member-image.jpg');
-								?>">
-						</div>
-						<div class="col-9">
-							<p class="m-1"><?= $session->member['pseudo'] ?></p>
-						</div>
-					</a>
-				</div>
-				
-				<!-- LIST GROUP !-->
-				<?php if (isset($session->myGroups)) : ?>
-				<div class="accordion">
-					<div class="accordion-item">
-						<h5 class="accordion-header" id="panelsStayOpen-headingOne">
-							<button class="accordion-button j-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-								<i class="bi bi-people-fill mx-2"></i> Mes Groupes
-							</button>
-						</h5>
-						<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-							<div class="accordion-body">
-								<ul class="list-group list-group-flush">
-									<?php foreach ($session->myGroups as $group) : ?>
-									<li class="list-group-item">
-										<a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
-											<img alt="image de profil" class="rounded-circle img-group m-1"
-												src="<?php 
-													if (!empty($group['picture'])) echo base_url('images/group/').'/'.$group['picture'];
-													else echo base_url('images/group/default-group-image.jpg'); ?>">
-											
-											<?php echo $group['name'] ?>
-											<div class="ms-auto">
-												<?php if($group['is_admin'] && $group['is_valid']) : ?>  
-													<i class="bi bi-gear ms-auto"></i>
-												<?php elseif($group['is_admin'] && !$group['is_valid']) : ?>
-													<i class="bi bi-patch-question ms-auto"></i>
-												<?php endif ?>
-											</div>
-										</a>
-									</li>
-									<?php endforeach ?>
-									<!-- <li class="list-group-item">
-										<a href="#">
-											<img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
-										</a>
-									</li>
-									<li class="list-group-item">
-										<a href="#">
-											<img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
-										</a>
-									</li> -->
-									<li class="list-group-item">
-										<a href="<?= site_url('group'); ?>">Tous mes groupes</a>
-									</li>
-								</ul>
+							src="<?php 
+										if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
+										else echo base_url('images/member/default-member-image.jpg');
+										?>">
 							</div>
-						</div>
+							<div class="col-9">
+								<p class="m-1"><?= $session->member['pseudo'] ?></p>
+							</div>
+						</a>
 					</div>
-					
-					<!-- LIST DATE !-->
-					<div class="accordion-item">
-						<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-							<i class="bi bi-calendar3-fill mx-2"></i> Mes prochaines dates
-							</button>
-						</h5>
-						<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-							<div class="accordion-body">
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">
-										<a href="#" class="a-event">
-											<img src="<?php echo base_url('images/group/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-											<p>La Jam des Chatons</p>
-										</a>
-										15.08.21
-									</li>
-									<li class="list-group-item">
-										<a href="#" class="a-event">
-											<img src="<?php echo base_url('images/group/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-											<p>Pélicans en folie - Concert d'ouverture</p>
-										</a>
-										15.08.21
-									</li>
-									<li class="list-group-item">
-										<a href="#" class="a-event">
-											<img src="<?php echo base_url('images/group/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-											<p>Le bal des Autruches</p>
-										</a>
-										15.08.21
-									</li>
-									<li class="list-group-item">
-										<a href="#">Toutes mes dates</a>
-									</li>
-								</ul>
+						
+					<!-- LIST GROUP !-->
+					<?php if (isset($session->myGroups)) : ?>
+					<div class="accordion">
+						<div class="accordion-item">
+							<h5 class="accordion-header" id="panelsStayOpen-headingOne">
+								<button class="accordion-button j-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+									<i class="bi bi-people-fill mx-2"></i> Mes Groupes
+								</button>
+							</h5>
+							<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+								<div class="accordion-body">
+									<ul class="list-group list-group-flush">
+										<?php foreach ($session->myGroups as $group) : ?>
+										<li class="list-group-item">
+											<a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
+												<img alt="image de profil" class="rounded-circle img-group m-1"
+													src="<?php 
+														if (!empty($group['picture'])) echo base_url('images/group/').'/'.$group['picture'];
+														else echo base_url('images/group/default-group-image.jpg'); ?>">
+												
+												<?php echo $group['name'] ?>
+												<div class="ms-auto">
+													<?php if($group['is_admin'] && $group['is_valid']) : ?>  
+														<i class="bi bi-gear ms-auto"></i>
+													<?php elseif($group['is_admin'] && !$group['is_valid']) : ?>
+														<i class="bi bi-patch-question ms-auto"></i>
+													<?php endif ?>
+												</div>
+											</a>
+										</li>
+										<?php endforeach ?>
+										<!-- <li class="list-group-item">
+											<a href="#">
+												<img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
+											</a>
+										</li>
+										<li class="list-group-item">
+											<a href="#">
+												<img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
+											</a>
+										</li> -->
+										<li class="list-group-item">
+											<a href="<?= site_url('group'); ?>">Tous mes groupes</a>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
-					</div>
-					<!--<div class="accordion-item j-accordion-item">
-						<h5 class="accordion-header j-accordion-header" id="panelsStayOpen-headingThree">
-							<button class="accordion-button j-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-							<i class="bi bi-chat-dots-fill mx-2"></i>Mes messages
-							</button>
-						</h5>
-						<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-							<div class="accordion-body">
-							<ul class="list-group list-group-flush">
-									<li class="list-group-item flex-column">
-										<a href="#">
-											<img src="<?php echo base_url('images/member/chaton-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-											Chaton
-										</a>
-										"Salut, ça va ?"
-									</li>
-									<li class="list-group-item flex-column">
-										<a href="#">
-											<img src="<?php echo base_url('images/member/pelican-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-											Pélican
-										</a>
-										"Hello !"
-									</li>
-									<li class="list-group-item flex-column">
-										<a href="#">
-											<img src="<?php echo base_url('images/member/autruche-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-											Autruche
-										</a>
-										"Est-ce que tu sais combien de touches a un piano ?"
-									</li>
-									<li class="list-group-item">
-										<a href="#"> Tous mes messages</a>
-									</li>
-								</ul>
+						
+						
+							
+							<!-- LIST DATE !-->
+							<div class="accordion-item">
+								<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+									<i class="bi bi-calendar3-fill mx-2"></i> Mes prochains "events"
+									</button>
+								</h5>
+								<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+									<div class="accordion-body">
+										<ul class="list-group list-group-flush">
+											<?php foreach($session->myEvents as $event) : ?>
+											<li class="list-group-item">
+												<a href="<?= site_url('group').'/'.esc($event['group']['slug'], 'url').'/event/'.esc($event['slug'], 'url') ?>" class="a-event">
+													<img src="<?php 
+															if (!empty($event['group']['picture'])) echo base_url('images/group/').'/'.$group['picture'];
+															else echo base_url('images/group/default-group-image.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
+													<p><?php echo $event['name'] ?></p>
+													<div class="ms-auto">
+														<?php if($event['is_admin']) : ?>  
+															<i class="bi bi-gear ms-auto"></i>
+														<?php endif ?>
+													</div>
+												</a>
+											</li>
+											<?php endforeach ?>
+											<li class="list-group-item">
+												<a href="#">Toutes mes dates</a>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>!-->
-					
+							
+							
 				</div> <!-- On ferme l'accordéon !-->
 				<?php endif; ?>
 				
@@ -484,19 +435,17 @@
 				</div>
 				
 				
-			</div> <!-- On ferme le container !-->
+			</div> <!-- On ferme la sidebar !-->
 				
-		</div>	<!-- On ferme la row !-->
-        </div>	<!-- On ferme la sidebar !-->
-<?php endif ?>
+        </div>	<!-- On ferme la sidebar-container !-->
+		
+		<!-- le reste est fermé dans le footer !-->
+	
+		
+<?php endif; ?>
 
 <!-- // ##################################################################### // -->
 <!-- // ######################### Ouverture du MAIN ######################### // -->
 <!-- // ##################################################################### // -->
-        <main class="container container col-auto col-md-6 col-xl-6
-			<?php if(isset($_SESSION['logged']) && $_SESSION['logged']) : ?>
-				offset-md-4 offset-xl-4
-			<?php endif; ?>
-		">
-		
+        <main class="container col-auto col-md-6 col-xl-6 <?php if(isset($session->logged) && $session->logged) : ?> offset-md-4 offset-xl-4 <?php endif; ?> pb-3">
 		

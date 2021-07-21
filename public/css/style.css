@@ -5,72 +5,73 @@
   font-family: rimouski;
   src: url("fonts/rimouski.woff");
   src: url("fonts/rimouski.woff") format("woff"); }
-#bootstrap-overrides {
+body#bootstrap-overrides {
+  height: 100vh;
   background-color: #0b0604;
   color: #ccc; }
-  #bootstrap-overrides a {
+  body#bootstrap-overrides a {
     color: #ff6305;
     text-decoration: none; }
-    #bootstrap-overrides a:hover {
+    body#bootstrap-overrides a:hover {
       color: #ff731e;
       text-decoration: underline; }
-  #bootstrap-overrides li, #bootstrap-overrides label, #bootstrap-overrides button, #bootstrap-overrides .j-label {
+  body#bootstrap-overrides li, body#bootstrap-overrides label, body#bootstrap-overrides button, body#bootstrap-overrides .j-label {
     font-family: rimouski;
     letter-spacing: 0.6px; }
-  #bootstrap-overrides h1, #bootstrap-overrides h2, #bootstrap-overrides h3, #bootstrap-overrides h4, #bootstrap-overrides h5, #bootstrap-overrides h6 {
+  body#bootstrap-overrides h1, body#bootstrap-overrides h2, body#bootstrap-overrides h3, body#bootstrap-overrides h4, body#bootstrap-overrides h5, body#bootstrap-overrides h6 {
     color: #FFB300;
     font-family: BorisBlackBloxx; }
-  #bootstrap-overrides img {
+  body#bootstrap-overrides img {
     object-fit: cover; }
-  #bootstrap-overrides .btn-primary {
+  body#bootstrap-overrides .btn-primary {
     color: #f2f2f2;
     background-color: #FFB300;
     border-color: #ffc233; }
-    #bootstrap-overrides .btn-primary:hover {
+    body#bootstrap-overrides .btn-primary:hover {
       color: #fff;
       background-color: #ffbb1a;
       border-color: #ffce5c; }
-  #bootstrap-overrides .modal .default .modal-content {
+  body#bootstrap-overrides .modal .default .modal-content {
     background-color: #3b2217;
     border-style: solid;
     border-color: #8f5438;
     border-width: 1px; }
-    #bootstrap-overrides .modal .default .modal-content .modal-header {
+    body#bootstrap-overrides .modal .default .modal-content .modal-header {
       font-family: rimouski;
       background-color: #281810;
       border-bottom-style: solid;
       border-color: #8e3500;
       border-bottom-width: 3px; }
-    #bootstrap-overrides .modal .default .modal-content .modal-footer {
+    body#bootstrap-overrides .modal .default .modal-content .modal-footer {
       background-color: #281810;
       border-color: #8e3500;
       justify-content: center; }
-  #bootstrap-overrides .form-control:focus {
+  body#bootstrap-overrides .form-control:focus {
     border-color: #281810;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6); }
-  #bootstrap-overrides #nav-logged-phone {
+  body#bootstrap-overrides #nav-logged-phone {
     background-color: #D97925;
     min-height: 35px; }
-    #bootstrap-overrides #nav-logged-phone a {
+    body#bootstrap-overrides #nav-logged-phone a {
       color: black; }
-    #bootstrap-overrides #nav-logged-phone .j-img-profil-nav-phone {
+    body#bootstrap-overrides #nav-logged-phone .j-img-profil-nav-phone {
       width: 40px;
       height: 40px;
       border: 4px #A63005 solid; }
-    #bootstrap-overrides #nav-logged-phone i {
+    body#bootstrap-overrides #nav-logged-phone i {
       font-size: 25px;
       color: #A63005; }
-  #bootstrap-overrides header .navbar, #bootstrap-overrides header .navbar-dark {
+  body#bootstrap-overrides header .navbar, body#bootstrap-overrides header .navbar-dark {
     background-color: #281810;
     border-bottom-style: solid;
     border-color: #72422c;
     border-bottom-width: 1px; }
-    #bootstrap-overrides header .navbar .nav-link, #bootstrap-overrides header .navbar .navbar-nav, #bootstrap-overrides header .navbar .navbar-brand, #bootstrap-overrides header .navbar-dark .nav-link, #bootstrap-overrides header .navbar-dark .navbar-nav, #bootstrap-overrides header .navbar-dark .navbar-brand {
+    body#bootstrap-overrides header .navbar .nav-link, body#bootstrap-overrides header .navbar .navbar-nav, body#bootstrap-overrides header .navbar .navbar-brand, body#bootstrap-overrides header .navbar-dark .nav-link, body#bootstrap-overrides header .navbar-dark .navbar-nav, body#bootstrap-overrides header .navbar-dark .navbar-brand {
       color: #e6a100; }
-      #bootstrap-overrides header .navbar .nav-link:hover, #bootstrap-overrides header .navbar .navbar-nav:hover, #bootstrap-overrides header .navbar .navbar-brand:hover, #bootstrap-overrides header .navbar-dark .nav-link:hover, #bootstrap-overrides header .navbar-dark .navbar-nav:hover, #bootstrap-overrides header .navbar-dark .navbar-brand:hover {
+      body#bootstrap-overrides header .navbar .nav-link:hover, body#bootstrap-overrides header .navbar .navbar-nav:hover, body#bootstrap-overrides header .navbar .navbar-brand:hover, body#bootstrap-overrides header .navbar-dark .nav-link:hover, body#bootstrap-overrides header .navbar-dark .navbar-nav:hover, body#bootstrap-overrides header .navbar-dark .navbar-brand:hover {
         color: #ffce5c;
         text-decoration: none; }
-  #bootstrap-overrides footer {
+  body#bootstrap-overrides footer {
     background-color: #3b2217;
     border-top-style: solid;
     border-color: #8f5438;
@@ -78,20 +79,25 @@
     color: white;
     text-align: center;
     font-size: small; }
-    #bootstrap-overrides footer a {
+    body#bootstrap-overrides footer a {
       color: white;
       text-decoration: none;
       padding: 0px 5px; }
-    #bootstrap-overrides footer a:hover {
+    body#bootstrap-overrides footer a:hover {
       color: #F2DA5E; }
-  #bootstrap-overrides #j-container {
+  body#bootstrap-overrides #j-container {
+    min-height: 100%;
+    height: 100%;
     /*@media (max-width: 978px) {
     	main.container {
     		padding: 0px;
     		margin: 0px;
     	}
     }*/ }
-    #bootstrap-overrides #j-container #j-sidebar-container {
+    body#bootstrap-overrides #j-container > div {
+      min-height: 100%;
+      height: 100%; }
+    body#bootstrap-overrides #j-container #j-sidebar-container {
       background-color: #281810;
       overflow: scroll;
       overflow-x: hidden;
@@ -99,47 +105,48 @@
       border-right-style: solid;
       border-color: #72422c;
       border-right-width: 1px; }
-      #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar img#avatar {
+      body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar img#avatar {
         width: 38px;
         height: 38px; }
-      #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion {
+      body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion {
         border: none;
         border-radius: 0;
         background-color: #D97925; }
-        #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item {
+        body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item {
           background-color: #BBBF3B; }
-          #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item a {
+          body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item a {
             color: black;
             font-size: small; }
-          #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .accordion-body {
+          body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .accordion-body {
             padding: 0; }
-          #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .accordion-button {
+          body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .accordion-button {
             color: #A63005;
             background-color: #F2DA5E;
             font-size: small; }
-          #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item {
+          body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item {
             background-color: #BBBF3B;
             font-size: small;
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
             flex-direction: column; }
-            #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item .a-event {
+            body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item .a-event {
               display: flex;
               justify-content: space-between;
               align-items: center; }
-              #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item .a-event p {
+              body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item .a-event p {
                 margin: 0;
                 text-align: center; }
-            #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item .img-group {
+            body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item .img-group {
               width: 30px;
               height: 30px; }
-            #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item i {
+            body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar .accordion .accordion-item .list-group-item i {
               font-size: 18px; }
-      #bootstrap-overrides #j-container #j-sidebar-container #j-sidebar #footer {
+      body#bootstrap-overrides #j-container #j-sidebar-container #j-sidebar #footer {
         line-height: 1.2rem; }
-    #bootstrap-overrides #j-container main {
+    body#bootstrap-overrides #j-container main {
       background-color: #281810;
+      min-height: 100%;
       /*.link_groupIndex {
           text-decoration: none;
           color: black;
@@ -153,29 +160,31 @@
               border: 4px solid $E;
           }
       }*/ }
-      #bootstrap-overrides #j-container main .card {
+      body#bootstrap-overrides #j-container main .card {
         color: #EA5800;
         background-color: #4d2d1e;
         border-style: solid;
         border-color: #8f5438;
         border-top-width: 1px; }
-        #bootstrap-overrides #j-container main .card .j-card-header {
+        body#bootstrap-overrides #j-container main .card .j-card-header {
           background-color: #e6a100; }
-        #bootstrap-overrides #j-container main .card .j-card-footer {
+        body#bootstrap-overrides #j-container main .card .j-card-footer {
           background-color: #FFB300;
           color: #F2DA5E; }
-        #bootstrap-overrides #j-container main .card img {
+        body#bootstrap-overrides #j-container main .card img {
           max-width: 100%; }
-      #bootstrap-overrides #j-container main #j-img-page-profil {
-        width: 100px;
-        height: 100px; }
-      #bootstrap-overrides #j-container main #j-group-header nav {
+      body#bootstrap-overrides #j-container main #profil form label {
+        font-size: 1.3rem; }
+      body#bootstrap-overrides #j-container main #profil img#avatar {
+        width: 128px;
+        height: 128px; }
+      body#bootstrap-overrides #j-container main #j-group-header nav {
         background-color: #BBBF3B;
         border-bottom: 2px solid #BF9106; }
-        #bootstrap-overrides #j-container main #j-group-header nav div a {
+        body#bootstrap-overrides #j-container main #j-group-header nav div a {
           color: #A63005;
           text-decoration: none; }
-        #bootstrap-overrides #j-container main #j-group-header nav div a:hover {
+        body#bootstrap-overrides #j-container main #j-group-header nav div a:hover {
           color: #F2DA5E;
           background-color: #A63005; }
 

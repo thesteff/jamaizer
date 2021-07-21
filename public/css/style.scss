@@ -127,9 +127,11 @@ $colors: (
 }
 
 
-#bootstrap-overrides {
+body#bootstrap-overrides {
 
     
+	height: 100vh;
+	
     // ~~~~~~~~ Body Background image ~~~~~~~~ //
     background-color: clr(dark, darkest);
 	// background-position:center;
@@ -297,6 +299,15 @@ $colors: (
         // display: flex;
         // justify-content: space-around;
         // align-items: stretch;
+		
+		min-height: 100%;
+		height: 100%;
+		
+		> div {
+			min-height: 100%;
+			height: 100%
+		}
+
         
 // ====================================================== //
 // =========== aside (connecté.e, format ordi) ========== //
@@ -399,7 +410,7 @@ $colors: (
         main {
             //max-width: 700px;
             background-color: clr(dark, darker);
-			
+			min-height: 100%;
 			
 
 // ##################################################################### //
@@ -434,9 +445,17 @@ $colors: (
                 }
             }
 
-            #j-img-page-profil {
-                width: 100px;
-                height: 100px;
+			// ~~~~~~~~~~~~~~~~ PROFIL  ~~~~~~~~~~~~~~~ //
+            #profil {
+			
+				form label {
+					font-size: 1.3rem;
+				}
+			
+				img#avatar {
+					width: 128px;
+					height: 128px;
+				}
             }
 
             // ~~~~~~~~~~ HEADER page groupe ~~~~~~~~~ //
