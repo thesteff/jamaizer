@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\EventModel;
 use App\Models\GroupModel;
 use App\Models\MemberModel;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -105,7 +106,7 @@ class Member extends BaseController {
 				$data['inscriptionSuccess'] = [$inscriptionSuccess];
 				$data['pseudo'] = $pseudo;
 				// TODO on redirige vers la page de connexion, avec le message de succès et le pseudo pour préremplir le formulaire de connexion
-				return redirect('member/connexion', $data);
+				return redirect('member/login', $data);
 			} 
 			else 
 			{
@@ -327,16 +328,19 @@ class Member extends BaseController {
 				//log_message("debug","******* Members :: login :: arrayNotif : ".json_encode($arrayNotif));
 
 				// on récupère les groupes du membre pour les ajouter à la session
-				$groups = new GroupModel();
-				$myGroups = $groups->getMyGroups($member['id']);
-				// $data['myGroups'] = $myGroups;
-
-
+				$groupModel = new GroupModel();
+				$myGroups = $groupModel->getMyGroups($member['id']);
+				
+				// on récupère les events du membre pour les ajouter à la session
+				$eventModel = new EventModel();
+				$myEvents = $eventModel->getMyEvents($member['id']);
+// dd($myEvents);
 				// On fixe les variables de sessions
 				$data = array(
 								'logged' => true,
 								'member' => $member,
-								'myGroups' => $myGroups
+								'myGroups' => $myGroups,
+								'myEvents' => $myEvents,
 							);
 				$this->session->set($data);
 				

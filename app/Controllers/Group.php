@@ -137,7 +137,7 @@ class Group extends BaseController
 		}
 		
 		$groupModel = new GroupModel();
-		$group = $groupModel->getOneGroup($slug, $memberId);
+		$group = $groupModel->getOneGroupBySlug($slug, $memberId);
 		// dd($group);
 		// on vérifie s'il y a déjà une requête envoyée par le membre au groupe
 		$requestModel = new RequestModel();
@@ -224,7 +224,7 @@ class Group extends BaseController
 		$data = $this->header($slug);
 
 		$groupModel = new GroupModel();
-		$group = $groupModel->getOneGroup($slug, $this->session->member['id']);
+		$group = $groupModel->getOneGroupBySlug($slug, $this->session->member['id']);
 		
 		$requestModel = new RequestModel();
 		$requests = $requestModel->getGroupRequests($data['group']['id']);
@@ -285,7 +285,7 @@ class Group extends BaseController
 		}
 
 		$groupModel = new GroupModel();
-		$group = $groupModel->getOneGroup($slug, $memberId);
+		$group = $groupModel->getOneGroupBySlug($slug, $memberId);
 		$data = $group;
 
 		if(count($_POST) > 0) {

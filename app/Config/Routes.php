@@ -42,23 +42,59 @@ $routes->add('member/logout', 'Member::logout');
 $routes->add('member/profil', 'Member::view');
 
 
-$routes->add('group/(:segment)/event/create', 'Event::create/$1');
-$routes->add('group/(:segment)/event/(:segment)/(:segment)/members/accept/(:segment)', 'Event::acceptMemberInEvent');
-$routes->add('group/(:segment)/event/(:segment)/(:segment)', 'Event::viewOneEvent/$1/$2');
-$routes->add('group/(:segment)/event/(:segment)/(:segment)/members', 'Event::members/$1/$2');
-$routes->add('group/(:segment)/event/(:segment)/(:segment)/update', 'Event::update/$1/$2');
-$routes->add('group/(:segment)/event', 'Event::viewGroupsEvents/$1');
+// $routes->add('group/(:segment)/event/(:segment)/(:segment)/members/accept/(:segment)', 'Event::acceptMemberInEvent');
+// $routes->add('group/(:segment)/event/(:segment)/(:segment)/members', 'Event::members/$1/$2');
+// $routes->add('group/(:segment)/event/(:segment)/(:segment)/update', 'Event::update/$1/$2');
+// $routes->add('group/(:segment)/event/(:segment)/(:segment)', 'Event::viewOneEvent/$1/$2');
+// $routes->add('group/(:segment)/event/create', 'Event::create/$1');
+// $routes->add('group/(:segment)/event', 'Event::viewGroupsEvents/$1');
 
-$routes->add('group/create', 'Group::create');
-$routes->add('group/view/(:segment)', 'Group::view/$1');
-$routes->add('group/(:segment)/about', 'Group::about/$1');
-$routes->add('group/update/(:segment)', 'Group::update/$1');
-$routes->add('group/notification/accept', 'Group::acceptMemberInGroup');
-$routes->add('group/notification/(:segment)', 'Group::notification/$1');
-$routes->add('group', 'Group::index');
+// $routes->add('group/update/(:segment)', 'Group::update/$1');
+// $routes->add('group/notification/accept', 'Group::acceptMemberInGroup');
+// $routes->add('group/notification/(:segment)', 'Group::notification/$1');
+// $routes->add('group/(:segment)/about', 'Group::about/$1');
+// $routes->add('group/view/(:segment)', 'Group::view/$1');
+// $routes->add('group/create', 'Group::create');
+// $routes->add('group', 'Group::index');
 
-$routes->add('admin/group/(:segment)', 'admin::acceptGroup/$1');
-$routes->add('admin', 'Admin::index');
+
+/** LES GROUPES **/
+/** toutes les pages concernant les groupes **/
+$routes->group('group', function($routes){
+	$routes->add('', 'Group::index');
+	$routes->add('create', 'Group::create');
+	/** toutes les pages concernant UN SEUL groupe **/
+	$routes->group('(:segment)', function($routes){ //'segment' = slug du groupe
+		$routes->add('', 'Group::view/$1');
+		$routes->add('view', 'Group::view/$1');
+		$routes->add('about', 'Group::about/$1');
+		$routes->add('notification', 'Group::notification/$1');
+//TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
+		$routes->add('notification/accept', 'Group::acceptMemberInGroup');
+		$routes->add('update', 'Group::update/$1');
+		/** Toutes les pages concernant LES EVENTS propres à UN GROUPE **/
+		$routes->group('event', function($routes){
+			$routes->add('', 'Event::viewGroupsEvents/$1');
+			$routes->add('create', 'Event::create/$1');
+			/** toutes les pages concernant UN EVENT dans UN GROUPE **/
+			$routes->group('(:segment)', function($routes){ // segment = slug de l'event
+				$routes->add('', 'Event::viewOneEvent/$1/$2');
+				$routes->add('update', 'Event::update/$1/$2');
+				$routes->add('members', 'Event::members/$1/$2');
+//TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
+				$routes->add('members/accept/(:segment)', 'Event::acceptMemberInEvent/$1/$2/$3	');
+			});
+		});
+	});
+});
+
+/** ADMIN **/
+$routes->group('admin', function($routes){
+	$routes->add('', 'Admin::index');
+	$routes->add('group/(:segment)', 'admin::acceptGroup/$1');
+});
+
+
 
 $routes->match(['get', 'post'], 'news/create', 'News::create');
 $routes->add('news/(:segment)', 'News::view/$1');

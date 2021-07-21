@@ -4,10 +4,10 @@
     <h1><?= $event['name'] ?></h1>
     <h3><small>Description : </small><?= $event['description'] ?></h3>
     <?php if(isset($group['is_admin']) && $group['is_admin']) : ?>
-        <a href="<?= site_url('group/'.$group['slug'].'/event/'.$event['id'].'/'.$event['name'].'/update') ?>" class="btn btn-outline-light mt-3 ms-2">
+        <a href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/event/'.esc($event['slug'], 'url').'/update' ?>" class="btn btn-outline-light mt-3 ms-2">
             Modifier l'événement
         </a>
-        <a href="<?= site_url('group/'.$group['slug'].'/event/'.$event['id'].'/'.$event['name'].'/members') ?>" class="btn btn-outline-light mt-3 ms-2">
+        <a href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/event/'.esc($event['slug'], 'url').'/members' ?>" class="btn btn-outline-light mt-3 ms-2">
             Voir les membres
         </a>
     <?php endif ?>
