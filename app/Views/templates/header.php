@@ -495,5 +495,3 @@
 <!-- // ######################### Ouverture du MAIN ######################### // -->
 <!-- // ##################################################################### // -->
         <main class="container col-auto col-md-6 col-xl-6 <?php if(isset($session->logged) && $session->logged) : ?> offset-md-4 offset-xl-4 <?php endif; ?> pb-3">
-		
-		
