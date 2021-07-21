@@ -44,7 +44,7 @@
                     Rejoindre le groupe
                 </button>
 
-                <!-- Modal
+                <!-- Modal !-->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             <?php elseif($group['request'] || isset($success['groupRequest'])) : ?>
                 <button type="button" class="btn btn-outline-dark mt-3 ms-2" disabled>
                     Demande envoyée

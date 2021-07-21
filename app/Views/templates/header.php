@@ -122,7 +122,7 @@
 		document.body.style.cursor = 'wait';
 		
 		// Requète ajax au serveur
-		$.post("<?php echo site_url('member/login'); ?>",
+		$.post("<?php echo site_url('ajax_member/login'); ?>",
 		
 			// On récupère les données nécessaires
 			{
@@ -252,7 +252,7 @@
         <a href="<?= site_url('group'); ?>" alt="Mes Groupes"><i class="bi bi-people-fill"></i></a>
         <a href="#" alt="Mes événements"><i class="bi bi-calendar3-fill"></i></a>
         <a href="#" alt="Mes messages"><i class="bi bi-chat-dots-fill"></i></a>
-        <a href="<?= site_url('member/deconnexion'); ?>" alt="Déconnexion"><i class="bi bi-door-open-fill"></i></a>
+        <a href="<?= site_url('ajax_member/deconnexion'); ?>" alt="Déconnexion"><i class="bi bi-door-open-fill"></i></a>
     </div>
 <?php endif ?>
 
@@ -282,9 +282,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('member/inscription'); ?>">Inscription</a>
                             </li>
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('member/connexion'); ?>">Connexion</a>
-                            </li>!-->
 							
 							<!-- modal_login est dans le footer !-->
 							<li class="nav-item">
@@ -298,7 +295,7 @@
                                 <a class="nav-link" href="<?php echo site_url('member/profil'); ?>">Profil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('member/logout'); ?>">Déconnexion</a>
+                                <a class="nav-link" href="<?php echo site_url('ajax_member/logout'); ?>">Déconnexion</a>
                             </li>
                         <?php endif; ?>
 						

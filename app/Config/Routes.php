@@ -37,8 +37,6 @@ $routes->setAutoRoute(false);
 $routes->add('ajax_member/(:any)', 'Ajax_member::$1');
 $routes->add('member/inscription', 'Member::create');
 $routes->add('member/update', 'Member::update');
-$routes->add('member/login', 'Member::login');
-$routes->add('member/logout', 'Member::logout');
 $routes->add('member/profil', 'Member::view');
 
 
