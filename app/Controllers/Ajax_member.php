@@ -2,6 +2,7 @@
 
 use App\Models\MemberModel;
 use App\Models\GroupModel;
+use App\Models\EventModel;
 
 /*use App\Models\Message_model;
 use App\Models\Discussion_model;
@@ -480,12 +481,16 @@ class Ajax_member extends BaseController {
 
 				$groupModel = new GroupModel();
 				$myGroups = $groupModel->getMyGroups($member['id']);
+				
+				$eventModel = new EventModel();
+				$myEvent = $eventModel->getMyEvents($member['id']);
 
 				// On fixe les variables de sessions
 				$data = array(
 								'logged' => true,
 								'member' => $member,
-								'myGroups' => $myGroups
+								'myGroups' => $myGroups,
+								'myEvents' => $myEvent
 							);
 				$this->session->set($data);
 				
