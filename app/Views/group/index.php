@@ -57,7 +57,8 @@
 			
 			<!-- On liste les groupes auxquels participe l'utilisateur !-->
 			<?php foreach ($_SESSION['myGroups'] as $group): ?>
-				<a class="link_groupIndex" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
+				<!-- <a class="link_groupIndex" href="<?php // site_url('group/view/').esc($group['slug'], 'url')// ?>"> -->
+				<a class="link_groupIndex" href="<?= site_url('group/').esc($group['slug'], 'url').'/view/' ?>">
 					<div class="myGroupIndex card mb-3">
 						<div class="row g-0">
 							<div class="col-md-4">

@@ -309,7 +309,6 @@
 
 
 <!-- //  Ouverture de la div qui contient MAIN et SIDEBAR  // -->
-<!-- pourquoi avoir doublé les div ? -->
 <div id="j-container" class="container-fluid">
 	<div class="flex-nowrap">
 		<?php if (isset($session->logged) && $session->logged) : ?>
@@ -385,78 +384,85 @@
 							</div>
 						</div>
 						
-						<!-- LIST DATE !-->
-						<div class="accordion-item">
-							<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-								<i class="bi bi-calendar3-fill mx-2"></i> Mes prochaines dates
-								</button>
-							</h5>
-							<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-								<div class="accordion-body">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<a href="#" class="a-event">
-												<img src="<?php echo base_url('images/group/chatons-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-												<p>La Jam des Chatons</p>
-											</a>
-											15.08.21
-										</li>
-										<li class="list-group-item">
-											<a href="#" class="a-event">
-												<img src="<?php echo base_url('images/group/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-												<p>Pélicans en folie - Concert d'ouverture</p>
-											</a>
-											15.08.21
-										</li>
-										<li class="list-group-item">
-											<a href="#" class="a-event">
-												<img src="<?php echo base_url('images/group/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-												<p>Le bal des Autruches</p>
-											</a>
-											15.08.21
-										</li>
-										<li class="list-group-item">
-											<a href="#">Toutes mes dates</a>
-										</li>
-									</ul>
+						<!-- LIST GROUP !-->
+						<?php if (isset($session->myGroups)) : ?>
+						<div class="accordion">
+							<div class="accordion-item">
+								<h5 class="accordion-header" id="panelsStayOpen-headingOne">
+									<button class="accordion-button j-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+										<i class="bi bi-people-fill mx-2"></i> Mes Groupes
+									</button>
+								</h5>
+								<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+									<div class="accordion-body">
+										<ul class="list-group list-group-flush">
+											<?php foreach ($session->myGroups as $group) : ?>
+											<li class="list-group-item">
+												<a class="d-flex align-items-center" href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/view' ?>">
+													<img alt="image de profil" class="rounded-circle img-group m-1"
+														src="<?php 
+															if (!empty($group['picture'])) echo base_url('images/group/').'/'.$group['picture'];
+															else echo base_url('images/group/default-group-image.jpg'); ?>">
+													
+													<?php echo $group['name'] ?>
+													<div class="ms-auto">
+														<?php if($group['is_admin'] && $group['is_valid']) : ?>  
+															<i class="bi bi-gear ms-auto"></i>
+														<?php elseif($group['is_admin'] && !$group['is_valid']) : ?>
+															<i class="bi bi-patch-question ms-auto"></i>
+														<?php endif ?>
+													</div>
+												</a>
+											</li>
+											<?php endforeach ?>
+											<!-- <li class="list-group-item">
+												<a href="#">
+													<img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
+												</a>
+											</li>
+											<li class="list-group-item">
+												<a href="#">
+													<img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
+												</a>
+											</li> -->
+											<li class="list-group-item">
+												<a href="<?= site_url('group'); ?>">Tous mes groupes</a>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!--<div class="accordion-item j-accordion-item">
-							<h5 class="accordion-header j-accordion-header" id="panelsStayOpen-headingThree">
-								<button class="accordion-button j-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-								<i class="bi bi-chat-dots-fill mx-2"></i>Mes messages
-								</button>
-							</h5>
-							<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-								<div class="accordion-body">
-								<ul class="list-group list-group-flush">
-										<li class="list-group-item flex-column">
-											<a href="#">
-												<img src="<?php echo base_url('images/member/chaton-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-												Chaton
-											</a>
-											"Salut, ça va ?"
-										</li>
-										<li class="list-group-item flex-column">
-											<a href="#">
-												<img src="<?php echo base_url('images/member/pelican-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-												Pélican
-											</a>
-											"Hello !"
-										</li>
-										<li class="list-group-item flex-column">
-											<a href="#">
-												<img src="<?php echo base_url('images/member/autruche-solo.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">
-												Autruche
-											</a>
-											"Est-ce que tu sais combien de touches a un piano ?"
-										</li>
-										<li class="list-group-item">
-											<a href="#"> Tous mes messages</a>
-										</li>
-									</ul>
+							
+							<!-- LIST DATE !-->
+							<div class="accordion-item">
+								<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+									<i class="bi bi-calendar3-fill mx-2"></i> Mes prochains "events"
+									</button>
+								</h5>
+								<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+									<div class="accordion-body">
+										<ul class="list-group list-group-flush">
+											<?php foreach($session->myEvents as $event) : ?>
+											<li class="list-group-item">
+												<a href="<?= site_url('group').'/'.esc($event['group']['slug'], 'url').'/event/'.esc($event['slug'], 'url') ?>" class="a-event">
+													<img src="<?php 
+															if (!empty($event['group']['picture'])) echo base_url('images/group/').'/'.$group['picture'];
+															else echo base_url('images/group/default-group-image.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
+													<p><?= $event['name'] ?></p>
+													<div class="ms-auto">
+														<?php if($event['is_admin']) : ?>  
+															<i class="bi bi-gear ms-auto"></i>
+														<?php endif ?>
+													</div>
+												</a>
+											</li>
+											<?php endforeach ?>
+											<li class="list-group-item">
+												<a href="#">Toutes mes dates</a>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>!-->

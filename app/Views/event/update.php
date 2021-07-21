@@ -38,9 +38,10 @@ if(isset($errors)){
 	</div>
 
 	<!-- Envoyer !-->
-	<input id="updateEvent" class="btn btn-outline-dark" type="submit" value="Modifier l'événement" >
+	<input id="updateEvent" class="btn btn-outline-light" type="submit" value="Modifier l'événement" >
 	
 </form>
 </div>
 
-<a href="<?= site_url('group/'.$group['slug'].'/event') ?>">Retour</a>
+<a class="btn btn-outline-light" href="<?= site_url('group/'.$group['slug'].'/event/'.$event['slug'].'/delete') ?>">Supprimer l'événement</a>
+<a class="btn btn-outline-light" href="<?= site_url('group/'.$group['slug'].'/event') ?>">Retour</a>

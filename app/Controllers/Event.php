@@ -8,33 +8,52 @@ use App\Models\EventRegistrationModel;
 use App\Models\GroupMemberModel;
 use App\Models\GroupModel;
 use App\Models\RequestModel;
+use CodeIgniter\I18n\Time;
 
 class Event extends BaseController
 {
-	public function create($slug){
+	public function create($groupSlug){
         if(count($_POST) > 0) {
 
+            // il y a des données dans $_POST. Si le slug n'est pas généré, on le crée et on le place dans une variable
+            if((!isset($_POST['slug']) || empty($_POST['slug'])) && !empty($_POST['name'])){
+                $slug  = url_title($this->request->getPost('name'), '-', TRUE);
+            } elseif(isset($_POST['slug']) && !empty($_POST['slug'])) {
+                $slug = trim($_POST['slug']);
+            } else {
+                $slug = null;
+            }
+            $_POST['slug'] = $slug;
+            // maintenant il y a forcément un slug dans $slug
+            
             // les données du formulaire sont-elles valides ?
             if(!$this->validate([
                 'name' => 'required',
+                'slug' => 'is_unique[events.slug]',
                 'description' => 'required',
-            ])){
-                // il y a des erreurs dans les données. Avant de réafficher le formulaire, on prépare l'hydratation en envoyant les données déjà rentrées
+                ])){
+                    // il y a des erreurs dans les données. Avant de réafficher le formulaire, on prépare l'hydratation en envoyant les données déjà rentrées
+                    
+                    if(!empty($_POST['name'])){$data['name'] = trim($_POST['name']);}
+                    if(!empty($_POST['slug'])){$data['slug'] = trim($_POST['slug']);}
+                    if(!empty($_POST['description'])){$data['description'] = trim($_POST['description']);}
+                    if(!empty($_POST['date_start'])){$data['date_start'] = trim($_POST['date_start']);}
+                    if(!empty($_POST['date_end'])){$data['date_end'] = trim($_POST['date_end']);}
+                    // on récupère les messages d'erreur automatiques afin de les afficher
+                    $errors = $this->validator->getErrors();
+                    $data['errors'] = $errors;
+                    $this->validator->reset();
+                    $data['group']['slug'] = $groupSlug;
                 
-                if(!empty($_POST['name'])){$data['name'] = trim($_POST['name']);}
-                if(!empty($_POST['description'])){$data['description'] = trim($_POST['description']);}
-                if(!empty($_POST['date_start'])){$data['date_start'] = trim($_POST['date_start']);}
-                if(!empty($_POST['date_end'])){$data['date_end'] = trim($_POST['date_end']);}
-                // on récupère les messages d'erreur automatiques afin de les afficher
-                $errors = $this->validator->getErrors();
-                $data['errors'] = $errors;
                 // on affiche à nouveau le formulaire
                 echo view('templates/header');
                 echo view('event/create', $data);
                 echo view('templates/footer');
                 return;
             } else {
+                
                 $name =  trim($_POST['name']);
+                $data['slug'] = $slug;
                 $description =  trim($_POST['description']);
                 // on ajoute le nom et la description, qui sont forcément renseignés
                 $data['name'] = $name;
@@ -42,7 +61,7 @@ class Event extends BaseController
 
                 // on ajoute le groupe auquel est rattaché l'event
                 $groupModel = new GroupModel();
-                $group = $groupModel->getOneGroup($slug, $_SESSION['member']['id']);
+                $group = $groupModel->getOneGroupBySlug($groupSlug, $_SESSION['member']['id']);
                 $data['group_id'] = $group['id'];
 
 
@@ -69,20 +88,18 @@ class Event extends BaseController
             }
         }
         // $groupModel = new GroupModel();
-        // $group = $groupModel->getOneGroup($slug, $_SESSION['member']['id']);
+        // $group = $groupModel->getOneGroupBySlug($slug, $_SESSION['member']['id']);
         // $data['group'] = $group;
 
         $groupController = new Group;
-        $data = $groupController->header($slug);
-
+        $data = $groupController->header($groupSlug);
         echo view('templates/header');
         echo view('group/view/header', $data);
         echo view('event/create', $data);
         echo view('templates/footer');
     }
 
-    public function update($slug, $eventId){
-        // if(isset($_SESSION['logged']) && $_SESSION['logged']){
+    public function update($groupSlug, $eventSlug){
         if(isset($_SESSION['logged']) && $_SESSION['logged']){
 			$memberId = $_SESSION['member']['id'];
 		} else {
@@ -90,11 +107,9 @@ class Event extends BaseController
 		}
         
         $eventModel = new EventModel();
-        $event = $eventModel->getOneEvent($eventId);
-		// $data = $event;
+        $event = $eventModel->getOneEventBySlug($eventSlug);
         
 		if(count($_POST) > 0) {
-            // dd($_POST);
             // les données du formulaire sont-elles valides ?
 			// TODO mettre des vérifications ici
             
@@ -103,18 +118,18 @@ class Event extends BaseController
             $data['description'] = trim($_POST['description']);
             $data['date_start'] = $_POST['date_start'];
             $data['date_end'] = $_POST['date_end'];
-            
+            $data['updated_at'] = Time::now();
             $eventUpdate = $eventModel->update($event['id'], $data);
-            $event = $eventModel->getOneEvent($eventId);
+            $event = $eventModel->getOneEventBySlug($eventSlug);
             // return redirect('group/view');
 		} 
 
         // $groupModel = new GroupModel();
-        // $group = $groupModel->getOneGroup($slug, $_SESSION['member']['id']);
+        // $group = $groupModel->getOneGroupBySlug($slug, $_SESSION['member']['id']);
         // $data['group'] = $group;
 
         $groupController = new Group;
-        $data = $groupController->header($slug);
+        $data = $groupController->header($groupSlug);
         
         $data['event'] = $event;
         
@@ -124,7 +139,15 @@ class Event extends BaseController
         echo view('templates/footer');
     }
 
-    public function viewGroupsEvents($slug){
+    public function delete($groupSlug, $eventSlug){
+        $eventModel = new EventModel();
+        $event = $eventModel->getOneEventBySlug($eventSlug);
+        $data['deleted_at'] = Time::now();
+        $eventModel->update($event['id'], $data);
+        return redirect()->to('group/'.$groupSlug.'/event');
+    }
+
+    public function viewGroupsEvents($groupSlug){
         if(isset($_SESSION['logged']) && $_SESSION['logged']){
             $memberId = $_SESSION['member']['id'];
         } else {
@@ -132,13 +155,13 @@ class Event extends BaseController
         }
 
         // $groupModel = new GroupModel();
-        // $group = $groupModel->getOneGroup($slug, $memberId);
+        // $group = $groupModel->getOneGroupBySlug($slug, $memberId);
         
         $groupController = new Group;
-        $data = $groupController->header($slug);
+        $data = $groupController->header($groupSlug);
 
         $eventModel = new EventModel();
-        $events = $eventModel->getGroupsEvents($slug);
+        $events = $eventModel->getGroupsEvents($groupSlug);
 
         $data['events'] = $events;
         
@@ -148,19 +171,19 @@ class Event extends BaseController
         echo view('templates/footer');
     }
 
-    public function viewOneEvent($slug, $eventId){
+    public function viewOneEvent($groupSlug, $eventSlug){
         if(isset($_SESSION['logged']) && $_SESSION['logged']){
             $memberId = $_SESSION['member']['id'];
         } else {
             $memberId = 0;
         }
         // $groupModel = new GroupModel();
-        // $group = $groupModel->getOneGroup($slug, $memberId);
+        // $group = $groupModel->getOneGroupBySlug($slug, $memberId);
         $groupController = new Group;
-        $data = $groupController->header($slug);
+        $data = $groupController->header($groupSlug);
 
         $eventModel = new EventModel();
-        $event = $eventModel->getOneEvent($eventId, $memberId);
+        $event = $eventModel->getOneEventBySlug($eventSlug, $memberId);
         
         // ====================================================== //
 		// = //  envoie de requête pour rejoindre un groupe  // = //
@@ -201,21 +224,21 @@ class Event extends BaseController
         echo view('templates/footer');
     }
 
-    public function members($slug, $eventId){
+    public function members($groupSlug, $eventSlug){
         $groupController = new Group;
-        $data = $groupController->header($slug);
+        $data = $groupController->header($groupSlug);
         // dd($data);
 
         $eventModel = new EventModel();
-        $event = $eventModel->getOneEvent($eventId);
+        $event = $eventModel->getOneEventBySlug($eventSlug);
         $data['event'] = $event;
         
         $eventRequestModel = new RequestModel();
-        $eventRequests = $eventRequestModel->getEventRequests($eventId);
+        $eventRequests = $eventRequestModel->getEventRequests($eventSlug);
         $data['eventRequests'] = $eventRequests;
 
         $eventRegistrationModel = new EventRegistrationModel();
-        $eventRegistrations = $eventRegistrationModel->getEventRegistrations($eventId);
+        $eventRegistrations = $eventRegistrationModel->getEventRegistrations($eventSlug);
         $data['eventRegistrations'] = $eventRegistrations;
 
         echo view('templates/header');
@@ -225,14 +248,15 @@ class Event extends BaseController
     }
 
     //  ! pas une page ! pour accepter un membre dans un groupe  //
-    public function acceptMemberInEvent($slug, $eventId, $eventName, $memberId){
+    public function acceptMemberInEvent($groupSlug, $eventSlug, $memberId){
 
 		// TODO ajouter ici une vérification pour être sûre que la personne connectée est admin de l'event
 		if(isset($_SESSION['logged']) && $_SESSION['logged']){
-			$eventId = $_GET[0];
-			$memberId = $_GET[1];
+			$eventModel = new EventModel();
+            $event = $eventModel->getOneEventBySlug($eventSlug);
+            
             $data = array(
-				'event_id' => $eventId,
+				'event_id' => $event['id'],
 				'member_id' => $memberId,
 				'is_admin' => false,
 			);
@@ -243,7 +267,7 @@ class Event extends BaseController
 
 			// on supprime la requête qui n'est plus utile
 			$requestModel = new RequestModel();
-			$request = $requestModel->where(['event_id' => $eventId, 'member_id' => $memberId])->first();
+			$request = $requestModel->where(['event_id' => $event['id'], 'member_id' => $memberId])->first();
 			$requestModel->delete($request);
             
 			return  redirect('group');
