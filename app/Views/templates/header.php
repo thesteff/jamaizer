@@ -296,7 +296,7 @@
                         <?php endif; ?>
 						
 						<!-- Super Admin !-->
-                        <?php if( isset($session->logged) && ($session->logged && $session->member['is_super_admin']) ) : ?>
+                        <?php if( isset($session->logged) && ($session->logged && isset($session->member['is_super_admin']) && $session->member['is_super_admin']) ) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('admin'); ?>">ADMIN</a>
                             </li>
@@ -322,7 +322,7 @@
 					<!-- Pseudo !-->
 					<div>
 						<a class="row d-flex align-items-center my-2" href="<?php echo site_url('member/profil'); ?>">
-						<div class="col-3">
+						<div class="col-2">
 							<img id="avatar" class="rounded-circle m-1" alt="image de profil" 
 							src="<?php 
 										if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];

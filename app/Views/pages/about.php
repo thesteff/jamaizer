@@ -1,6 +1,6 @@
 
 
-<div id="about" class="container mainContent">
+<div id="about" class="container mainContent pt-2">
 
 <h1 class="panel-heading">Jamaïzer</h1>
 

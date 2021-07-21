@@ -19,9 +19,24 @@ class Member extends BaseController {
 // ##################################################################### //
 	public function view() {
 		
-		echo view('templates/header');
-		echo view('member/view');
-		echo view('templates/footer');
+		// On ne peut regarder notre profil que si une session avec membre existe
+		if ( ( isset($this->session->logged) && $this->session->logged ) || ( isset($this->session->logged) && $this->session->superAdmin ) ) {
+		
+			echo view('templates/header');
+			echo view('member/view');
+			echo view('templates/footer');
+		}
+		else {
+			
+			$data = [ 
+						'title' => 'Erreur !', 
+						'message' => "Cette page n'est pas accessible !" 
+					];
+			
+			echo view('templates/header', $data);
+			echo view('pages/message', $data);
+			echo view('templates/footer');
+		}
 	}
 	
 
@@ -80,7 +95,7 @@ class Member extends BaseController {
 				$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				
 				// on met toutes les infos dans $data
-				$data = array(
+				$newMember = array(
 					'pseudo' => $pseudo,
 					'email' => $email,
 					'password' => $password,
@@ -91,14 +106,22 @@ class Member extends BaseController {
 					'birth' => $_POST['birth'],
 					'picture' => $picture,
 					'phone' => $phone,
+					'date_access' => date('c')
 				);
 				// TODO enregistrement de l'image + enregistrement de "is_super_admin" = 0
 				// dd($data);
 				// on crée un objet membre
-				$member = new MemberModel;
+				$memberModel = new MemberModel;
 				
-				// on met les données $data dans le nouvel objet $member -> on l'insère dans la BDD
-				$member->insert($data);
+				// On met les données $data dans le nouvel objet $member -> on l'insère dans la BDD
+				$insertId = $memberModel->insert($newMember);
+				
+				log_message("debug", "insertId : $insertId");
+				
+				// On récupère le membre nouvellement insré pour récupérer tous les champs manquant à mettre potentiellement dans la session
+				$member = $memberModel->find($insertId);
+		
+				log_message("debug", "member : ".json_encode($member));
 		
 				// on crée un message de succès pour confirmer l'inscription
 				/*$inscriptionSuccess = "Votre inscription a bien été effectuée ! Vous pouvez à présent vous connecter à Jamaïzer !";
@@ -106,8 +129,23 @@ class Member extends BaseController {
 				$data['inscriptionSuccess'] = [$inscriptionSuccess];
 				$data['pseudo'] = $pseudo;*/
 				
+				
+				// On fixe les variables de sessions
+				$data = array(
+								'logged' => true,
+								'member' => $member,
+								'myGroups' => null,
+								'myEvents' => null
+							);
+				$this->session->set($data);
+				
+				
+				
+				return redirect('/');
+				
+				
 				// TODO on redirige vers la page de connexion, avec le message de succès et le pseudo pour préremplir le formulaire de connexion
-				return redirect('member/login', $data);
+				//return redirect('member/login', $data);
 			} 
 			else {
 				// si au moins une donnée n'est pas validée, on réaffiche le formulaire sans entrer le membre dans la BDD, et on préremplis les données qui ont déjà été renseignées

@@ -1,6 +1,6 @@
 
 
-<div id="contact" class="container mainContent">
+<div id="contact" class="container mainContent pt-2">
 
 	<h1>Contactez Jamaïzer</h1>
 

@@ -160,6 +160,8 @@ body#bootstrap-overrides {
               border: 4px solid $E;
           }
       }*/ }
+      body#bootstrap-overrides #j-container main .mainContent h1 {
+        font-size: 1.8rem; }
       body#bootstrap-overrides #j-container main .card {
         color: #EA5800;
         background-color: #4d2d1e;
@@ -173,11 +175,17 @@ body#bootstrap-overrides {
           color: #F2DA5E; }
         body#bootstrap-overrides #j-container main .card img {
           max-width: 100%; }
-      body#bootstrap-overrides #j-container main #profil form label {
-        font-size: 1.3rem; }
       body#bootstrap-overrides #j-container main #profil img#avatar {
         width: 128px;
         height: 128px; }
+      body#bootstrap-overrides #j-container main #profil form label {
+        font-size: 1.1rem; }
+      body#bootstrap-overrides #j-container main #profil form input {
+        color: #EA5800;
+        background-color: #4d2d1e;
+        border-style: solid;
+        border-color: #8f5438;
+        border-top-width: 1px; }
       body#bootstrap-overrides #j-container main #j-group-header nav {
         background-color: #BBBF3B;
         border-bottom: 2px solid #BF9106; }

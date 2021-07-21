@@ -16,7 +16,7 @@
 			<div class="row mb-3">
 				<label class="col-2 col-form-label">Email</label>
 				<div class="col-10">
-					<input type="email" class="form-control" placeholder="<?php echo $_SESSION['member']['email'] ?>" disabled>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['member']['email'] ?>" disabled>
 				</div>
 			</div>
 			
@@ -25,7 +25,7 @@
 			<div class="row mb-3">
 				<label class="col-2 col-form-label">Nom</label>
 				<div class="col-10">
-					<input type="email" class="form-control" placeholder="<?php echo $_SESSION['member']['name'] ?>" disabled>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['member']['name'] ?>" disabled>
 				</div>
 			</div>
 			
@@ -34,7 +34,7 @@
 			<div class="row mb-3">
 				<label class="col-2 col-form-label">Prénom</label>
 				<div class="col-10">
-					<input type="email" class="form-control" placeholder="<?php echo $_SESSION['member']['first_name'] ?>" disabled>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['member']['first_name'] ?>" disabled>
 				</div>
 			</div>
 			
@@ -43,7 +43,7 @@
 			<div class="row mb-3">
 				<label class="col-2 col-form-label">Date de naissance</label>
 				<div class="col-10">
-					<input type="email" class="form-control" placeholder="<?php echo $_SESSION['member']['birth'] ?>" disabled>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['member']['birth'] ?>" disabled>
 				</div>
 			</div>
 			
@@ -52,7 +52,7 @@
 			<div class="row mb-3">
 				<label class="col-2 col-form-label">Genre</label>
 				<div class="col-10">
-					<input type="email" class="form-control" placeholder="<?php echo $_SESSION['member']['gender'] ?>" disabled>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['member']['gender'] ?>" disabled>
 				</div>
 			</div>
 			
@@ -61,7 +61,7 @@
 			<div class="row mb-3">
 				<label class="col-2 col-form-label">Mobile</label>
 				<div class="col-10">
-					<input type="email" class="form-control" placeholder="<?php echo $_SESSION['member']['phone'] ?>" disabled>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['member']['phone'] ?>" disabled>
 				</div>
 			</div>
 			
@@ -77,7 +77,7 @@
 	</ul> !-->
 	
 	<div class="">
-		<a class="btn btn-primary" href="<?php echo site_url('group/create'); ?>">Créer un groupe</a>
+		<button class="btn btn-primary" onclick="location:<?php echo site_url('group/create'); ?>" href="">Créer un groupe</button>
 	</div>
 	
 </div>
