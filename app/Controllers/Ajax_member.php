@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Models\MemberModel;
+use App\Models\GroupModel;
 
 /*use App\Models\Message_model;
 use App\Models\Discussion_model;
@@ -477,10 +478,14 @@ class Ajax_member extends BaseController {
 				//$arrayNotif = $members_model->get_notifications($member->id);
 				//log_message("debug","******* Members :: login :: arrayNotif : ".json_encode($arrayNotif));
 
+				$groupModel = new GroupModel();
+				$myGroups = $groupModel->getMyGroups($member['id']);
+
 				// On fixe les variables de sessions
 				$data = array(
 								'logged' => true,
-								'member' => $member
+								'member' => $member,
+								'myGroups' => $myGroups
 							);
 				$this->session->set($data);
 				

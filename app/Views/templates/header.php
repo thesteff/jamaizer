@@ -108,8 +108,8 @@
 		$("#j-sidebar-container").css("height",sidebarHeight+"px");
 		
 		// On ajuste la taille du main panel
-		/*mainPanelHeight = parseInt($("#main-col").css("height"),10) - parseInt($("#main-header").css("height"),10) - 2 - parseInt($("#main-footer").css("height"),10);
-		$("#main-panel").css("height",mainPanelHeight+"px");*/
+		mainPanelHeight = parseInt($("#main-col").css("height"),10) - parseInt($("#main-header").css("height"),10) - 2 - parseInt($("#main-footer").css("height"),10);
+		$("#main-panel").css("height",mainPanelHeight+"px");
 		
 	}
 	
