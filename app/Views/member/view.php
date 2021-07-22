@@ -3,8 +3,7 @@
 
 	$(function() {
 		
-		var initValue = "";
-		var inputEdited = false;
+		var initValue = "";		
 		
 		// EDIT // On fixe le comportement des bouttons d'edit
 		$("#profil form button#editBtn").each(function() {
@@ -34,8 +33,7 @@
 			$(this).on("click", function() {
 				reset();
 			});			
-		});
-		
+		});		
 		
 		// SAVE // On fixe le comportement des bouttons d'enregistrement
 		$("#profil form button#saveBtn").each(function() {
@@ -132,11 +130,11 @@
 					// Succès
 					if ($obj['state'] == 1) {
 						// On paramètre la modal_msg
-						$('#modal_wait').on('hidden.bs.modal', function () {
-							$("#modal_msg .modal-title").html("Modification réussie !");
-							$("#modal_msg .modal-body").html($obj['data']);
-							$("#modal_msg").modal('show');
-						});
+						// $('#modal_wait').on('hidden.bs.modal', function () {
+							// $("#modal_msg .modal-title").html("Modification réussie !");
+							// $("#modal_msg .modal-body").html($obj['data']);
+							// $("#modal_msg").modal('show');
+						// });
 					}
 					
 					// Erreur
