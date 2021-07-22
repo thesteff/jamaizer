@@ -504,6 +504,8 @@ class Ajax_member extends BaseController {
 				
 				//log_message("debug","Members::login : ".$domain);
 				
+				// TODO une case à cocher "remember me"
+				// TODO demander si la personne connecter accepte les cookies !
 				// On s'occupe de créer le cookie pour le remember_me et on actualise le membre
 				$rdmStr = random_string('alnum',64);
 				$cookie = array(
@@ -511,7 +513,7 @@ class Ajax_member extends BaseController {
 					'value'  => $rdmStr,
 					'expire' => '15778800',            // 6 mois
 					'domain' => $domain,
-					'path'   => '/'
+					'path'   => '/',
 					// nbUnreadMessage => fixé via menu.php et Ajax_Members::get_nb_unread_message
 					// lastCheckUnreadMessage => idem
 				);

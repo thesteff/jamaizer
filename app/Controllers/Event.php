@@ -181,7 +181,7 @@ class Event extends BaseController
         // $group = $groupModel->getOneGroupBySlug($slug, $memberId);
         $groupController = new Group;
         $data = $groupController->header($groupSlug);
-
+// dd($data);
         $eventModel = new EventModel();
         $event = $eventModel->getOneEventBySlug($eventSlug, $memberId);
         
@@ -195,8 +195,10 @@ class Event extends BaseController
          * - que le membre n'est pas admin de l'événement
          * - que des données sont envoyées via $_POST
 		 */
+        // dd($event);
         if(isset($_SESSION['logged']) && $_SESSION['logged'] && !$event['is_member'] && !$event['is_admin'] && count($_POST) > 0) {
-            if($this->validate(['message' => 'required'])){
+            dd('ok');
+            if(isset($_POST['message'])){
 				$eventId = $event['id'];
 				$message = trim($_POST['message']);
 				$memberId = $_SESSION['member']['id'];

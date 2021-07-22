@@ -1,3 +1,4 @@
+
 <div id="j-group-header">
     <div class="card rounded-0">
         <img src="<?php if(!empty($group['picture'])){echo base_url('images/group/').'/'.$group['picture'];}else{echo base_url('images/group/default-group-image.jpg');} ?>"

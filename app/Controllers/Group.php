@@ -14,7 +14,6 @@ class Group extends BaseController
 //  page pour voir tous les groupes existants, les chercher (selon visibilité, accès possible ou pas)  //
 // ##################################################################### //
 	public function index() {
-		
 		$groupModel = new GroupModel();
 		if (isset($_SESSION['member']['id'])) {
 			$memberId = $_SESSION['member']['id'];
@@ -139,7 +138,7 @@ class Group extends BaseController
 		
 		$groupModel = new GroupModel();
 		$group = $groupModel->getOneGroupBySlug($slug, $memberId);
-		// dd($group);
+		// dd($memberId);
 		// on vérifie s'il y a déjà une requête envoyée par le membre au groupe
 		$requestModel = new RequestModel();
 		$request = $requestModel->getOneGroupRequest($group['id'], $memberId);

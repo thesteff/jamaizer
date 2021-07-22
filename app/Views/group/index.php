@@ -1,7 +1,4 @@
-
-
 <div id="groupList" class="container mainContent pt-2">
-
 	<h1>Trouver un groupe</h1>
 
 	<!-- Recherche !-->
@@ -93,7 +90,7 @@
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title" onclick="location.href='<?php echo site_url('group/view/').esc($group['slug'], 'url') ?>'"><?php echo $group['name']?></h5>
+									<h5 class="card-title" onclick="location.href='<?= site_url('group/').esc($group['slug'], 'url').'/view/' ?>'"><?php echo $group['name']?></h5>
 									<p class="card-text"><?php echo $group['description']?></p>
 									<p class="card-text"><small class="text-muted"><?php echo $group['city']?></small></p>
 								</div>

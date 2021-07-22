@@ -73,13 +73,13 @@ class GroupModel extends Model
 
 	// méthode pour récupérer tous les groupes d'un membre qui se connecte, de façon à les mettre dans la session lors de sa création
 	public function getMyGroups($id) {
-		$groupMember = new GroupMemberModel();
+		$groupMemberModel = new GroupMemberModel();
 		// on va chercher toutes les relations entre le membre en session et des groupes
-		$myGroupsMember = $groupMember->where('member_id', $id)->findAll();
+		$myGroupsMember = $groupMemberModel->where('member_id', $id)->findAll();
 		
 		$myGroupsList = array();
 		
-		// pour chaque relation group/membre, on va chercher le groupe et si le membre est son admin, on ajoute l'info à l'objet group
+		// pour chaque relation groupe/membre, on va chercher le groupe et si le membre est son admin, on ajoute l'info à l'objet group
 		foreach ($myGroupsMember as $myGroupMember) {
 			$group = new GroupModel();
 			// on récupère l'objet groupe correspondant à la relation
@@ -111,13 +111,13 @@ class GroupModel extends Model
 		// on récupère tous les groupes validés
 		$groups = $groupModel->where('is_valid', 1)->findAll();
 		
-		$listGroups = array();
-
+		$listGroups = [];
+		
 		// on garde seulement les groupes dont on ne fait pas partie
 		$groupMemberModel = new GroupMemberModel();
 		foreach($groups as $group) {
 			// on vérifie que le groupe n'a pas été supprimé
-			if(isset($group['deleted_at']) && $group['deleted_at'] == null){
+			if($group['deleted_at'] == null){
 				// on prend toutes les relations qui concernent ce groupe
 				$groupMember = $groupMemberModel->where('group_id', $group['id'])->findAll();
 				// on vérifie qu'aucune de ces relations ne concerne notre membre
@@ -141,7 +141,7 @@ class GroupModel extends Model
 	public function getOneGroupBySlug($slug, $memberId = 0){
 		$groupModel = new GroupModel();
 		$group = $groupModel->where('slug', $slug)->first();
-		if($group['deleted_at'] == null){
+		if($group['deleted_at'] !== null){
 			return $group = null;
 		}
 		// on vérifie si qqn est connecté
