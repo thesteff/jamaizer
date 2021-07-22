@@ -19,9 +19,24 @@ class Member extends BaseController {
 // ##################################################################### //
 	public function view() {
 		
-		echo view('templates/header');
-		echo view('member/view');
-		echo view('templates/footer');
+		// On ne peut regarder notre profil que si une session avec membre existe
+		if ( ( isset($this->session->logged) && $this->session->logged ) || ( isset($this->session->logged) && $this->session->superAdmin ) ) {
+		
+			echo view('templates/header');
+			echo view('member/view');
+			echo view('templates/footer');
+		}
+		else {
+			
+			$data = [ 
+						'title' => 'Erreur !', 
+						'message' => "Cette page n'est pas accessible !" 
+					];
+			
+			echo view('templates/header', $data);
+			echo view('pages/message', $data);
+			echo view('templates/footer');
+		}
 	}
 	
 
@@ -80,7 +95,7 @@ class Member extends BaseController {
 				$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				
 				// on met toutes les infos dans $data
-				$data = array(
+				$newMember = array(
 					'pseudo' => $pseudo,
 					'email' => $email,
 					'password' => $password,
@@ -91,23 +106,46 @@ class Member extends BaseController {
 					'birth' => $_POST['birth'],
 					'picture' => $picture,
 					'phone' => $phone,
+					'date_access' => date('c')
 				);
 				// TODO enregistrement de l'image + enregistrement de "is_super_admin" = 0
 				// dd($data);
 				// on crée un objet membre
-				$member = new MemberModel;
+				$memberModel = new MemberModel;
 				
-				// on met les données $data dans le nouvel objet $member -> on l'insère dans la BDD
-				$member->insert($data);
+				// On met les données $data dans le nouvel objet $member -> on l'insère dans la BDD
+				$insertId = $memberModel->insert($newMember);
+				
+				log_message("debug", "insertId : $insertId");
+				
+				// On récupère le membre nouvellement insré pour récupérer tous les champs manquant à mettre potentiellement dans la session
+				$member = $memberModel->find($insertId);
+		
+				log_message("debug", "member : ".json_encode($member));
 		
 				// on crée un message de succès pour confirmer l'inscription
 				/*$inscriptionSuccess = "Votre inscription a bien été effectuée ! Vous pouvez à présent vous connecter à Jamaïzer !";
 				$data = [];
 				$data['inscriptionSuccess'] = [$inscriptionSuccess];
-				$data['pseudo'] = $pseudo;
+				$data['pseudo'] = $pseudo;*/
+				
+				
+				// On fixe les variables de sessions
+				$data = array(
+								'logged' => true,
+								'member' => $member,
+								'myGroups' => null,
+								'myEvents' => null
+							);
+				$this->session->set($data);
+				
+				
+				
+				return redirect('/');
+				
 				
 				// TODO on redirige vers la page de connexion, avec le message de succès et le pseudo pour préremplir le formulaire de connexion
-				return redirect('member/login', $data);
+				//return redirect('member/login', $data);
 			} 
 			else {
 				// si au moins une donnée n'est pas validée, on réaffiche le formulaire sans entrer le membre dans la BDD, et on préremplis les données qui ont déjà été renseignées
@@ -284,151 +322,5 @@ class Member extends BaseController {
 		echo view('member/update');
 		echo view('templates/footer');
 	}
-
-// ##################################################################### //
-// ####################### SECTION PAGE CONNEXION ###################### //
-// ##################################################################### //
-	public function login() {
-		
-		//log_message("debug","********* Member->login");
-		
-		$input = trim($_POST['input']); // email ou pseudo
-		$password = trim($_POST['password']);
-
-		$members_model = new MemberModel();
-
-		// On check les input pseudo et email avec la base de donnée
-		$pseudo_exist = $this->validate(['input' => 'is_not_unique[member.pseudo]']);
-		$this->validator->reset();
-		$email_exist = $this->validate(['input' => 'is_not_unique[member.email]']);
-
-		// On récupère le membre grace au pseudo
-		if ( $pseudo_exist ) $member = $members_model->where('pseudo', $input)->first();
-		// On récupère le membre grace au mail si le pseudo n'a rien donné
-		else if ( $email_exist ) $member = $members_model->where('email', $input)->first();
-		
-		$state = true;
-		// L'utilisateur existe bien dans la base
-		if ($pseudo_exist || $email_exist) {
-			
-			//log_message("debug","member : ".json_encode($member));
-
-			// On vérifie le password
-			$hash = $member['password'];
-			if ( password_verify($password, $hash) ) {
-						
-				// On liste les événements auxquel le membres participe pour les rendre accessibles directement à partir du menu sans faire de reload
-				//$arrayEvent = [];
-				//$arrayEvent = $members_model->get_jams($member->id);
-				//log_message("debug",json_encode($arrayEvent));
-				
-				// On récupère les notifications
-				//$arrayNotif = [];
-				//$arrayNotif = $members_model->get_notifications($member->id);
-				//log_message("debug","******* Members :: login :: arrayNotif : ".json_encode($arrayNotif));
-
-				// on récupère les groupes du membre pour les ajouter à la session
-				$groupModel = new GroupModel();
-				$myGroups = $groupModel->getMyGroups($member['id']);
-				
-				// on récupère les events du membre pour les ajouter à la session
-				$eventModel = new EventModel();
-				$myEvents = $eventModel->getMyEvents($member['id']);
-// dd($myEvents);
-				// On fixe les variables de sessions
-				$data = array(
-								'logged' => true,
-								'member' => $member,
-								'myGroups' => $myGroups,
-								'myEvents' => $myEvents,
-							);
-				$this->session->set($data);
-				
-				// On actualise le date_access
-				$members_model->update($member['id'], [ 'date_access' => date('c') ] );
-				
-				// Pour le domaine on enlève http:// ou https://
-				$domain = substr(base_url(),strpos(base_url(),"//")+2);
-				// Pour le domaine on enlève le / en fin de string	
-				if (substr($domain,-1) == '/') $domain = substr($domain,0,-1);
-				
-				//log_message("debug","Members::login : ".$domain);
-				
-				// On s'occupe de créer le cookie pour le remember_me et on actualise le membre
-				$rdmStr = random_string('alnum',64);
-				$cookie = array(
-					'name'   => 'remember_me',
-					'value'  => $rdmStr,
-					'expire' => '15778800',            // 6 mois
-					'domain' => $domain,
-					'path'   => '/'
-					// nbUnreadMessage => fixé via menu.php et Ajax_Members::get_nb_unread_message
-					// lastCheckUnreadMessage => idem
-				);
-				set_cookie($cookie);
-				//log_message('debug', "  ******* Set_Cookie : ".json_encode($cookie)."   ******");
-				
-				$members_model->update($member['id'], [ 'cookie_str' => $rdmStr ]);
-
-				$return_data = array(
-					'state' => 1,
-					'data' => ""
-				);
-				$output = json_encode($return_data);
-				echo $output;
-			}
-			
-			// Pass incorrect
-			else $state = false;
-		}
-		// pseudo ou email inexistant dans la bd
-		else $state = false;
-		
-		// Erreur
-		if ($state == false) {
-			$return_data = array(
-				'state' => 0,
-				'data' => "Identifiant/email inconnu ou mot de passe incorrect."
-			);
-			$output = json_encode($return_data);
-			echo $output;
-		}
-	}
-	
-
-// ##################################################################### //
-// ###################### SECTION PAGE DECONNEXION ##################### //
-// ##################################################################### //
-	public function logout(){
-		/*$session = session();
-
-		$session->destroy();
-
-		$data['logged'] = false;
-		$session->set($data);
-
-		return redirect('member/connexion');*/
-		
-		$members_model = new MemberModel();
-		
-		// On update le cookie du membre dans la base (sinon, reconnection automatique)
-		//$members_model->update_cookie($this->session->id, '');
-		$members_model->update($this->session->member['id'], [ 'cookie_str' => '' ]);
-		
-		$this->session->destroy();
-		
-		// Pour le domaine on enlève http:// ou https://
-		$domain = substr(base_url(),strpos(base_url(),"//")+2);
-		// Pour le domaine on enlève le / en fin de string	
-		if (substr($domain,-1) == '/') $domain = substr($domain,0,-1);
-		
-		delete_cookie("remember_me", $domain);
-		
-		// On reste sur la même page mais la session sera destroy
-		$uri = new \CodeIgniter\HTTP\URI(previous_url());
-		header('Location: '.base_url($uri->getPath()));
-		exit;
-	}
-
 
 }

@@ -296,7 +296,7 @@
                         <?php endif; ?>
 						
 						<!-- Super Admin !-->
-                        <?php if( isset($session->logged) && ($session->logged && $session->member['is_super_admin']) ) : ?>
+                        <?php if( isset($session->logged) && ($session->logged && isset($session->member['is_super_admin']) && $session->member['is_super_admin']) ) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo site_url('admin'); ?>">ADMIN</a>
                             </li>
@@ -322,7 +322,7 @@
 					<!-- Pseudo !-->
 					<div>
 						<a class="row d-flex align-items-center my-2" href="<?php echo site_url('member/profil'); ?>">
-						<div class="col-3">
+						<div class="col-2">
 							<img id="avatar" class="rounded-circle m-1" alt="image de profil" 
 							src="<?php 
 										if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
@@ -384,54 +384,7 @@
 							</div>
 						</div>
 						
-						<!-- LIST GROUP !-->
-						<?php if (isset($session->myGroups)) : ?>
-						<div class="accordion">
-							<div class="accordion-item">
-								<h5 class="accordion-header" id="panelsStayOpen-headingOne">
-									<button class="accordion-button j-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-										<i class="bi bi-people-fill mx-2"></i> Mes Groupes
-									</button>
-								</h5>
-								<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-									<div class="accordion-body">
-										<ul class="list-group list-group-flush">
-											<?php foreach ($session->myGroups as $group) : ?>
-											<li class="list-group-item">
-												<a class="d-flex align-items-center" href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/view' ?>">
-													<img alt="image de profil" class="rounded-circle img-group m-1"
-														src="<?php 
-															if (!empty($group['picture'])) echo base_url('images/group/').'/'.$group['picture'];
-															else echo base_url('images/group/default-group-image.jpg'); ?>">
-													
-													<?php echo $group['name'] ?>
-													<div class="ms-auto">
-														<?php if($group['is_admin'] && $group['is_valid']) : ?>  
-															<i class="bi bi-gear ms-auto"></i>
-														<?php elseif($group['is_admin'] && !$group['is_valid']) : ?>
-															<i class="bi bi-patch-question ms-auto"></i>
-														<?php endif ?>
-													</div>
-												</a>
-											</li>
-											<?php endforeach ?>
-											<!-- <li class="list-group-item">
-												<a href="#">
-													<img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
-												</a>
-											</li>
-											<li class="list-group-item">
-												<a href="#">
-													<img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
-												</a>
-											</li> -->
-											<li class="list-group-item">
-												<a href="<?= site_url('group'); ?>">Tous mes groupes</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
+						
 							
 							<!-- LIST DATE !-->
 							<div class="accordion-item">
@@ -449,7 +402,7 @@
 													<img src="<?php 
 															if (!empty($event['group']['picture'])) echo base_url('images/group/').'/'.$group['picture'];
 															else echo base_url('images/group/default-group-image.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-													<p><?= $event['name'] ?></p>
+													<p><?php echo $event['name'] ?></p>
 													<div class="ms-auto">
 														<?php if($event['is_admin']) : ?>  
 															<i class="bi bi-gear ms-auto"></i>
@@ -465,7 +418,7 @@
 									</div>
 								</div>
 							</div>
-						</div>!-->
+							
 							
 				</div> <!-- On ferme l'accordéon !-->
 				<?php endif; ?>
@@ -489,9 +442,10 @@
 		<!-- le reste est fermé dans le footer !-->
 	
 		
-<?php endif ?>
+<?php endif; ?>
 
 <!-- // ##################################################################### // -->
 <!-- // ######################### Ouverture du MAIN ######################### // -->
 <!-- // ##################################################################### // -->
         <main class="container col-auto col-md-6 col-xl-6 <?php if(isset($session->logged) && $session->logged) : ?> offset-md-4 offset-xl-4 <?php endif; ?> pb-3">
+		

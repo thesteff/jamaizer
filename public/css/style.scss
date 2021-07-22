@@ -129,7 +129,6 @@ $colors: (
 
 body#bootstrap-overrides {
 
-    
 	height: 100vh;
 	
     // ~~~~~~~~ Body Background image ~~~~~~~~ //
@@ -412,6 +411,14 @@ body#bootstrap-overrides {
             background-color: clr(dark, darker);
 			min-height: 100%;
 			
+			.mainContent {
+			
+				h1 {
+					font-size: 1.8rem;
+				}
+			
+			}
+			
 
 // ##################################################################### //
 // ######################## ELEMENTS SPECIFIQUES ####################### //
@@ -448,14 +455,28 @@ body#bootstrap-overrides {
 			// ~~~~~~~~~~~~~~~~ PROFIL  ~~~~~~~~~~~~~~~ //
             #profil {
 			
-				form label {
-					font-size: 1.3rem;
-				}
-			
 				img#avatar {
 					width: 128px;
 					height: 128px;
 				}
+				
+				form {
+				
+					label {
+						font-size: 1.1rem;
+					}
+					
+					input {
+						color: clr(secondary);
+						background-color: clr(dark);
+						
+						border-style: solid;
+						border-color: clr(dark, lightest);
+						border-top-width: 1px;						
+					}
+				}
+			
+				
             }
 
             // ~~~~~~~~~~ HEADER page groupe ~~~~~~~~~ //

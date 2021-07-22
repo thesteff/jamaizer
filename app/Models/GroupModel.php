@@ -117,7 +117,7 @@ class GroupModel extends Model
 		$groupMemberModel = new GroupMemberModel();
 		foreach($groups as $group) {
 			// on vérifie que le groupe n'a pas été supprimé
-			if($group['deleted_at'] == null){
+			if(isset($group['deleted_at']) && $group['deleted_at'] == null){
 				// on prend toutes les relations qui concernent ce groupe
 				$groupMember = $groupMemberModel->where('group_id', $group['id'])->findAll();
 				// on vérifie qu'aucune de ces relations ne concerne notre membre
