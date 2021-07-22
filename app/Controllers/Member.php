@@ -22,17 +22,18 @@ class Member extends BaseController {
 		// On ne peut regarder notre profil que si une session avec membre existe
 		if ( ( isset($this->session->logged) && $this->session->logged ) || ( isset($this->session->logged) && $this->session->superAdmin ) ) {
 		
-			echo view('templates/header');
-			echo view('member/view');
+			// On récupère le membre
+			$member_model  = new MemberModel();
+			$data['member'] = $member_model->find($this->session->member["id"]);
+			
+			echo view('templates/header', $data);
+			echo view('member/view', $data);
 			echo view('templates/footer');
 		}
+		
+		// Message d'erreur
 		else {
-			
-			$data = [ 
-						'title' => 'Erreur !', 
-						'message' => "Cette page n'est pas accessible !" 
-					];
-			
+			$data = [ 'title' => 'Erreur !', 'message' => "Cette page n'est pas accessible !" ];
 			echo view('templates/header', $data);
 			echo view('pages/message', $data);
 			echo view('templates/footer');
@@ -47,6 +48,7 @@ class Member extends BaseController {
 
 		// Si l'array $_POST n'est pas vide (> 0), on entre dans le if
 		if(count($_POST) > 0) {
+			
 			// on vérifie si les données sont valides d'après nos critères. 
 			// si c'est validé, on entre dans le if
 			if($this->validate([
@@ -140,12 +142,8 @@ class Member extends BaseController {
 				$this->session->set($data);
 				
 				
-				
+				// On redirige vers la page d'accueil avec la session à jour
 				return redirect('/');
-				
-				
-				// TODO on redirige vers la page de connexion, avec le message de succès et le pseudo pour préremplir le formulaire de connexion
-				//return redirect('member/login', $data);
 			} 
 			else {
 				// si au moins une donnée n'est pas validée, on réaffiche le formulaire sans entrer le membre dans la BDD, et on préremplis les données qui ont déjà été renseignées

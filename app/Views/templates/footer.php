@@ -34,7 +34,7 @@
 <!-- // ##################################################################### // -->
 
 	<!-- Box de connexion !-->
-	<div id="modal_login" class="modal fade" role="dialog">
+	<div id="modal_login" class="modal fade">
 		<div class="modal-dialog default modal-sm modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -76,7 +76,7 @@
 
 
 	<!-- Box de mot de passe oublié !-->
-	<div id="modal_forgotten" class="modal fade" role="dialog">
+	<div id="modal_forgotten" class="modal fade">
 		<div class="modal-dialog default modal-sm modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -106,7 +106,7 @@
 
 
 	<!-- Modal mentions legales -->
-	<div id="show_mentions" class="modal fade" role="dialog">
+	<div id="show_mentions" class="modal fade">
 		<div class="modal-dialog modal-dialog-centered default modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -121,15 +121,27 @@
 	</div>
 	
 	
-	<!-- Dialogue box de resultat !-->
-	<div id="modal_msg" class="modal fade" role="dialog" data-keyboard="true" data-backdrop="static">
+	<!-- Modal de message !-->
+	<div id="modal_msg" class="modal fade" data-bs-backdrop="true" data-bs-focus="true" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered default">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title"></h5>
 				</div>
 				<div class="modal-body"></div>
-				<div class="modal-footer"></div>
+				<div class="modal-footer text-end"><button class="btn btn-primary" data-bs-dismiss="modal">Fermer</button></div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- Modal d'attente bloquante !-->
+	<div id="modal_wait" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static">
+		<div class="modal-dialog modal-dialog-centered default">
+			<div class="modal-content">
+				<div class="modal-body">
+					<p class="modal-title">Patientez...</p>
+				</div>
 			</div>
 		</div>
 	</div>
