@@ -73,6 +73,7 @@ class GroupModel extends Model
 
 	// méthode pour récupérer tous les groupes d'un membre qui se connecte, de façon à les mettre dans la session lors de sa création
 	public function getMyGroups($id) {
+		
 		$groupMemberModel = new GroupMemberModel();
 		// on va chercher toutes les relations entre le membre en session et des groupes
 		$myGroupsMember = $groupMemberModel->where('member_id', $id)->findAll();

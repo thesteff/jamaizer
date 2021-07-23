@@ -26,6 +26,12 @@ class Member extends BaseController {
 			$member_model  = new MemberModel();
 			$data['member'] = $member_model->find($this->session->member["id"]);
 			
+			// On normalise la date de naissance
+			if (!empty($data['member']['birth'])) {
+				$date = date_create_from_format("Y-m-d",$data['member']['birth']);
+				$data['member']['birth'] = date_format($date,"d/m/Y");
+			}
+			
 			echo view('templates/header', $data);
 			echo view('member/view', $data);
 			echo view('templates/footer');

@@ -158,27 +158,25 @@ class Ajax_member extends BaseController {
 // ##################################################################### //
 	public function update() {
 		
-		log_message("info", "=============== Ajax_member->update");
+		log_message("info", "=============== Ajax_member :: update");
 
 		$memberId = trim($_POST['id']);  // Seul le pseudo est fixe	
 		$email = trim($_POST['email']);
 		$name = trim($_POST['name']);
 		$first_name = trim($_POST['first_name']);
-		// $birth = trim($_POST['birth']);
-		// $genre = trim($_POST['genre']);
+		$birth = trim($_POST['birth']);
+		$gender = trim($_POST['gender']);
 		// $phone = trim($_POST['phone']);
 		//$allowMail = trim($_POST['allowMail']);
 		//$freqRecapMail = trim($_POST['freqRecapMail']);
 		
 		$member_model = new MemberModel();
 
-		//$tmpPseudo = $member_model->get_member_by_email($email);
-		//$oldMember = $member_model->get_member_by_id($memberId);
 		$tmpMember = $member_model->where('email', $email)->first();
 		$oldMember = $member_model->find($memberId);
 		
-		log_message("debug","tempMember : ".json_encode($tmpMember));
-		log_message("debug","oldMember : ".json_encode($oldMember));
+		// log_message("debug","tempMember : ".json_encode($tmpMember));
+		// log_message("debug","oldMember : ".json_encode($oldMember));
 		
 		// On récupère la date de naissance
 		if (!empty($birth)) {
@@ -193,8 +191,8 @@ class Ajax_member extends BaseController {
 			$data = array(
 				'name' => $name,
 				'first_name' => $first_name,
-				// 'birth' => $birth_iso,
-				// 'genre' => $genre,
+				'birth' => $birth_iso,
+				'gender' => $gender,
 				// 'email' => $email,
 				// 'phone' => str_replace(' ','',$phone),
 				//'allowMail' => $allowMail,
@@ -215,33 +213,29 @@ class Ajax_member extends BaseController {
 		);
 		$output = json_encode($return_data);
 		echo $output;
-
+	
+	
 	}
 	
 	
-	/*
+	
 	// Update avatar
 	public function update_avatar() {
 
-		log_message('debug',"************   Ajax_member :: update_avatar   ***********");
-		log_message('debug',"_FILES : ".json_encode($_FILES));
-		log_message('debug',"_POST : ".json_encode($_POST));
+		log_message('debug',"===============   Ajax_member->update_avatar");
+		// log_message('debug',"_FILES : ".json_encode($_FILES));
+		// log_message('debug',"_POST : ".json_encode($_POST));
 
+		$memberId = $this->session->member['id'];
+		$member_model = new MemberModel();
 
-		$memberId = trim($_POST['memberId']);
-		
-		$members_model = new Members_model();
-		
-		// On récupère le membre
-		$member_item = $members_model->get_member_by_id($memberId);
-			
 		$state = false;
 		$data = '';
 		// Le membre existe bien, on update son avatar
-		if (!empty($member_item)) {
-				
+		if (isset($memberId)) {
+			
 			// On récupère le realpath
-			$filePath = FCPATH."/images/avatar/".$memberId.".png";
+			$filePath = FCPATH."/images/member/".$memberId.".png";
 		
 			if ($filePath) {
 			
@@ -261,7 +255,7 @@ class Ajax_member extends BaseController {
 						$data = "Fichier ".$memberId.".png créé avec succés !";
 						
 						// On update le member
-						$members_model->update_member($memberId, [ "hasAvatar" => 1 ]);
+						$member_model->update($memberId, [ "hasAvatar" => 1 ]);
 					}
 				}
 				else $data = "Upload_file :: Error : sizeof(_FILES) = 0";
@@ -280,7 +274,7 @@ class Ajax_member extends BaseController {
 
 	}
 	
-	
+	/*
 	// Update member pass
 	public function update_pass_member() {
 
@@ -489,6 +483,8 @@ class Ajax_member extends BaseController {
 
 				$groupModel = new GroupModel();
 				$myGroups = $groupModel->getMyGroups($member['id']);
+				
+				log_message("debug",json_encode($myGroups));
 				
 				$eventModel = new EventModel();
 				$myEvent = $eventModel->getMyEvents($member['id']);

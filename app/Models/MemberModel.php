@@ -26,7 +26,8 @@ class MemberModel extends Model
 		'phone',
 		'picture',
 		'date_access',
-		'cookie_str'
+		'cookie_str',
+		'hasAvatar'
 	];
 
 	// Dates
