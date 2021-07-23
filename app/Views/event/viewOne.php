@@ -1,16 +1,20 @@
 <div class="m-2">
-    <h2><small>Le groupe </small> <?= $group['name'] ?></h2>
-    <h4>organise l'événement</h4>
+    <?php if(isset($group)) : ?>
+        <h2><small>Le groupe </small> <?= $group['name'] ?></h2>
+    <?php else : ?>
+        <h2>Quelqu'un.e<h2>
+    <?php endif ?>
+        <h4>organise l'événement</h4>
     <h1><?= $event['name'] ?></h1>
     <h3><small>Description : </small><?= $event['description'] ?></h3>
     <?php if((isset($group['is_admin']) && $group['is_admin']) || (isset($event['is_admin']) && $event['is_admin'])) : ?>
-        <a href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/event/'.esc($event['slug'], 'url').'/update' ?>" class="btn btn-outline-light mt-3 ms-2">
+        <a href="<?= site_url('event').'/'.esc($event['slug'], 'url').'/update' ?>" class="btn btn-outline-light mt-3 ms-2">
             Modifier l'événement
         </a>
-        <a href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/event/'.esc($event['slug'], 'url').'/date/create' ?>" class="btn btn-outline-light mt-3 ms-2">
+        <a href="<?= site_url('event').'/'.esc($event['slug'], 'url').'/date/create' ?>" class="btn btn-outline-light mt-3 ms-2">
             Ajouter une date
         </a>
-        <a href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/event/'.esc($event['slug'], 'url').'/members' ?>" class="btn btn-outline-light mt-3 ms-2">
+        <a href="<?= site_url('event').'/'.esc($event['slug'], 'url').'/members' ?>" class="btn btn-outline-light mt-3 ms-2">
             Voir les membres
         </a>
     <?php endif ?>
@@ -66,8 +70,8 @@
                 <p class="card-text"><?= $date['description'] ?></p>
                 <p><?= $date['date_start'] ?></p>
                 <p><?= $date['date_end'] ?></p>
-                <a href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/event/'.esc($event['slug'], 'url').'/date/'.esc($event['slug'], 'url').'/update' ?>" class="card-link">Détails</a>
-                <a href="<?= site_url('group').'/'.esc($group['slug'], 'url').'/event/'.esc($event['slug'], 'url').'/date/'.esc($event['slug'], 'url').'/viewOne' ?>" class="card-link">Modifier</a>
+                <a href="<?= site_url('event').'/'.esc($event['slug'], 'url').'/date/'.esc($date['slug'], 'url').'/update' ?>" class="card-link">Détails</a>
+                <a href="<?= site_url('event').'/'.esc($event['slug'], 'url').'/date/'.esc($date['slug'], 'url').'/viewOne' ?>" class="card-link">Modifier</a>
             </div>
         </div>
     <?php endforeach ?>

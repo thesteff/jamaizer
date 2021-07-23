@@ -50,12 +50,16 @@ class EventModel extends Model
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
 	
-	public function getGroupsEvents($slug){
-        $groupModel = new GroupModel();
-        $group = $groupModel->getOneGroupBySlug($slug);
-
-        $eventModel = new EventModel();
-        $events = $eventModel->where('group_id', $group['id'])->findAll();
+	public function getEvents($groupSlug){
+		$eventModel = new EventModel();
+		if($groupSlug != null){
+			$groupModel = new GroupModel();
+			$group = $groupModel->getOneGroupBySlug($groupSlug);
+			
+			$events = $eventModel->where('group_id', $group['id'])->findAll();
+		} else {
+			$events = $eventModel->findAll();
+		}
 		
 		$eventsOk = [];
 		foreach($events as $event){

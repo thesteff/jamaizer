@@ -233,7 +233,7 @@
 </script>
 
 
-<body id="bootstrap-overrides">
+<body id="bootstrap-overrides" style="background-color: pink;">
 	<?php if (isset($session->logged) && $session->logged) : ?>
 		<!-- // ##################################################################### // -->
 		<!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
@@ -391,7 +391,7 @@
 
 										<?php foreach($session->myEvents as $event) : ?>
 										<li class="list-group-item">
-											<a href="<?= site_url('group').'/'.esc($event['group']['slug'], 'url').'/event/'.esc($event['slug'], 'url') ?>" class="a-event">
+											<a href="<?= site_url('event').'/'.esc($event['slug'], 'url') ?>" class="a-event">
 												<img src="<?php 
 														if (!empty($event['group']['picture'])) echo base_url('images/group/').'/'.$group['picture'];
 														else echo base_url('images/group/default-group-image.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
@@ -406,7 +406,7 @@
 										<?php endforeach ?>
 
 										<li class="list-group-item">
-											<a href="#">Toutes mes dates</a>
+											<a href="<?= site_url('event') ?>">Toutes mes events</a>
 										</li>
 									</ul>
 								</div>
@@ -441,5 +441,5 @@
 <!-- // ##################################################################### // -->
 <!-- // ######################### Ouverture du MAIN ######################### // -->
 <!-- // ##################################################################### // -->
-        <main class="container col-auto col-md-6 col-xl-6 <?php if(isset($session->logged) && $session->logged) : ?> offset-md-4 offset-xl-4 <?php endif; ?> pb-3">
+        <main class="container col-auto col-md-6 col-xl-6 <?php if(isset($session->logged) && $session->logged) : ?> offset-md-4 offset-xl-4 <?php endif; ?> pb-3"   style="background-color: chartreuse;">
 		

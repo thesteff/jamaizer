@@ -275,8 +275,6 @@ class Group extends BaseController
         }
     }
 
-
-
 	// ====================================================== //
 	// ================ ADMIN page paramètres =============== //
 	// ====================================================== //
@@ -352,7 +350,7 @@ class Group extends BaseController
 		}
 
 		$groupModel = new GroupModel();
-		$group = $groupModel->getOneBySlug($slug);
+		$group = $groupModel->getOneGroupBySlug($slug);
 		$data['deleted_at'] = Time::now();
         $groupModel->update($group['id'], $data);
         return redirect()->to('group');

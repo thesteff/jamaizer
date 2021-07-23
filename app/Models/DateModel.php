@@ -59,10 +59,10 @@ class DateModel extends Model
 		$datesOk = [];
 		foreach($dates as $date){
 			if($date['deleted_at'] === null){
-				$eventsOk[] = $event;
+				$datesOk[] = $date;
 			}
 		}
-        return $eventsOk;
+        return $datesOk;
     }
 	
 }

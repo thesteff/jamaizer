@@ -53,5 +53,6 @@ if(isset($errors)){
 	
 </form>
 </div>
-
+<?php if(isset($group)) : ?>
 <a href="<?= site_url('group/'.$group['slug'].'/event') ?>">Retour</a>
+<?php endif ?>

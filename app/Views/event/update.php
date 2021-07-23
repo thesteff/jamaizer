@@ -43,5 +43,5 @@ if(isset($errors)){
 </form>
 </div>
 
-<a class="btn btn-outline-light" href="<?= site_url('group/'.$group['slug'].'/event/'.$event['slug'].'/delete') ?>">Supprimer l'événement</a>
-<a class="btn btn-outline-light" href="<?= site_url('group/'.$group['slug'].'/event') ?>">Retour</a>
+<a class="btn btn-outline-light" href="<?= site_url('event').'/'.$event['slug'].'/delete' ?>">Supprimer l'événement</a>
+<a class="btn btn-outline-light" href="<?= site_url('event') ?>">Retour</a>
