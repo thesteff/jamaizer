@@ -39,28 +39,12 @@ $routes->add('member/inscription', 'Member::create');
 $routes->add('member/update', 'Member::update');
 $routes->add('member/profil', 'Member::view');
 
-
-// $routes->add('group/(:segment)/event/(:segment)/(:segment)/members/accept/(:segment)', 'Event::acceptMemberInEvent');
-// $routes->add('group/(:segment)/event/(:segment)/(:segment)/members', 'Event::members/$1/$2');
-// $routes->add('group/(:segment)/event/(:segment)/(:segment)/update', 'Event::update/$1/$2');
-// $routes->add('group/(:segment)/event/(:segment)/(:segment)', 'Event::viewOneEvent/$1/$2');
-// $routes->add('group/(:segment)/event/create', 'Event::create/$1');
-// $routes->add('group/(:segment)/event', 'Event::viewGroupsEvents/$1');
-
-// $routes->add('group/update/(:segment)', 'Group::update/$1');
-// $routes->add('group/notification/accept', 'Group::acceptMemberInGroup');
-// $routes->add('group/notification/(:segment)', 'Group::notification/$1');
-// $routes->add('group/(:segment)/about', 'Group::about/$1');
-// $routes->add('group/view/(:segment)', 'Group::view/$1');
-// $routes->add('group/create', 'Group::create');
-// $routes->add('group', 'Group::index');
-
-
 /** LES GROUPES **/
 /** toutes les pages concernant les groupes **/
 $routes->group('group', function($routes){
 	$routes->add('', 'Group::index');
 	$routes->add('create', 'Group::create');
+
 	/** toutes les pages concernant UN SEUL groupe **/
 	$routes->group('(:segment)', function($routes){ //'segment' = slug du groupe
 		$routes->add('', 'Group::view/$1');
@@ -70,23 +54,40 @@ $routes->group('group', function($routes){
 //TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
 		$routes->add('notification/accept', 'Group::acceptMemberInGroup');
 		$routes->add('update', 'Group::update/$1');
+		$routes->add('delete', 'Group::delete/$1');
+
 		/** Toutes les pages concernant LES EVENTS propres à UN GROUPE **/
 		$routes->group('event', function($routes){
-			$routes->add('', 'Event::viewGroupsEvents/$1');
-			$routes->add('create', 'Event::create/$1');
-			/** toutes les pages concernant UN EVENT dans UN GROUPE **/
-			$routes->group('(:segment)', function($routes){ // segment = slug de l'event
-				$routes->add('', 'Event::viewOneEvent/$1/$2');
-				$routes->add('update', 'Event::update/$1/$2');
-//TODO modifier l'usage de cette route "delete", car elle ne génère pas de vue
-				$routes->add('delete', 'Event::delete/$1/$2');
-				$routes->add('members', 'Event::members/$1/$2');
-//TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
-				$routes->add('members/accept/(:segment)', 'Event::acceptMemberInEvent/$1/$2/$3	');
-			});
+			$routes->add('', 'Event::viewEvents/$1'); //ici on voit les events liés à un groupe
+			$routes->add('create', 'Event::create/$1'); //ici on crée un event qui sera lié à un groupe
+
 		});
 	});
 });
+
+/** LES EVENTS **/
+/** Toutes les pages concernant LES EVENTS **/
+$routes->group('event', function($routes){
+	$routes->add('', 'Event::viewEvents'); //ici on voit les events peu importe s'ils ont un lien avec un groupe
+	$routes->add('create', 'Event::create'); //ici on crée un event qui n'est pas lié à un groupe
+	
+	/** toutes les pages qui concernent UN SEUL EVENT **/
+	$routes->group('(:segment)', function($routes){ // segment = slug du groupe
+		$routes->add('', 'Event::viewOneEvent/$1');
+		$routes->add('update', 'Event::update/$1');
+//TODO modifier l'usage de cette route "delete", car elle ne génère pas de vue
+		$routes->add('delete', 'Event::delete/$1');
+		$routes->add('members', 'Event::members/$1');
+//TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
+		$routes->add('members/accept/(:segment)', 'Event::acceptMemberInEvent/$1/$2');
+
+		/** toutes les pages concernant les DATES dans UN EVENT **/
+		$routes->group('date', function($routes){
+			$routes->add('create', 'Date::create/$1/$2');
+		});
+	});
+});
+
 
 /** ADMIN **/
 $routes->group('admin', function($routes){

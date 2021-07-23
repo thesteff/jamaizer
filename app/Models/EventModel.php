@@ -50,12 +50,16 @@ class EventModel extends Model
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
 	
-	public function getGroupsEvents($slug){
-        $groupModel = new GroupModel();
-        $group = $groupModel->getOneGroupBySlug($slug);
-
-        $eventModel = new EventModel();
-        $events = $eventModel->where('group_id', $group['id'])->findAll();
+	public function getEvents($groupSlug){
+		$eventModel = new EventModel();
+		if($groupSlug != null){
+			$groupModel = new GroupModel();
+			$group = $groupModel->getOneGroupBySlug($groupSlug);
+			
+			$events = $eventModel->where('group_id', $group['id'])->findAll();
+		} else {
+			$events = $eventModel->findAll();
+		}
 		
 		$eventsOk = [];
 		foreach($events as $event){
@@ -115,7 +119,7 @@ class EventModel extends Model
 			$eventModel = new EventModel();
 			// on récupère l'objet event correspondant à la relation
 			$event = $eventModel->find($registration['event_id']);
-			if($event['deleted_at'] === null){
+			if($event['deleted_at'] == null){
 				// on vérifie si le member est admin
 				if($registration['is_admin']){
 					// le membre est admin de l'event, on le précise dans l'objet event

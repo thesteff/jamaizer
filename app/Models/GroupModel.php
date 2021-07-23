@@ -82,11 +82,10 @@ class GroupModel extends Model
 		
 		// pour chaque relation groupe/membre, on va chercher le groupe et si le membre est son admin, on ajoute l'info à l'objet group
 		foreach ($myGroupsMember as $myGroupMember) {
-						
-			$group = new GroupModel();
+			$groupModel = new GroupModel();
 			// on récupère l'objet groupe correspondant à la relation
-			$myGroup = $group->find($myGroupMember['group_id']);
-
+			$myGroup = $groupModel->find($myGroupMember['group_id']);
+// dd($myGroup);
 			// on vérifie que le groupe n'a pas été supprimé
 			if($myGroup['deleted_at'] == null){
 
@@ -169,10 +168,10 @@ class GroupModel extends Model
 
 	public function getOneGroup($groupId, $memberId = 0){
 		$groupModel = new GroupModel();
-		$group = $groupModel->first('group_id', $groupId);
+		$group = $groupModel->first($groupId);
 		
 		// on vérifie que le groupe n'a pas été supprimé
-		if($group['deleted_at'] == null){
+		if($group['deleted_at'] !== null){
 			return $group = null;
 		}
 		

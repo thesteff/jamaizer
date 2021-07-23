@@ -49,6 +49,20 @@ class DateModel extends Model
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
 	
-	
+	public function getEventsDates($slug){
+        $eventModel = new EventModel();
+		$event = $eventModel->getOneEventBySlug($slug);
+
+		$dateModel = new DateModel();
+		$dates = $dateModel->where('event_id', $event['id'])->findAll();
+		
+		$datesOk = [];
+		foreach($dates as $date){
+			if($date['deleted_at'] === null){
+				$datesOk[] = $date;
+			}
+		}
+        return $datesOk;
+    }
 	
 }

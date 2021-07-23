@@ -50,13 +50,12 @@
 		
 	<!-- LISTES !-->
 	<div class="row">
-
 		<div class="col-12">
-			<?php if(isset($_SESSION['logged']) && $_SESSION['logged'] && isset($_SESSION['myGroups'])) : ?>
+			<?php if(isset($_SESSION['logged']) && $_SESSION['logged'] && isset($myGroups)) : ?>
 				<h5>Tous mes groupes</h5>
 				
 				<!-- On liste les groupes auxquels participe l'utilisateur !-->
-				<?php foreach ($_SESSION['myGroups'] as $group): ?>
+				<?php foreach ($myGroups as $group): ?>
 					<!-- <a class="link_groupIndex" href="<?php // site_url('group/view/').esc($group['slug'], 'url')// ?>"> -->
 					<a class="link_groupIndex" href="<?= site_url('group/').esc($group['slug'], 'url').'/view/' ?>">
 						<div class="myGroupIndex card mb-3">

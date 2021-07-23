@@ -21,6 +21,8 @@ class Group extends BaseController
 		else {
 			$memberId = 0;
 		}
+		$myGroups = $groupModel->getMyGroups($memberId);
+		$data['myGroups'] = $myGroups;
 		$groups = $groupModel->indexGroups($memberId);
 		$data['groups'] = $groups;
 
@@ -209,6 +211,8 @@ class Group extends BaseController
 	// ================== pages Evénements ================== //
 	// ====================================================== //
 
+	/** VOIR L'EVENT CONTROLLER **/
+
 	// ====================================================== //
 	// =================== page palylists =================== //
 	// ====================================================== //
@@ -270,8 +274,6 @@ class Group extends BaseController
             return redirect('group');
         }
     }
-
-
 
 	// ====================================================== //
 	// ================ ADMIN page paramètres =============== //
@@ -348,7 +350,7 @@ class Group extends BaseController
 		}
 
 		$groupModel = new GroupModel();
-		$group = $groupModel->getOneBySlug($slug);
+		$group = $groupModel->getOneGroupBySlug($slug);
 		$data['deleted_at'] = Time::now();
         $groupModel->update($group['id'], $data);
         return redirect()->to('group');
