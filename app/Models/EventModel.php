@@ -115,7 +115,7 @@ class EventModel extends Model
 			$eventModel = new EventModel();
 			// on récupère l'objet event correspondant à la relation
 			$event = $eventModel->find($registration['event_id']);
-			if($event['deleted_at'] === null){
+			if($event['deleted_at'] == null){
 				// on vérifie si le member est admin
 				if($registration['is_admin']){
 					// le membre est admin de l'event, on le précise dans l'objet event

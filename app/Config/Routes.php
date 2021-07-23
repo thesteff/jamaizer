@@ -61,6 +61,7 @@ $routes->add('member/profil', 'Member::view');
 $routes->group('group', function($routes){
 	$routes->add('', 'Group::index');
 	$routes->add('create', 'Group::create');
+
 	/** toutes les pages concernant UN SEUL groupe **/
 	$routes->group('(:segment)', function($routes){ //'segment' = slug du groupe
 		$routes->add('', 'Group::view/$1');
@@ -70,10 +71,12 @@ $routes->group('group', function($routes){
 //TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
 		$routes->add('notification/accept', 'Group::acceptMemberInGroup');
 		$routes->add('update', 'Group::update/$1');
+
 		/** Toutes les pages concernant LES EVENTS propres à UN GROUPE **/
 		$routes->group('event', function($routes){
 			$routes->add('', 'Event::viewGroupsEvents/$1');
 			$routes->add('create', 'Event::create/$1');
+
 			/** toutes les pages concernant UN EVENT dans UN GROUPE **/
 			$routes->group('(:segment)', function($routes){ // segment = slug de l'event
 				$routes->add('', 'Event::viewOneEvent/$1/$2');
@@ -83,6 +86,11 @@ $routes->group('group', function($routes){
 				$routes->add('members', 'Event::members/$1/$2');
 //TODO modifier l'usage de cette route "accept", car elle ne génère pas de vue
 				$routes->add('members/accept/(:segment)', 'Event::acceptMemberInEvent/$1/$2/$3	');
+				
+				/** toutes les pages concernant les DATES dans UN EVENT dans UN GROUPE **/
+				$routes->group('date', function($routes){
+					$routes->add('create', 'Date::create/$1/$2/$3');
+				});
 			});
 		});
 	});

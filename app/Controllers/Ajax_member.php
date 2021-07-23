@@ -450,7 +450,6 @@ class Ajax_member extends BaseController {
 // #######################     LOGIN     ############################### //
 // ##################################################################### //
 	public function login() {
-		
 		log_message("debug","********* Member->login");
 		
 		$input = trim($_POST['input']); // email ou pseudo
@@ -467,7 +466,7 @@ class Ajax_member extends BaseController {
 		if ( $pseudo_exist ) $member = $members_model->where('pseudo', $input)->first();
 		// On récupère le membre grace au mail si le pseudo n'a rien donné
 		else if ( $email_exist ) $member = $members_model->where('email', $input)->first();
-		
+		log_message("debug","********* ".json_encode($member));
 		$state = true;
 		// L'utilisateur existe bien dans la base
 		if ($pseudo_exist || $email_exist) {

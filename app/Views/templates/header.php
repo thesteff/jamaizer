@@ -325,9 +325,9 @@
 						<div class="col-2">
 							<img id="avatar" class="rounded-circle m-1" alt="image de profil" 
 							src="<?php 
-										if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
-										else echo base_url('images/member/default-member-image.jpg');
-										?>">
+								if (!empty($session->member['picture'])) echo base_url('images/member/').'/'.$session->member['picture'];
+								else echo base_url('images/member/default-member-image.jpg');
+								?>">
 							</div>
 							<div class="col-9">
 								<p class="m-1"><?= $session->member['pseudo'] ?></p>
@@ -347,9 +347,10 @@
 							<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
 								<div class="accordion-body">
 									<ul class="list-group list-group-flush">
+
 										<?php foreach ($session->myGroups as $group) : ?>
 										<li class="list-group-item">
-											<a class="d-flex align-items-center" href="<?= site_url('group/view/').esc($group['slug'], 'url') ?>">
+											<a class="d-flex align-items-center" href="<?= site_url('group/').esc($group['slug'], 'url').'/view' ?>">
 												<img alt="image de profil" class="rounded-circle img-group m-1"
 													src="<?php 
 														if (!empty($group['picture'])) echo base_url('images/group/').'/'.$group['picture'];
@@ -366,16 +367,7 @@
 											</a>
 										</li>
 										<?php endforeach ?>
-										<!-- <li class="list-group-item">
-											<a href="#">
-												<img src="<?php echo base_url('images/pelicans-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Pélicans
-											</a>
-										</li>
-										<li class="list-group-item">
-											<a href="#">
-												<img src="<?php echo base_url('images/autruches-groupe.jpg'); ?>" alt="image de profil" class="rounded-circle j-img-group m-1">Les Autruches
-											</a>
-										</li> -->
+										
 										<li class="list-group-item">
 											<a href="<?= site_url('group'); ?>">Tous mes groupes</a>
 										</li>
@@ -383,45 +375,47 @@
 								</div>
 							</div>
 						</div>
+						<?php endif; ?>
 						
-						
-							
-							<!-- LIST DATE !-->
-							<div class="accordion-item">
-								<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
-									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-									<i class="bi bi-calendar3-fill mx-2"></i> Mes prochains "events"
-									</button>
-								</h5>
-								<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-									<div class="accordion-body">
-										<ul class="list-group list-group-flush">
-											<?php foreach($session->myEvents as $event) : ?>
-											<li class="list-group-item">
-												<a href="<?= site_url('group').'/'.esc($event['group']['slug'], 'url').'/event/'.esc($event['slug'], 'url') ?>" class="a-event">
-													<img src="<?php 
-															if (!empty($event['group']['picture'])) echo base_url('images/group/').'/'.$group['picture'];
-															else echo base_url('images/group/default-group-image.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
-													<p><?php echo $event['name'] ?></p>
-													<div class="ms-auto">
-														<?php if($event['is_admin']) : ?>  
-															<i class="bi bi-gear ms-auto"></i>
-														<?php endif ?>
-													</div>
-												</a>
-											</li>
-											<?php endforeach ?>
-											<li class="list-group-item">
-												<a href="#">Toutes mes dates</a>
-											</li>
-										</ul>
-									</div>
+						<?php if(isset($session->myEvents)) : ?> 
+						<!-- LIST DATE !-->
+						<div class="accordion-item">
+							<h5 class="accordion-header" id="panelsStayOpen-headingTwo">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+								<i class="bi bi-calendar3-fill mx-2"></i> Mes prochains "events"
+								</button>
+							</h5>
+							<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+								<div class="accordion-body">
+									<ul class="list-group list-group-flush">
+
+										<?php foreach($session->myEvents as $event) : ?>
+										<li class="list-group-item">
+											<a href="<?= site_url('group').'/'.esc($event['group']['slug'], 'url').'/event/'.esc($event['slug'], 'url') ?>" class="a-event">
+												<img src="<?php 
+														if (!empty($event['group']['picture'])) echo base_url('images/group/').'/'.$group['picture'];
+														else echo base_url('images/group/default-group-image.jpg'); ?>" alt="image de profil" class="rounded-circle img-group m-1">
+												<p><?php echo $event['name'] ?></p>
+												<div class="ms-auto">
+													<?php if($event['is_admin']) : ?>  
+														<i class="bi bi-gear ms-auto"></i>
+													<?php endif ?>
+												</div>
+											</a>
+										</li>
+										<?php endforeach ?>
+
+										<li class="list-group-item">
+											<a href="#">Toutes mes dates</a>
+										</li>
+									</ul>
 								</div>
 							</div>
-							
+						</div>
+						<?php endif; ?>
+						
 							
 				</div> <!-- On ferme l'accordéon !-->
-				<?php endif; ?>
 				
 				<!-- FOOTER !-->
 				<div id="footer" class="container text-center pt-3">

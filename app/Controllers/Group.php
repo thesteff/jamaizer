@@ -21,6 +21,8 @@ class Group extends BaseController
 		else {
 			$memberId = 0;
 		}
+		$myGroups = $groupModel->getMyGroups($memberId);
+		$data['myGroups'] = $myGroups;
 		$groups = $groupModel->indexGroups($memberId);
 		$data['groups'] = $groups;
 
@@ -208,6 +210,8 @@ class Group extends BaseController
 	// ====================================================== //
 	// ================== pages Evénements ================== //
 	// ====================================================== //
+
+	/** VOIR L'EVENT CONTROLLER **/
 
 	// ====================================================== //
 	// =================== page palylists =================== //

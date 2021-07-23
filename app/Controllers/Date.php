@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\DateModel;
+use App\Models\DateRegistrationModel;
 use App\Models\EventModel;
 use App\Models\EventRegistrationModel;
 use App\Models\GroupMemberModel;
@@ -11,27 +12,25 @@ use App\Models\GroupModel;
 use App\Models\RequestModel;
 use CodeIgniter\I18n\Time;
 
-class Event extends BaseController
+class Date extends BaseController
 {
-	public function create($groupSlug){
+	public function create($groupSlug, $eventSlug){
         if(count($_POST) > 0) {
-
             // il y a des données dans $_POST. Si le slug n'est pas généré, on le crée et on le place dans une variable
             if((!isset($_POST['slug']) || empty($_POST['slug'])) && !empty($_POST['name'])){
-                $slug  = url_title($this->request->getPost('name'), '-', TRUE);
+                $dateSlug  = url_title($this->request->getPost('name'), '-', TRUE);
             } elseif(isset($_POST['slug']) && !empty($_POST['slug'])) {
-                $slug = trim($_POST['slug']);
+                $dateSlug = trim($_POST['slug']);
             } else {
-                $slug = null;
+                $dateSlug = null;
             }
-            $_POST['slug'] = $slug;
+            $_POST['slug'] = $dateSlug;
             // maintenant il y a forcément un slug dans $slug
             
             // les données du formulaire sont-elles valides ?
             if(!$this->validate([
                 'name' => 'required',
-                'slug' => 'is_unique[events.slug]',
-                'description' => 'required',
+                'slug' => 'is_unique[date.slug]',
                 ])){
                     // il y a des erreurs dans les données. Avant de réafficher le formulaire, on prépare l'hydratation en envoyant les données déjà rentrées
                     
@@ -44,59 +43,61 @@ class Event extends BaseController
                     $errors = $this->validator->getErrors();
                     $data['errors'] = $errors;
                     $this->validator->reset();
-                    $data['group']['slug'] = $groupSlug;
+                    $data['event']['slug'] = $eventSlug;
                 
                 // on affiche à nouveau le formulaire
                 echo view('templates/header');
-                echo view('event/create', $data);
+                echo view('date/create', $data);
                 echo view('templates/footer');
                 return;
             } else {
                 
+                // on ajoute le nom et le slug qui sont forcément renseigné
+                $data['slug'] = $dateSlug;
                 $name =  trim($_POST['name']);
-                $data['slug'] = $slug;
-                $description =  trim($_POST['description']);
-                // on ajoute le nom et la description, qui sont forcément renseignés
                 $data['name'] = $name;
-                $data['description'] = $description;
 
-                // on ajoute le groupe auquel est rattaché l'event
-                $groupModel = new GroupModel();
-                $group = $groupModel->getOneGroupBySlug($groupSlug, $_SESSION['member']['id']);
-                $data['group_id'] = $group['id'];
+                // on ajoute l'event auquel est rattachée la date
+                $eventModel = new EventModel();
+                $event = $eventModel->getOneEventBySlug($eventSlug, $_SESSION['member']['id']);
+                $data['event_id'] = $event['id'];
 
 
-                // si des dates sont renseignées, on les ajoutes
+                // si des dates et la description sont renseignées, on les ajoutes
+                $description = trim($_POST['description']);
+                if(!empty($_POST['description'])){$data['description'] = trim($_POST['description']);}
                 // TODO vérifier que la date de fin est après la date de début
                 if(!empty($_POST['date_start'])){$data['date_start'] = trim($_POST['date_start']);}
                 if(!empty($_POST['date_end'])){$data['date_end'] = trim($_POST['date_end']);}
                 // à la création le groupe n'est pas encore validé
 
-                $eventModel = new EventModel;
-                $eventModel->insert($data);
+                $dateModel = new DateModel();
+                $dateModel->insert($data);
 
-                // on inscrit ensuite le membre connecté à l'event', en le mettant en admin
-                // pour ça il faut d'abord récupérer l'event
-                // TODO il faut peut-être améliorer la méthode. Car là il y a une possibilité d'être enregistré sur le mauvais event si un membre crée au même moment (ou plutôt une petite fraction de seconde plus tard) un event avec le même nom et la même description exactement.
-                $event = $eventModel->where(['name' => $name, 'description' => $description])->orderBy('id', 'DESC')->first();
+                // on inscrit ensuite le membre connecté à la date, en le mettant en admin
+                // pour ça il faut d'abord récupérer la date
+                $date = $dateModel->where('slug', $dateSlug)->orderBy('id', 'DESC')->first();
+                // dd($date);
+                // l'inscription à une date n'est possible que si on est inscrit.e à l'event correspondant
+                // on va donc chercher l'inscription du membre à l'event
+                $eventRegistrationModel = new EventRegistrationModel();
+                $eventRegistration = $eventRegistrationModel->where(['event_id' => $event['id'], 'member_id' => $this->session->member['id']])->first();
+                
                 $data = array(
-                    'event_id' => $event['id'],
-                    'member_id' => $_SESSION['member']['id'],
+                    'date_id' => $date['id'],
+                    'event_registration_id' => $eventRegistration['id'],
                     'is_admin' => true,
                 );
-                $eventRegistrationModel = new EventRegistrationModel();
-                $eventRegistrationModel->insert($data);
+                $dateRegistrationModel = new DateRegistrationModel();
+                $dateRegistrationModel->insert($data);
             }
         }
-        // $groupModel = new GroupModel();
-        // $group = $groupModel->getOneGroupBySlug($slug, $_SESSION['member']['id']);
-        // $data['group'] = $group;
 
         $groupController = new Group;
         $data = $groupController->header($groupSlug);
         echo view('templates/header');
         echo view('group/view/header', $data);
-        echo view('event/create', $data);
+        echo view('date/create', $data);
         echo view('templates/footer');
     }
 
@@ -182,7 +183,7 @@ class Event extends BaseController
         // $group = $groupModel->getOneGroupBySlug($slug, $memberId);
         $groupController = new Group;
         $data = $groupController->header($groupSlug);
-
+// dd($data);
         $eventModel = new EventModel();
         $event = $eventModel->getOneEventBySlug($eventSlug, $memberId);
         
@@ -196,9 +197,9 @@ class Event extends BaseController
          * - que le membre n'est pas admin de l'événement
          * - que des données sont envoyées via $_POST
 		 */
-        
+        // dd($event);
         if(isset($_SESSION['logged']) && $_SESSION['logged'] && !$event['is_member'] && !$event['is_admin'] && count($_POST) > 0) {
-            
+            dd('ok');
             if(isset($_POST['message'])){
 				$eventId = $event['id'];
 				$message = trim($_POST['message']);
@@ -220,11 +221,6 @@ class Event extends BaseController
 
         // $data['group'] = $group;
         $data['event'] = $event;
-
-        // on récupère toutes les dates liées à l'event
-        $dateModel = new DateModel();
-        $dates = $dateModel->getEventsDates($eventSlug);
-        $data['dates'] = $dates;
         
         echo view('templates/header');
         echo view('group/view/header', $data);

@@ -21,6 +21,7 @@ class Pages extends BaseController
 
         if ($page == "home") 
         {
+
             $data['title'] = "Accueil";
             $data['page_title'] = "Jamaizer rencontres musicales";
             // On lance la vue
