@@ -270,18 +270,18 @@
 					
 						<!-- Les groupes !-->
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo site_url('group'); ?>">Groupes</a>
+                            <a class="nav-link" href="<?php echo site_url('group'); ?>"><i class="bi bi-people-fill"></i>Groupes</a>
                         </li>
 						
 						<!-- Non connecté !-->
                         <?php if ( !isset($session->logged) || !$session->logged ) : ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('member/inscription'); ?>">Inscription</a>
+                                <a class="nav-link" href="<?php echo site_url('member/inscription'); ?>"><i class="bi bi-pencil-square"></i>Inscription</a>
                             </li>
 							
 							<!-- modal_login est dans le footer !-->
 							<li class="nav-item">
-								<a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_login" href=""><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
+								<a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_login" href=""><i class="bi bi-box-arrow-in-right"></i>Connexion</a>
 							</li>
 
 							
@@ -291,7 +291,7 @@
                                 <a class="nav-link" href="<?php echo site_url('member/profil'); ?>">Profil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('ajax_member/logout'); ?>">Déconnexion</a>
+                                <a class="nav-link" href="<?php echo site_url('ajax_member/logout'); ?>"><i class="bi bi-box-arrow-right"></i>Déconnexion</a>
                             </li>
                         <?php endif; ?>
 						

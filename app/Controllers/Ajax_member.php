@@ -52,10 +52,10 @@ class Ajax_member extends BaseController {
 		$output = json_encode($filtered_list_membres);
 		echo $output;
 		
-	}
+	}*/
 
 	// Create member
-	public function create_member() {
+	/*public function create_member() {
 
 		$pseudo = trim($_POST['pseudo']);	// à priori le BootstrapValidator a vérifié que le pseudo n'était pas déjà pris	
 		$emailAdr = trim($_POST['email']);		// à priori le BootstrapValidator a vérifié que l'email n'était pas déjà pris	
@@ -150,55 +150,64 @@ class Ajax_member extends BaseController {
 		$output = json_encode($return_data);
 		echo $output;
 
-	}
+	}*/
 
 	
-	// Update member
-	public function update_member() {
+// ##################################################################### //
+// ########################     UPDATE MEMBER   ######################## //
+// ##################################################################### //
+	public function update() {
+		
+		log_message("info", "=============== Ajax_member->update");
 
 		$memberId = trim($_POST['id']);  // Seul le pseudo est fixe	
 		$email = trim($_POST['email']);
-		$nom = trim($_POST['nom']);
-		$prenom = trim($_POST['prenom']);
-		$naissance = trim($_POST['naissance']);
-		$genre = trim($_POST['genre']);
-		$mobile = trim($_POST['mobile']);
-		$allowMail = trim($_POST['allowMail']);
-		$freqRecapMail = trim($_POST['freqRecapMail']);
+		$name = trim($_POST['name']);
+		$first_name = trim($_POST['first_name']);
+		// $birth = trim($_POST['birth']);
+		// $genre = trim($_POST['genre']);
+		// $phone = trim($_POST['phone']);
+		//$allowMail = trim($_POST['allowMail']);
+		//$freqRecapMail = trim($_POST['freqRecapMail']);
 		
-		$members_model = new Members_model();
+		$member_model = new MemberModel();
 
-		$tmpPseudo = $members_model->get_member_by_email($email);
-		$oldMember = $members_model->get_member_by_id($memberId);
+		//$tmpPseudo = $member_model->get_member_by_email($email);
+		//$oldMember = $member_model->get_member_by_id($memberId);
+		$tmpMember = $member_model->where('email', $email)->first();
+		$oldMember = $member_model->find($memberId);
 		
+		log_message("debug","tempMember : ".json_encode($tmpMember));
+		log_message("debug","oldMember : ".json_encode($oldMember));
 		
 		// On récupère la date de naissance
-		if (!empty($naissance)) {
-			$tmp = explode("/", $naissance);
-			$naissance_iso = $tmp[2]."-".$tmp[1]."-".$tmp[0];
+		if (!empty($birth)) {
+			$tmp = explode("/", $birth);
+			$birth_iso = $tmp[2]."-".$tmp[1]."-".$tmp[0];
 		}
-		else $naissance_iso = NULL;
+		else $birth_iso = NULL;
 	
 		// On s'assure qu'un profil avec le même email n'existe pas déjà dans la base de donnée
-		if (!$tmpPseudo || $oldMember->email == $email) {
+		if (!$tmpMember || $oldMember['email'] == $email) {
 			// On update le membre dans la base avec le pass temporaire
 			$data = array(
-				'nom' => $nom,
-				'prenom' => $prenom,
-				'naissance' => $naissance_iso,
-				'genre' => $genre,
-				'email' => $email,
-				'mobile' => str_replace(' ','',$mobile),
-				'allowMail' => $allowMail,
-				'freqRecapMail' => $freqRecapMail,
+				'name' => $name,
+				'first_name' => $first_name,
+				// 'birth' => $birth_iso,
+				// 'genre' => $genre,
+				// 'email' => $email,
+				// 'phone' => str_replace(' ','',$phone),
+				//'allowMail' => $allowMail,
+				//'freqRecapMail' => $freqRecapMail,
 			);
-			$state = $members_model->update_member($memberId,$data);
+			$state = $member_model->update($memberId, $data);
 			$msg = $state ? "Le profil a bien été actualisé" : "Une erreur est survenue lors de l'actualisation du profil.";
 		}
 		else {
 			$state = false;
 			$msg = "L'email <b>".$email."</b> est déjà utilisé par un autre utilisateur.";
 		}
+		//sleep(5);
 		
 		$return_data = array(
 			'state' => $state,
@@ -210,7 +219,7 @@ class Ajax_member extends BaseController {
 	}
 	
 	
-	
+	/*
 	// Update avatar
 	public function update_avatar() {
 
