@@ -187,7 +187,15 @@ body#bootstrap-overrides {
           color: #F2DA5E; }
         body#bootstrap-overrides #j-container main .card img {
           max-width: 100%; }
-      body#bootstrap-overrides #j-container main #profil img#avatar {
+      body#bootstrap-overrides #j-container main #profil #profil-title {
+        position: relative; }
+        body#bootstrap-overrides #j-container main #profil #profil-title #avatar button.fileUpload {
+          position: absolute;
+          bottom: 0px;
+          left: 90px;
+          display: none; }
+      body#bootstrap-overrides #j-container main #profil #avatar img {
+        border: 4px solid #b74500;
         width: 128px;
         height: 128px; }
       body#bootstrap-overrides #j-container main #profil form label {

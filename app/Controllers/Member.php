@@ -26,6 +26,12 @@ class Member extends BaseController {
 			$member_model  = new MemberModel();
 			$data['member'] = $member_model->find($this->session->member["id"]);
 			
+			// On normalise la date de naissance
+			if (!empty($data['member']['birth'])) {
+				$date = date_create_from_format("Y-m-d",$data['member']['birth']);
+				$data['member']['birth'] = date_format($date,"d/m/Y");
+			}
+			
 			echo view('templates/header', $data);
 			echo view('member/view', $data);
 			echo view('templates/footer');
@@ -75,7 +81,6 @@ class Member extends BaseController {
 				
 				
 				// image
-				// dd($_FILES);
 				if(!empty($_FILES['picture']['name'])){
 					// dd('not empty');
 					$file = $this->request->getFile('picture');
@@ -89,8 +94,6 @@ class Member extends BaseController {
 					}
 				} else {
 					$picture = "";
-					// dd('empty');
-
 				}
 				
 				// on hash le password
@@ -101,7 +104,7 @@ class Member extends BaseController {
 					'pseudo' => $pseudo,
 					'email' => $email,
 					'password' => $password,
-					'password' => $password,
+					// 'password' => $password,
 					'name' => $name,
 					'first_name' => $first_name,
 					'gender' => $_POST['gender'],
@@ -111,14 +114,13 @@ class Member extends BaseController {
 					'date_access' => date('c')
 				);
 				// TODO enregistrement de l'image + enregistrement de "is_super_admin" = 0
-				// dd($data);
 				// on crée un objet membre
 				$memberModel = new MemberModel;
 				
 				// On met les données $data dans le nouvel objet $member -> on l'insère dans la BDD
 				$insertId = $memberModel->insert($newMember);
 				
-				log_message("debug", "insertId : $insertId");
+				// log_message("debug", "insertId : $insertId");
 				
 				// On récupère le membre nouvellement insré pour récupérer tous les champs manquant à mettre potentiellement dans la session
 				$member = $memberModel->find($insertId);
@@ -137,15 +139,18 @@ class Member extends BaseController {
 								'logged' => true,
 								'member' => $member,
 								'myGroups' => null,
-								'myEvents' => null
+								'myEvents' => null,
 							);
 				$this->session->set($data);
 				
 				
 				// On redirige vers la page d'accueil avec la session à jour
 				return redirect('/');
-			} 
-			else {
+				
+				
+				// TODO on redirige vers la page de connexion, avec le message de succès et le pseudo pour préremplir le formulaire de connexion
+				//return redirect('member/login', $data);
+			} else {
 				// si au moins une donnée n'est pas validée, on réaffiche le formulaire sans entrer le membre dans la BDD, et on préremplis les données qui ont déjà été renseignées
 				// TODO on affiche aussi les messages d'erreur pour expliquer pourquoi les données n'ont pas été validées
 				$data = array(
@@ -160,7 +165,6 @@ class Member extends BaseController {
 				);
 				$errors = $this->validator->getErrors();
 				$data['errors'] = $errors;
-				// dd($data);
 				echo view('templates/header');
 				echo view('member/create', $data);
 				echo view('templates/footer');
@@ -313,7 +317,6 @@ class Member extends BaseController {
 				// $session->destroy();
 				$data['member'] = $memberUpdate;
 				$session->set($data);
-	
 			}
 		}
 		echo view('templates/header');

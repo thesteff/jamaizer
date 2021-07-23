@@ -238,7 +238,7 @@
 		<!-- // ##################################################################### // -->
 		<!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
 		<!-- // ##################################################################### // -->
-	<!-- cette nav est cachée derrière le header -->
+	<!-- TODO cette nav est cachée derrière le header -->
     <div id="nav-logged-phone" class="container-fluid fixed-top d-lg-none d-flex justify-content-around align-items-center flex-row">
         <a  class="d-flex align-items-center my-2" href="<?php echo site_url('member/profil') ?>">
             <div>
@@ -250,10 +250,10 @@
         <a href="#" alt="Mes messages"><i class="bi bi-chat-dots-fill"></i></a>
         <a href="<?= site_url('ajax_member/deconnexion'); ?>" alt="Déconnexion"><i class="bi bi-door-open-fill"></i></a>
     </div>
-<?php endif ?>
+	<?php endif ?>
 
 <!-- // ##################################################################### // -->
-<!-- // ######################### HEADER NAVBAR ############################## // -->
+<!-- // ######################### HEADER NAVBAR ############################# // -->
 <!-- // ##################################################################### // -->
     <header>
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark mt-auto">
