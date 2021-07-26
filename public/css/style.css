@@ -48,9 +48,29 @@ body#bootstrap-overrides {
       background-color: #281810;
       border-color: #8e3500;
       justify-content: center; }
-  body#bootstrap-overrides .form-control:focus, body#bootstrap-overrides button:focus {
+  body#bootstrap-overrides .form-control:focus, body#bootstrap-overrides .form-select:focus, body#bootstrap-overrides button:focus {
     border-color: #281810;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6); }
+  body#bootstrap-overrides input, body#bootstrap-overrides textarea, body#bootstrap-overrides select {
+    color: #EA5800;
+    background-color: #4d2d1e;
+    border-style: solid;
+    border-color: #8f5438;
+    border-top-width: 1px; }
+    body#bootstrap-overrides input:focus, body#bootstrap-overrides textarea:focus, body#bootstrap-overrides select:focus {
+      color: #ff8c47; }
+  body#bootstrap-overrides .dropdown-menu.show {
+    background-color: #4d2d1e;
+    border-style: solid;
+    border-color: #8f5438;
+    border-width: 1px; }
+    body#bootstrap-overrides .dropdown-menu.show ul.dropdown-menu.show {
+      border-style: none; }
+    body#bootstrap-overrides .dropdown-menu.show .dropdown-item {
+      background-color: #4d2d1e; }
+      body#bootstrap-overrides .dropdown-menu.show .dropdown-item:hover {
+        color: #ff8c47;
+        background-color: #5f3825; }
   body#bootstrap-overrides #nav-logged-phone {
     background-color: #D97925;
     min-height: 35px; }
@@ -166,14 +186,6 @@ body#bootstrap-overrides {
       }*/ }
       body#bootstrap-overrides #j-container main .mainContent h1 {
         font-size: 1.8rem; }
-      body#bootstrap-overrides #j-container main input, body#bootstrap-overrides #j-container main textarea {
-        color: #EA5800;
-        background-color: #4d2d1e;
-        border-style: solid;
-        border-color: #8f5438;
-        border-top-width: 1px; }
-        body#bootstrap-overrides #j-container main input:focus, body#bootstrap-overrides #j-container main textarea:focus {
-          color: #ff8c47; }
       body#bootstrap-overrides #j-container main .card {
         color: #EA5800;
         background-color: #4d2d1e;

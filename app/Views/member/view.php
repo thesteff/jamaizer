@@ -7,10 +7,9 @@
 
 
 <!-- Bootstrap-select !-->
-<link rel="stylesheet" href="<?php echo base_url("plugin/bootstrap-select-1.13.18/bootstrap-select.min.css" ); ?>"/>
-<script type="text/javascript" src="<?php echo base_url("plugin/bootstrap-select-1.13.18/bootstrap-select.min.js"); ?>"></script>
+<link rel="stylesheet" href="<?php echo base_url("plugin/bootstrap-select-1.14.beta2/bootstrap-select.min.css" ); ?>"/>
+<script type="text/javascript" src="<?php echo base_url("plugin/bootstrap-select-1.14.beta2/bootstrap-select.min.js"); ?>"></script>
 
-<script type="text/javascript" src="<?php echo base_url("plugin/popper/popper.min.js"); ?>"></script>
 
 <!--
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
@@ -41,15 +40,15 @@
 			startView: 2
 		});
 		
+		
 		// On initialise le selectpicker du genre
-		$('#profil #gender').selectpicker('val', '<?php echo $member["gender"] ?>');
-		
-		
+		$('#profil form #genre').selectpicker('val', '<?php echo $member["gender"] ?>');
+
 		
 		// EDIT // On fixe le comportement des bouttons d'edit
 		$("#profil form button.editBtn").each(function() {
 			$(this).on("click", function() {
-				
+			
 				// On fait un reset au cas où
 				reset();
 				
@@ -79,8 +78,19 @@
 		// SAVE // On fixe le comportement des bouttons d'enregistrement
 		$("#profil form button.saveBtn").each(function() {
 			$(this).on("click", function() {
-				update();
+				// On récupère la div parent
+				$parentDiv = $(this).parents("div[id$='Div']");
+				update($parentDiv);
 			});			
+		});
+		
+		// SELECT // On fixe le comportement des select
+		$("#profil form select").each(function() {
+			$(this).on("change", function() {
+				// On récupère la div parent
+				$parentDiv = $(this).parents("div[id$='Div']");
+				update($parentDiv);
+			});
 		});
 		
 		// On gère l'UI via le clavier
@@ -91,10 +101,12 @@
 			}
 			// ENTER :: On enregistre si c'est possible (input focused)
 			else if (evt.key === "Enter" && $("#profil form input[type='text']:focus").length > 0) {
+				// On récupère la div parent
+				$parentDiv = $("#profil form input[type='text']:focus").parents("div[id$='Div']");
 				// On enlève le focus de l'input
 				$("#profil form input[type='text']:focus").blur();
 				// On update
-				update();
+				update($parentDiv);
 			}
 		});
 		
@@ -133,76 +145,77 @@
 		}
 		
 		
-		//////// UPDATE // On valide l'édition si possible via Ajax
-		function update() {
-			
-			// On cherche un update qui est affiché
-			$updateBtnDisplayed = $("#profil form").find(".saveBtn:not(.d-none)");
-			
-			if ($updateBtnDisplayed) {
-			
-				// On récupère la div parent
-				$parentDiv = $updateBtnDisplayed.parents("div[id$='Div']");
-				
-				// On change le curseur
-				$("body").addClass("wait");
-				$("#modal_wait").removeClass("fade").modal('show');
-			
-				// Requète ajax au serveur
-				$.post("<?php echo site_url('ajax_member/update'); ?>",
-				
-					{	
-						'id':'<?php echo $_SESSION["member"]["id"] ?>',
-						'email':$('#profil #emailDiv input').val(),
-						'name':$('#profil #nameDiv input').val(),
-						'first_name':$('#profil #first_nameDiv input').val(),
-						'birth':$('#profil #birthDiv input').val(),
-						'gender':$('#profil #genderDiv input').val(),
-						// 'phone':$('#profil #phoneDiv input').val().replace(/\s/g, ''),
-						// 'allowMail':$('#profil #allowMailDiv input').is(':checked') ? "1" : "0",
-						// 'freqRecapMail':$('#profil #freqRecapMailDiv input').val()
-					},
-				
-					function (return_data) {
-						
-						$obj = JSON.parse(return_data);
-						
-						// On change le curseur
-						$("body").removeClass("wait");
-						
-						// Succès
-						if ($obj['state'] == 1) {
-							// On paramètre la modal_msg
-							// $('#modal_wait').on('hidden.bs.modal', function () {
-								// $("#modal_msg .modal-title").html("Modification réussie !");
-								// $("#modal_msg .modal-body").html($obj['data']);
-								// $("#modal_msg").modal('show');
-							// });
-						}
-						
-						// Erreur
-						else {
-							// On reset
-							reset();
-							// On paramètre la modal_msg
-							$('#modal_wait').on('hidden.bs.modal', function () {
-								$("#modal_msg .modal-title").html("Modification annulée !&nbsp;&nbsp;&nbsp;:-(");
-								$("#modal_msg .modal-body").html($obj['data']);
-								$("#modal_msg").modal('show');
-							});
-						}
-						
-						// On hide la modal_wait
-						$("#modal_wait").addClass("fade").modal('hide');
+		//////// UPDATE // 
+		function update($formDiv) {
 
-						// On actualise l'UI de la page
-						$parentDiv.find("input").prop("disabled",true);
-						$parentDiv.find(".editBtn").removeClass("d-none");
-						$parentDiv.find(".abortBtn").addClass("d-none");
-						$parentDiv.find(".saveBtn").addClass("d-none");
+			// On récupère le nom du champ à updater
+			$fieldName = $formDiv.prop("id").substring(0,$formDiv.prop("id").indexOf("Div"));
+			console.log("fieldName : "+$fieldName);
+
+			// On récupère les données à updater
+			var data = {};
+			data['id'] =  <?php echo $_SESSION["member"]["id"] ?>;
+			if ($fieldName == "gender") data[$fieldName] = $('#profil #'+$fieldName+'Div select').val();
+			else data[$fieldName] = $('#profil #'+$fieldName+'Div .form-control').val();
+
+				
+			// On change le curseur
+			$("body").addClass("wait");
+			$("#modal_wait").removeClass("fade").modal('show');
+		
+			// Requète ajax au serveur
+			$.post("<?php echo site_url('ajax_member/update'); ?>",
+			
+				{	'data': JSON.stringify( data )
+					//'phone':$('#profil #phoneDiv input').val().replace(/\s/g, ''),
+					//'phone':$('#profil #phoneDiv input').val().replace(/\s/g, ''),
+					// 'allowMail':$('#profil #allowMailDiv input').is(':checked') ? "1" : "0",
+					// 'freqRecapMail':$('#profil #freqRecapMailDiv input').val()
+				},
+			
+				function (return_data) {
+					
+					$obj = JSON.parse(return_data);
+					
+					// On change le curseur
+					$("body").removeClass("wait");
+					
+					// On s'assurer que la modal msg ne s'ouvrira pas s'il ne faut pas
+					$('#modal_wait').off('hidden.bs.modal');
+					
+					
+					// Succès
+					if ($obj['state'] == true) {
+						// On paramètre la modal_msg
+						// $('#modal_wait').on('hidden.bs.modal', function () {
+							// $("#modal_msg .modal-title").html("Modification réussie !");
+							// $("#modal_msg .modal-body").html($obj['data']);
+							// $("#modal_msg").modal('show');
+						// });
 					}
-				);
-			}
+					
+					// Erreur
+					else {
+						// On reset
+						reset();
+						// On paramètre la modal_msg
+						$('#modal_wait').on('hidden.bs.modal', function () {
+							$("#modal_msg .modal-title").html("Modification annulée !&nbsp;&nbsp;&nbsp;:-(");
+							$("#modal_msg .modal-body").html($obj['data']);
+							$("#modal_msg").modal('show');
+						});
+					}
+					
+					// On hide la modal_wait
+					$("#modal_wait").addClass("fade").modal('hide');
+
+					// On actualise l'UI de la page
+					if ($formDiv.find(".form-control").is("input")) $formDiv.find("input").prop("disabled",true);
+					$formDiv.find(".editBtn").removeClass("d-none");
+					$formDiv.find(".abortBtn").addClass("d-none");
+					$formDiv.find(".saveBtn").addClass("d-none");
+				}
+			);
 		}
 		
 		
@@ -445,7 +458,7 @@
 				<label class="col-2 col-form-label">Date de naissance</label>
 				<div class="col-10">
 					<div class="input-group">
-						<input id="birth" type="text" class="form-control" value="<?php echo $member['birth'] ?>" data-provide="datepicker">
+						<input id="birth" type="text" class="form-control" value="<?php echo $member['birth'] ?>" data-provide="datepicker" disabled>
 						<button class="editBtn input-group-text btn btn-warning" type="button"><i class="bi bi-pencil-fill"></i></button>
 						<button class="abortBtn input-group-text btn btn-primary d-none" type="button">Annuler</button>
 						<button class="saveBtn input-group-text btn btn-primary d-none" type="button">Enregistrer</button>
@@ -459,22 +472,22 @@
 				<label class="col-2 col-form-label">Genre</label>
 				<div class="col-10">
 					<div class="input-group">
-						<select id="gender" class="form-control" name="gender" data-style="btn-primary">
-							<option value="0">Non spécifié</option>
-							<option value="1">Homme</option>
-							<option value="2">Femme</option>
+						<select id="gender" class="selectpicker" name="gender" data-style="btn-primary">
+							<option value="0" >Non spécifié</option>
+							<option value="1" >Homme</option>
+							<option value="2" >Femme</option>
 						</select>
 					</div>
 				</div>
 			</div>
 			
 			
-			<!-- Mobile !-->
+			<!-- Phone !-->
 			<div id="phoneDiv" class="row mb-3">
 				<label class="col-2 col-form-label">Mobile</label>
 				<div class="col-10">
 					<div class="input-group">
-						<input type="text" class="form-control" value="<?php echo $member['phone'] ?>" disabled>
+						<input type="tel" class="form-control" value="<?php echo $member['phone'] ?>">
 						<button class="editBtn input-group-text btn btn-warning" type="button"><i class="bi bi-pencil-fill"></i></button>
 						<button class="abortBtn input-group-text btn btn-primary d-none" type="button">Annuler</button>
 						<button class="saveBtn input-group-text btn btn-primary d-none" type="button">Enregistrer</button>

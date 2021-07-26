@@ -160,30 +160,36 @@ class Ajax_member extends BaseController {
 		
 		log_message("info", "=============== Ajax_member :: update");
 
-		$memberId = trim($_POST['id']);  // Seul le pseudo est fixe	
-		$email = trim($_POST['email']);
-		$name = trim($_POST['name']);
-		$first_name = trim($_POST['first_name']);
-		$birth = trim($_POST['birth']);
-		$gender = trim($_POST['gender']);
-		// $phone = trim($_POST['phone']);
-		//$allowMail = trim($_POST['allowMail']);
-		//$freqRecapMail = trim($_POST['freqRecapMail']);
-		
-		$member_model = new MemberModel();
+		$data = trim($_POST['data']);  // Valeurs à mettre à jour dans la forme [ "fieldName" => "newValue" ]
+		log_message("info", "data : ".$data);
+		$data = json_decode($data);
 
-		$tmpMember = $member_model->where('email', $email)->first();
-		$oldMember = $member_model->find($memberId);
 		
-		// log_message("debug","tempMember : ".json_encode($tmpMember));
-		// log_message("debug","oldMember : ".json_encode($oldMember));
-		
-		// On récupère la date de naissance
-		if (!empty($birth)) {
-			$tmp = explode("/", $birth);
-			$birth_iso = $tmp[2]."-".$tmp[1]."-".$tmp[0];
+		// On vérifie qu'on a bien un id de membre à updater
+		if (!empty($data->id)) {
+			
+			$member_model = new MemberModel();
+			
+			// On gère le format de date
+			if (!empty($data->birth)) {
+				$tmp = explode("/", $data->birth);
+				$data->birth = $tmp[2]."-".$tmp[1]."-".$tmp[0];
+			}
+			
+			// On fait l'update en faisant confiance aux règles du model pour la validation
+			$state = $member_model->save($data);
+			log_message("info", "errors : ".json_encode($member_model->errors()));
+			$msg = $state ? "Le profil a bien été actualisé" : "Une erreur est survenue lors de l'actualisation du profil : <br><i>".$member_model->errors()[array_key_first($member_model->errors())]."</i>";
 		}
-		else $birth_iso = NULL;
+		// Pas de champ "id" dans le data
+		else  {
+			$state = false;
+			$msg = "L'identifiant du membre n'est pas reconnu !";
+		}
+
+		/*
+		// On normalise le phone
+		if (isset($phone)) str_replace(' ','',$phone);
 	
 		// On s'assure qu'un profil avec le même email n'existe pas déjà dans la base de donnée
 		if (!$tmpMember || $oldMember['email'] == $email) {
@@ -193,19 +199,20 @@ class Ajax_member extends BaseController {
 				'first_name' => $first_name,
 				'birth' => $birth_iso,
 				'gender' => $gender,
-				// 'email' => $email,
-				// 'phone' => str_replace(' ','',$phone),
+				'email' => $email,
+				'phone' => $phone,
 				//'allowMail' => $allowMail,
 				//'freqRecapMail' => $freqRecapMail,
 			);
+			
 			$state = $member_model->update($memberId, $data);
-			$msg = $state ? "Le profil a bien été actualisé" : "Une erreur est survenue lors de l'actualisation du profil.";
+			$msg = $state ? "Le profil a bien été actualisé" : "Une erreur est survenue lors de l'actualisation du profil : <br><i>".$member_model->errors()[array_key_first($member_model->errors())]."</i>";
 		}
 		else {
 			$state = false;
 			$msg = "L'email <b>".$email."</b> est déjà utilisé par un autre utilisateur.";
-		}
-		//sleep(5);
+		}*/
+		
 		
 		$return_data = array(
 			'state' => $state,
@@ -255,7 +262,7 @@ class Ajax_member extends BaseController {
 						$data = "Fichier ".$memberId.".png créé avec succés !";
 						
 						// On update le member
-						$member_model->update($memberId, [ "hasAvatar" => 1 ]);
+						$member_model->update($memberId, [ "has_avatar" => 1 ]);
 					}
 				}
 				else $data = "Upload_file :: Error : sizeof(_FILES) = 0";
@@ -460,12 +467,13 @@ class Ajax_member extends BaseController {
 		if ( $pseudo_exist ) $member = $members_model->where('pseudo', $input)->first();
 		// On récupère le membre grace au mail si le pseudo n'a rien donné
 		else if ( $email_exist ) $member = $members_model->where('email', $input)->first();
-		log_message("debug","********* ".json_encode($member));
-		$state = true;
+
+		
 		// L'utilisateur existe bien dans la base
 		if ($pseudo_exist || $email_exist) {
 			
 			//log_message("debug","member : ".json_encode($member));
+			$state = true;
 
 			// On vérifie le password
 			$hash = $member['password'];

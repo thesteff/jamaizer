@@ -16,18 +16,17 @@ class MemberModel extends Model
 	protected $protectFields        = true;
 	protected $allowedFields        = [
 		'pseudo',
-		'is_super_admin',
-		'email',
-		'password',
 		'name',
 		'first_name',
+		'email',
 		'birth',
 		'gender',
 		'phone',
-		'picture',
-		'date_access',
+		'hasAvatar',
+		'password',
+		'is_super_admin',
 		'cookie_str',
-		'hasAvatar'
+		'date_access',
 	];
 
 	// Dates
@@ -39,16 +38,18 @@ class MemberModel extends Model
 
 	// Validation
 	protected $validationRules      = [
-		// 'pseudo'     => 'required|is_unique[member.pseudo]|max_length[50]',
-        // 'email'        => 'required|valid_email|max_length[100]',
-        // 'password'     => 'required|max_length[100]',
-        // 'pass_confirm' => 'required|matches[password]',
-		// 'name' => 'max_length[50]',
-		// 'first_name' => 'max_length[50]',
-		// 'gender' => 'in_list[0,1,2,3]',
-		// 'phone' => 'max_length[20]',
+		'pseudo'		=> 'required|is_unique[member.pseudo,id,{id}]|max_length[50]',
+		'name'			=> 'max_length[50]',
+		'first_name'	=> 'max_length[50]',
+		'email'			=> 'required|is_unique[member.email,id,{id}]|valid_email|max_length[100]',
+		'gender'		=> 'in_list[0,1,2]',
+		'phone'			=> 'max_length[10]',
+		'password'		=> 'required|max_length[100]',
+		'pass_confirm'	=> 'required|matches[password]',
 	];
-	protected $validationMessages   = [];
+	
+	protected $validationMessages = [];
+	
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
 
@@ -63,9 +64,9 @@ class MemberModel extends Model
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
 
-	public function getOneMember($memberId){
+	/*public function getOneMember($memberId){
 		$memberModel = new MemberModel();
 		$member = $memberModel->find($memberId);
 		return $member;
-	}
+	}*/
 }

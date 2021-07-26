@@ -24,14 +24,13 @@
     <!-- Icones bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 	
-	
+
 	<!-- JQuery 3.6.0 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	
 
     <!-- Style maison -->
-    <!-- <link rel="stylesheet" href="<?php echo base_url('/css/style.min.css'); ?>"> !-->
-	<link rel="stylesheet" href="<?php echo base_url('/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('/css/style.css'); ?>">
 	
 
     <title>Jamaïzer</title>
@@ -233,7 +232,7 @@
 </script>
 
 
-<body id="bootstrap-overrides" style="background-color: pink;">
+<body id="bootstrap-overrides">
 	<?php if (isset($session->logged) && $session->logged) : ?>
 		<!-- // ##################################################################### // -->
 		<!-- // ######################## NAV TOP PHONE LOGGED ####################### // -->
@@ -335,9 +334,12 @@
 						</a>
 					</div>
 						
-					<!-- LIST GROUP !-->
-					<?php if (isset($session->myGroups)) : ?>
+					<!-- ACCORDEON !-->
+					<?php if (isset($session->myGroups) || isset($session->myEvents)) : ?>
 					<div class="accordion">
+					
+						<!-- LIST GROUP !-->
+						<?php if (isset($session->myGroups)) : ?>
 						<div class="accordion-item">
 							<h5 class="accordion-header" id="panelsStayOpen-headingOne">
 								<button class="accordion-button j-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -415,23 +417,25 @@
 						<?php endif; ?>
 						
 							
-				</div> <!-- On ferme l'accordéon !-->
+					</div> <!-- On ferme l'accordéon !-->
+					<?php endif; ?>
+					
+					
+					<!-- FOOTER !-->
+					<div id="footer" class="container text-center pt-3">
+						<small>
+							<a href="<?php echo site_url('contact'); ?>">Contact</a> |
+							<a href="<?php echo site_url('about'); ?>">A propos</a> |
+							<a href="<?php echo site_url('mentions_legales'); ?>" data-bs-toggle="modal" data-bs-target="#show_mentions">Mentions Légales</a>
+							<br>
+							<span class="soften text-nowrap">&copy; 2020 - <?php echo date("Y"); ?></span>
+						</small>
+					</div>
+					
+					
+				</div> <!-- On ferme la sidebar !-->
 				
-				<!-- FOOTER !-->
-				<div id="footer" class="container text-center pt-3">
-					<small>
-						<a href="<?php echo site_url('contact'); ?>">Contact</a> |
-						<a href="<?php echo site_url('about'); ?>">A propos</a> |
-						<a href="<?php echo site_url('mentions_legales'); ?>" data-bs-toggle="modal" data-bs-target="#show_mentions">Mentions Légales</a>
-						<br>
-						<span class="soften text-nowrap">&copy; 2020 - <?php echo date("Y"); ?></span>
-					</small>
-				</div>
-				
-				
-			</div> <!-- On ferme la sidebar !-->
-				
-        </div>	<!-- On ferme la sidebar-container !-->
+			</div>	<!-- On ferme la sidebar-container !-->
 		
 		<!-- le reste est fermé dans le footer !-->
 	
@@ -441,5 +445,5 @@
 <!-- // ##################################################################### // -->
 <!-- // ######################### Ouverture du MAIN ######################### // -->
 <!-- // ##################################################################### // -->
-        <main class="container col-auto col-md-6 col-xl-6 <?php if(isset($session->logged) && $session->logged) : ?> offset-md-4 offset-xl-4 <?php endif; ?> pb-3"   style="background-color: chartreuse;">
+        <main class="container col-auto col-md-6 col-xl-6 <?php if(isset($session->logged) && $session->logged) : ?> offset-md-4 offset-xl-4 <?php endif; ?> pb-3">
 		

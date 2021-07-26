@@ -1,6 +1,3 @@
-// $sand-color: sandybrown;
-// $green-color: chartreuse;
-
 //**** Thèmes Adobe d'après l'image de fond ****//
 // // Thème coloré :
 // $A: #CFD989;
@@ -214,10 +211,46 @@ body#bootstrap-overrides {
 		}	
 	}
 	
-	// ~~~~~~~~~~~~~~ Input ~~~~~~~~~~~~~ //
-	.form-control:focus, button:focus {
+	// ~~~~~~~~~~~~~~ Focus ~~~~~~~~~~~~~ //
+	.form-control:focus, .form-select:focus, button:focus {
 		border-color: clr(dark, darker);
 		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+	}
+	
+	
+	// ~~~~~~~~~~~ FORMS COmponents ~~~~~~~~~~~ //
+	input, textarea, select {
+		color: clr(secondary);
+		background-color: clr(dark);
+		
+		border-style: solid;
+		border-color: clr(dark, lightest);
+		border-top-width: 1px;
+
+		&:focus {
+			color: clr(secondary, lightest);
+		}
+	}
+	
+	// ~~~~~~~~~~~ Bootstrap select ~~~~~~~~~~~ //
+	.dropdown-menu.show {
+		background-color: clr(dark);
+		border-style: solid;
+		border-color: clr(dark, lightest);
+		border-width: 1px;
+		
+		ul.dropdown-menu.show {
+			border-style: none
+		}
+
+		.dropdown-item {
+			background-color: clr(dark);
+			
+			&:hover {
+				color: clr(secondary, lightest);
+				background-color: clr(dark, light);
+			}
+		}
 	}
 	
 	
@@ -434,19 +467,7 @@ body#bootstrap-overrides {
 // ##################################################################### //
 //  SECTION A PARTIR D'ICI, TOUT EST DANS MAIN  //
 
-			// ~~~~~~~~~~~ Bootstrap input ~~~~~~~~~~~ //
-			input, textarea {
-				color: clr(secondary);
-				background-color: clr(dark);
-				
-				border-style: solid;
-				border-color: clr(dark, lightest);
-				border-top-width: 1px;
-
-				&:focus {
-					color: clr(secondary, lightest);
-				}
-			}
+			
 
             // ~~~~~~~~~~~ Bootstrap cards ~~~~~~~~~~~ //
             .card {
